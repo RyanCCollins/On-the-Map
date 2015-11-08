@@ -20,11 +20,13 @@ extension UdaciousClient {
     
     
     struct Methods {
-        static let Session = "session"
-        static let UsersData = "users/{id}"
+        static let PostSession = "session"
+        static let GetUserData = "users/{id}"
     }
     
+    /* Parameter keys for the Udacity API and Facebook API */
     struct ParameterKeys {
+        
         static let Udacity = "udacity"
         static let Username = "username"
         static let Password = "password"

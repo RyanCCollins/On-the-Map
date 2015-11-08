@@ -14,7 +14,7 @@ import FBSDKShareKit
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
 
-    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var didTapLoginButtonUpInside: UIButton!
@@ -40,6 +40,40 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewWillDisappear(animated: Bool) {
         unsubsribeToKeyboardNotification()
     }
+    @IBAction func didTapLoginTouchUpInside(sender: AnyObject) {
+        
+        guard verifyUserCredentials(usernameTextField.text, password: passwordTextField.text) else {
+            return
+        }
+        
+        let parameters = [UdaciousClient.ParameterKeys.Udacity :
+            [UdaciousClient.ParameterKeys.Username : usernameTextField.text!,
+            UdaciousClient.ParameterKeys.Password : passwordTextField.text!
+        ]]
+        
+        UdaciousClient.sharedInstance().authenticateWithViewController(parameters) { success, error in
+            
+        }
+    }
+    
+    /* Verify that a proper username and password has been provided */
+    func verifyUserCredentials(username: String?, password: String?) -> Bool {
+        let alertController = UIAlertController()
+        if let password = password {
+            if let username = username {
+                if username.containsString("@") && username.containsString(".") {
+                    return true
+                } else {
+                    /* Todo: alert user */
+                }
+            } else {
+                /* Todo: alert user */
+            }
+        } else {
+            /* Todo: alert user */
+        }
+        return false
+    }
     
     /* Facebook login delegate methods */
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
@@ -48,14 +82,14 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             
             if let token = result.token.tokenString {
                 
-                let FBLoginToken = [ UdaciousClient.ParameterKeys.AccessToken : token ]
+                let parameters = [UdaciousClient.ParameterKeys.Facebook : [UdaciousClient.ParameterKeys.AccessToken : token]]
                 
-                UdaciousClient.sharedInstance().authenticateWithViewController(FBLoginToken, parameterKeys: UdaciousClient.ParameterKeys.Facebook) { success, errorString in
+                UdaciousClient.sharedInstance().authenticateWithViewController(parameters) { success, error in
                     /* if successful, complete login, otherwise update debug message */
                     if success {
                         self.completeLogin()
                     } else {
-                        self.displayDebugMessage(errorString!)
+                        self.displayDebugMessage("An error occured while logging into facebook.  Please try again or login through Udacity")
                     }
                 }
             } else {
@@ -80,7 +114,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func completeLogin() {
-        
+        displayDebugMessage("success!")
     }
 }
 

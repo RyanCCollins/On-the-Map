@@ -26,10 +26,14 @@ class UdaciousClient: NSObject {
         session = NSURLSession.sharedSession()
         super.init()
     }
-    func taskForGETMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func taskForGETMethod(method: String, parameters: [String : AnyObject]?, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         /* Build the URL, using parameters if there are any */
-        let urlString = Constants.BaseURLSecure + method + UdaciousClient.stringByEscapingParameters(parameters)
+        var urlString = Constants.BaseURLSecure + method
+        if let parameters = parameters {
+            urlString += UdaciousClient.stringByEscapingParameters(parameters)
+        }
+        
         let url = NSURL(string: urlString)
         
         /* 3. Make the request */
