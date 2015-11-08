@@ -142,12 +142,10 @@
                     </view>
                     <connections>
                         <outlet property="debugLabel" destination="yZ3-hk-guV" id="XPv-hO-c3L"/>
-                        <outlet property="didTapLoginButtonUpInside" destination="i3F-Rz-XKj" id="IH4-Nr-drv"/>
-                        <outlet property="emailTextField" destination="uld-8z-8od" id="9u3-h9-WUm"/>
                         <outlet property="faceBookLoginView" destination="T4Y-Ic-Pw6" id="geR-Os-Owd"/>
-                        <outlet property="loginButton" destination="i3F-Rz-XKj" id="hIO-tG-WlK"/>
                         <outlet property="passwordTextField" destination="Bqm-75-0Gx" id="bKN-1I-tJZ"/>
                         <outlet property="signUpButton" destination="Nhj-sJ-kBt" id="epk-Pp-frf"/>
+                        <outlet property="usernameTextField" destination="uld-8z-8od" id="lHp-8V-mCP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

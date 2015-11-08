@@ -17,7 +17,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var didTapLoginButtonUpInside: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var debugLabel: UILabel!
     @IBOutlet weak var faceBookLoginView: UIView!
@@ -52,7 +51,11 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         ]]
         
         UdaciousClient.sharedInstance().authenticateWithViewController(parameters) { success, error in
-            
+            if success {
+                print("success")
+            } else {
+                print(error)
+            }
         }
     }
     
