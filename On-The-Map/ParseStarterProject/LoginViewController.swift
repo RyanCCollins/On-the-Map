@@ -17,4 +17,15 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var debugLabel: UILabel!
     @IBOutlet weak var faceBookLoginView: UIView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    override func viewWillAppear(animated: Bool) {
+        subscribeToKeyboardNotification()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        unsubsribeToKeyboardNotification()
+    }
 }
