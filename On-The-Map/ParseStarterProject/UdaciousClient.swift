@@ -132,10 +132,13 @@ class UdaciousClient: NSObject {
         
         let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
         
-        for cookie in sharedCookieStorage.cookies as! [NSHTTPCookie] {
+        if let cookies = sharedCookieStorage.cookies as [NSHTTPCookie]! {
+        
+            for cookie in cookies {
             
-            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+                if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
             
+            }
         }
         
         if let xsrfCookie = xsrfCookie {
