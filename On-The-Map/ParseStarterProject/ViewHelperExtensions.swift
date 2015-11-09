@@ -57,4 +57,16 @@ extension LoginViewController {
         return keyboardSize.CGRectValue().height
     }
     
+    
+    /* Mark Touch ID: */
+    enum LAError : Int {
+        case AuthenticationFailed
+        case UserCancel
+        case UserFallback
+        case SystemCancel
+        case PasscodeNotSet
+        case TouchIDNotAvailable
+        case TouchIDNotEnrolled
+    }
+    
 }
