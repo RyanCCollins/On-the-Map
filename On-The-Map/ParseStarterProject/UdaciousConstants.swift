@@ -20,7 +20,7 @@ extension UdaciousClient {
     
     
     struct Methods {
-        static let PostSession = "session"
+        static let Session = "session"
         static let GetUserData = "users/{id}"
     }
     
@@ -52,9 +52,5 @@ extension UdaciousClient {
         static let GET = "GET"
         static let POST = "POST"
         static let DELETE = "DELETE"
-    }
-    
-    struct JSONBodyKeys {
-        
     }
 }

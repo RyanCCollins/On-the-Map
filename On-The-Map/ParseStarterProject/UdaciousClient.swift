@@ -78,7 +78,7 @@ class UdaciousClient: NSObject {
         return task
     }
     
-    func taskForPOSTMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func taskForPOSTMethod(method: String, parameters: [String : AnyObject]?, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         /* Build the URL */
         let urlString = Constants.BaseURLSecure + method
@@ -91,7 +91,7 @@ class UdaciousClient: NSObject {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         do {
-            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(parameters, options: .PrettyPrinted)
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(parameters!, options: .PrettyPrinted)
         } catch let error as NSError {
             request.HTTPBody = nil
             print(error)
@@ -136,10 +136,10 @@ class UdaciousClient: NSObject {
     }
     
     /* Delete (logout) a session */
-    func taskForDELETEMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func taskForDELETEMethod(method: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         /* Configure URL */
-        let urlString = Constants.BaseURLSecure + method + UdaciousClient.stringByEscapingParameters(parameters)
+        let urlString = Constants.BaseURLSecure + method
         let url = NSURL(string: urlString)
         
         /* Make the request */
@@ -214,9 +214,6 @@ class UdaciousClient: NSObject {
     class func errorFromString(string: String) -> NSError? {
         return NSError(domain: "UdaciousClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(string)"])
     }
-    
-    
-    /* Helper Function: Convert Foundation Data to JSON and remove the first 5 bytes */
 
     
     /* Helper Function: Convert JSON to a Foundation object */

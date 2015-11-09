@@ -28,7 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //--------------------------------------
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        Parse.setApplicationId("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", clientKey: "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY")
+        /* set Parse IDs */
+        Parse.setApplicationId(ParseClient.Constants.api_key, clientKey: ParseClient.Constants.app_id)
 
         
         

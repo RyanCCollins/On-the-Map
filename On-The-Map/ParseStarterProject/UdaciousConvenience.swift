@@ -34,7 +34,7 @@ extension UdaciousClient {
         /* Check for success */
         
         
-        taskForPOSTMethod(UdaciousClient.Methods.PostSession, parameters: parameters!) { JSONResult, error in
+        taskForPOSTMethod(UdaciousClient.Methods.Session, parameters: parameters!) { JSONResult, error in
             if let error = error {
                 
                 completionHandler(success: false, sessionID: nil, userKey: nil, error: error)
@@ -70,17 +70,35 @@ extension UdaciousClient {
     /* 2. Get the user's data */
     
     func getUserData(parameters: [String : AnyObject]?, completionHandler: (success: Bool, error: NSError?) -> Void) {
-        /* make request and check for success */
+        /* Make request and check for success */
         let parameters = [ String : AnyObject ]()
         
         let method = UdaciousClient.substituteKeyInMethod(UdaciousClient.Methods.GetUserData, key: "{id}", value: IDKey!)
-        let url = NSURL(string: method!)
         
-        taskForGETMethod(method!, parameters: parameters) {success, error in
+        taskForGETMethod(method!, parameters: parameters) {JSONResult, error in
             
             if let error = error {
                 completionHandler(success: false, error: error)
             } else {
+                
+                /* If user data found, parse the results */
+                if let result = JSONResult.valueForKey(UdaciousClient.JSONResponseKeys.User) {
+                    
+                    if let firstName = result.valueForKey(UdaciousClient.JSONResponseKeys.FirstName) as? String {
+                        self.firstName = firstName
+                        if let lastName = result.valueForKey(UdaciousClient.JSONResponseKeys.LastName) as? String{
+                            self.lastName = lastName
+                            /* Return with completion handler */
+                            completionHandler(success: true, error: nil)
+                        }
+                        
+                    }
+                    
+                } else {
+                    /* return failure if JSON data not properly parsed */
+                    completionHandler(success: false, error: UdaciousClient.errorFromString("Failed to parse JSON Data into User data in getUserData"))
+                
+                }
                 
             }
             
@@ -88,8 +106,20 @@ extension UdaciousClient {
     }
     
     /* 3. Logout (DELETE) the session */
-    func logoutOfSession(completionHandler: (success: Bool, errorString: String?) -> Void) {
+    func logoutOfSession(completionHandler: (success: Bool, error: NSError?) -> Void) {
         
+        /* call task for delete method to log user out */
+        taskForDELETEMethod(Methods.Session) { result, error in
+            
+            if let error = error {
+                
+                completionHandler(success: false, error: UdaciousClient.errorFromString("Error returned for logoutOfSession. Error: \(error)"))
+            
+            } else {
+                
+                completionHandler(success: true, error: nil)
+                
+            }
+        }
     }
-    
 }

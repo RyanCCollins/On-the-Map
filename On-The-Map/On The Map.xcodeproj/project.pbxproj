@@ -26,6 +26,7 @@
 		1F787D201BF0562800BC80F6 /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D1F1BF0562800BC80F6 /* ParseClient.swift */; };
 		1F787D221BF0563300BC80F6 /* ParseConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D211BF0563300BC80F6 /* ParseConvenience.swift */; };
 		1F787D241BF0564300BC80F6 /* ParseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D231BF0564300BC80F6 /* ParseConstants.swift */; };
+		1F787D271BF0598800BC80F6 /* StudentLocationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D261BF0598800BC80F6 /* StudentLocationData.swift */; };
 		814C3ACA1B69877600E307BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 814C3AC61B69877600E307BB /* Main.storyboard */; };
 		814C3ACB1B69877600E307BB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 814C3AC81B69877600E307BB /* Images.xcassets */; };
 		81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BA814A1A49DA1800E65899 /* AppDelegate.swift */; };
@@ -60,6 +61,7 @@
 		1F787D1F1BF0562800BC80F6 /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
 		1F787D211BF0563300BC80F6 /* ParseConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConvenience.swift; sourceTree = "<group>"; };
 		1F787D231BF0564300BC80F6 /* ParseConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConstants.swift; sourceTree = "<group>"; };
+		1F787D261BF0598800BC80F6 /* StudentLocationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationData.swift; sourceTree = "<group>"; };
 		814C3AC71B69877600E307BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		814C3AC81B69877600E307BB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		814C3AC91B69877600E307BB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				1F787D1C1BF054F700BC80F6 /* ExtendsUIViewController.swift */,
+				814C3AC61B69877600E307BB /* Main.storyboard */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 				1F787D1F1BF0562800BC80F6 /* ParseClient.swift */,
 				1F787D211BF0563300BC80F6 /* ParseConvenience.swift */,
 				1F787D231BF0564300BC80F6 /* ParseConstants.swift */,
+				1F787D261BF0598800BC80F6 /* StudentLocationData.swift */,
 			);
 			name = "Parse Client";
 			path = ..;
@@ -172,7 +176,6 @@
 		81BA813C1A49DA1800E65899 = {
 			isa = PBXGroup;
 			children = (
-				814C3AC61B69877600E307BB /* Main.storyboard */,
 				81BA81471A49DA1800E65899 /* On-The-Map */,
 				1F787D1E1BF0550000BC80F6 /* View */,
 				814C3AC51B69877600E307BB /* Resources */,
@@ -330,6 +333,7 @@
 				1F787D071BEFB02900BC80F6 /* UdaciousClient.swift in Sources */,
 				1F787D201BF0562800BC80F6 /* ParseClient.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
+				1F787D271BF0598800BC80F6 /* StudentLocationData.swift in Sources */,
 				1F787D221BF0563300BC80F6 /* ParseConvenience.swift in Sources */,
 				1F787D101BEFB9E500BC80F6 /* ViewHelperExtensions.swift in Sources */,
 				1F787D191BF0194E00BC80F6 /* OnePasswordExtension.m in Sources */,
