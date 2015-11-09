@@ -41,16 +41,19 @@ extension UdaciousClient {
             } else {
                 /* Attempt to get the session ID */
                 if let session = JSONResult.valueForKey(UdaciousClient.JSONResponseKeys.Session) {
-                    
+                    print("1")
                     if let sessionID = session.valueForKey(UdaciousClient.JSONResponseKeys.SessionID) as? String {
-                        
+                        print("2")
                         /* get the account and user from JSONResult */
                         if let account = JSONResult.valueForKey(UdaciousClient.JSONResponseKeys.Account) {
-                    
-                            let user = account.valueForKey(UdaciousClient.JSONResponseKeys.User) as! String
-                    
-                            completionHandler(success: true, sessionID: sessionID, userKey: user, error: nil)
-                    
+
+                            if let key = account.valueForKey(UdaciousClient.JSONResponseKeys.Key) as? String {
+                    print("4")
+                            completionHandler(success: true, sessionID: sessionID, userKey: key, error: nil)
+                            } else {
+                                completionHandler(success: false, sessionID: sessionID, userKey: nil, error: UdaciousClient.errorFromString("Failed to parse the key data in  getSession"))
+                            }
+                    print("5")
                         } else {
                             completionHandler(success: false, sessionID: nil, userKey: nil, error: UdaciousClient.errorFromString("Failed to parse the data in getSession.  No Account returned"))
                         }

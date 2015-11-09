@@ -78,14 +78,22 @@ class UdaciousClient: NSObject {
     func taskForPOSTMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         /* Build the URL */
-        let urlString = Constants.BaseURLSecure + method + UdaciousClient.stringByEscapingParameters(parameters)
+        let urlString = Constants.BaseURLSecure + method
         let url = NSURL(string: urlString)
         
         /* Make the request */
         let request = NSMutableURLRequest(URL: url!)
-        request.HTTPMethod = UdaciousClient.HTTPRequest.POST
+        request.HTTPMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(parameters, options: .PrettyPrinted)
+        } catch let error as NSError {
+            request.HTTPBody = nil
+            print(error)
+            completionHandler(result: nil, error: error)
+        }
         
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
@@ -105,16 +113,24 @@ class UdaciousClient: NSObject {
                 } else if let response = response {
                     statusError += " Response: \(response)!"
                 }
+                print(urlString)
+                
                 completionHandler(result: nil, error: UdaciousClient.errorFromString(statusError))
                 return
             }
-            
+            print("made it")
             /* Make sure the data is parsed before returning it */
-            guard let data = UdaciousClient.getSubsetOfData(data) else {
-                completionHandler(result: nil, error: UdaciousClient.errorFromString("Could not parse data in taskForPOSTMethod"))
-                return
+//            guard let data = UdaciousClient.getSubsetOfData(data) else {
+//                completionHandler(result: nil, error: UdaciousClient.errorFromString("Could not parse data in taskForPOSTMethod"))
+//                return
+//            }
+            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+            if let parsedData = (try? NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)) {
+            completionHandler(result: parsedData, error: nil)
+            } else {
+                print("Failed to parse data to JSON in taskForPostMethod")
+                completionHandler(result: nil, error: UdaciousClient.errorFromString("Failed to parse data to JSON in taskForPostMethod"))
             }
-            completionHandler(result: data, error: nil)
         }
         task.resume()
         return task
@@ -201,6 +217,7 @@ class UdaciousClient: NSObject {
     /* Helper function: return subset of data by removing first 5 characters */
     class func getSubsetOfData(data: NSData?) -> NSData? {
         if let data = data {
+            print(data)
             return data.subdataWithRange(NSMakeRange(5, data.length - 5))
         } else {
             return nil
@@ -215,7 +232,7 @@ class UdaciousClient: NSObject {
             parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
         } catch {
             let userInfo = [NSLocalizedDescriptionKey : "Failed to parse data as JSON: '\(data)'"]
-            completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
+            completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 0, userInfo: userInfo))
         }
         
         completionHandler(result: parsedResult, error: nil)
