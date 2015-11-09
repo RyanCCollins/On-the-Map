@@ -22,6 +22,10 @@
 		1F787D161BEFF68900BC80F6 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F787D131BEFF68900BC80F6 /* FBSDKShareKit.framework */; };
 		1F787D191BF0194E00BC80F6 /* OnePasswordExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D181BF0194E00BC80F6 /* OnePasswordExtension.m */; };
 		1F787D1B1BF01A2400BC80F6 /* 1Password.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F787D1A1BF01A2400BC80F6 /* 1Password.xcassets */; };
+		1F787D1D1BF054F700BC80F6 /* ExtendsUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D1C1BF054F700BC80F6 /* ExtendsUIViewController.swift */; };
+		1F787D201BF0562800BC80F6 /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D1F1BF0562800BC80F6 /* ParseClient.swift */; };
+		1F787D221BF0563300BC80F6 /* ParseConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D211BF0563300BC80F6 /* ParseConvenience.swift */; };
+		1F787D241BF0564300BC80F6 /* ParseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D231BF0564300BC80F6 /* ParseConstants.swift */; };
 		814C3ACA1B69877600E307BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 814C3AC61B69877600E307BB /* Main.storyboard */; };
 		814C3ACB1B69877600E307BB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 814C3AC81B69877600E307BB /* Images.xcassets */; };
 		81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BA814A1A49DA1800E65899 /* AppDelegate.swift */; };
@@ -52,6 +56,10 @@
 		1F787D171BF0194E00BC80F6 /* OnePasswordExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnePasswordExtension.h; sourceTree = "<group>"; };
 		1F787D181BF0194E00BC80F6 /* OnePasswordExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnePasswordExtension.m; sourceTree = "<group>"; };
 		1F787D1A1BF01A2400BC80F6 /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = 1Password.xcassets; path = ../1Password.xcassets; sourceTree = "<group>"; };
+		1F787D1C1BF054F700BC80F6 /* ExtendsUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendsUIViewController.swift; sourceTree = "<group>"; };
+		1F787D1F1BF0562800BC80F6 /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
+		1F787D211BF0563300BC80F6 /* ParseConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConvenience.swift; sourceTree = "<group>"; };
+		1F787D231BF0564300BC80F6 /* ParseConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConstants.swift; sourceTree = "<group>"; };
 		814C3AC71B69877600E307BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		814C3AC81B69877600E307BB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		814C3AC91B69877600E307BB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -99,20 +107,21 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
-		1F787D0C1BEFB04900BC80F6 /* Client */ = {
+		1F787D0C1BEFB04900BC80F6 /* Udacious Client */ = {
 			isa = PBXGroup;
 			children = (
 				1F787D061BEFB02900BC80F6 /* UdaciousClient.swift */,
 				1F787D081BEFB03600BC80F6 /* UdaciousConstants.swift */,
 				1F787D0A1BEFB04200BC80F6 /* UdaciousConvenience.swift */,
 			);
-			name = Client;
+			name = "Udacious Client";
 			sourceTree = "<group>";
 		};
 		1F787D0D1BEFB05500BC80F6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1F787D0C1BEFB04900BC80F6 /* Client */,
+				1F787D0C1BEFB04900BC80F6 /* Udacious Client */,
+				1F787D251BF0564E00BC80F6 /* Parse Client */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -127,6 +136,25 @@
 				1F787D0F1BEFB9E500BC80F6 /* ViewHelperExtensions.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		1F787D1E1BF0550000BC80F6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1F787D1C1BF054F700BC80F6 /* ExtendsUIViewController.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		1F787D251BF0564E00BC80F6 /* Parse Client */ = {
+			isa = PBXGroup;
+			children = (
+				1F787D1F1BF0562800BC80F6 /* ParseClient.swift */,
+				1F787D211BF0563300BC80F6 /* ParseConvenience.swift */,
+				1F787D231BF0564300BC80F6 /* ParseConstants.swift */,
+			);
+			name = "Parse Client";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		814C3AC51B69877600E307BB /* Resources */ = {
@@ -146,6 +174,7 @@
 			children = (
 				814C3AC61B69877600E307BB /* Main.storyboard */,
 				81BA81471A49DA1800E65899 /* On-The-Map */,
+				1F787D1E1BF0550000BC80F6 /* View */,
 				814C3AC51B69877600E307BB /* Resources */,
 				81BA816A1A49DB5600E65899 /* Frameworks */,
 				81BA81461A49DA1800E65899 /* Products */,
@@ -295,14 +324,18 @@
 			files = (
 				1F787D011BEFAEE000BC80F6 /* LoginViewController.swift in Sources */,
 				1F787D091BEFB03600BC80F6 /* UdaciousConstants.swift in Sources */,
+				1F787D1D1BF054F700BC80F6 /* ExtendsUIViewController.swift in Sources */,
 				81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */,
 				1F787D0B1BEFB04200BC80F6 /* UdaciousConvenience.swift in Sources */,
 				1F787D071BEFB02900BC80F6 /* UdaciousClient.swift in Sources */,
+				1F787D201BF0562800BC80F6 /* ParseClient.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
+				1F787D221BF0563300BC80F6 /* ParseConvenience.swift in Sources */,
 				1F787D101BEFB9E500BC80F6 /* ViewHelperExtensions.swift in Sources */,
 				1F787D191BF0194E00BC80F6 /* OnePasswordExtension.m in Sources */,
 				1F787D031BEFAF1000BC80F6 /* MapViewController.swift in Sources */,
 				1F787D051BEFAF4C00BC80F6 /* ListTableTableViewController.swift in Sources */,
+				1F787D241BF0564300BC80F6 /* ParseConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +440,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -417,6 +451,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.techrapport.OnTheMap;
 				PRODUCT_NAME = "On The Map";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/myMac/Developer/Udacity Nanodegree/on-the-map/On-The-Map/On-The-Map-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -430,6 +465,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -440,6 +476,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.techrapport.OnTheMap;
 				PRODUCT_NAME = "On The Map";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/myMac/Developer/Udacity Nanodegree/on-the-map/On-The-Map/On-The-Map-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

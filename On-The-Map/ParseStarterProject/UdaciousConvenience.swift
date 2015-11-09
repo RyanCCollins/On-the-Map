@@ -14,11 +14,11 @@ extension UdaciousClient {
     func authenticateWithViewController(parameters: [String : AnyObject], completionHandler: (success: Bool, error: NSError?) -> Void){
         /* get the session id */
         
-        getSession(parameters) { success, sessionID, userKey, error in
+        getSession(parameters) { success, sessionID, IDKey, error in
             if success {
                 
                 self.sessionID = sessionID
-                self.userKey = userKey
+                self.IDKey = IDKey
                 
                 completionHandler(success: true, error: nil)
             } else {
@@ -41,19 +41,20 @@ extension UdaciousClient {
             } else {
                 /* Attempt to get the session ID */
                 if let session = JSONResult.valueForKey(UdaciousClient.JSONResponseKeys.Session) {
-                    print("1")
+
                     if let sessionID = session.valueForKey(UdaciousClient.JSONResponseKeys.SessionID) as? String {
-                        print("2")
+
                         /* get the account and user from JSONResult */
                         if let account = JSONResult.valueForKey(UdaciousClient.JSONResponseKeys.Account) {
 
-                            if let key = account.valueForKey(UdaciousClient.JSONResponseKeys.Key) as? String {
-                    print("4")
+                            if let key = account.valueForKey(UdaciousClient.JSONResponseKeys.IDKey) as? String {
+
                             completionHandler(success: true, sessionID: sessionID, userKey: key, error: nil)
+                                
                             } else {
                                 completionHandler(success: false, sessionID: sessionID, userKey: nil, error: UdaciousClient.errorFromString("Failed to parse the key data in  getSession"))
                             }
-                    print("5")
+  
                         } else {
                             completionHandler(success: false, sessionID: nil, userKey: nil, error: UdaciousClient.errorFromString("Failed to parse the data in getSession.  No Account returned"))
                         }
@@ -71,7 +72,17 @@ extension UdaciousClient {
     func getUserData(parameters: [String : AnyObject]?, completionHandler: (success: Bool, error: NSError?) -> Void) {
         /* make request and check for success */
         let parameters = [ String : AnyObject ]()
-        taskForGETMethod(UdaciousClient.Methods.GetUserData, parameters: parameters) {success, error in
+        
+        let method = UdaciousClient.substituteKeyInMethod(UdaciousClient.Methods.GetUserData, key: "{id}", value: IDKey!)
+        let url = NSURL(string: method!)
+        
+        taskForGETMethod(method!, parameters: parameters) {success, error in
+            
+            if let error = error {
+                completionHandler(success: false, error: error)
+            } else {
+                
+            }
             
         }
     }

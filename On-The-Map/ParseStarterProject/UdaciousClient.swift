@@ -11,7 +11,7 @@ import UIKit
 class UdaciousClient: NSObject {
     /* session variables */
     var session: NSURLSession
-    var userKey: String? = nil
+    var IDKey: String? = nil
     var sessionID: String? = nil
     var firstName:String? = nil
     var lastName:String? = nil
@@ -65,9 +65,12 @@ class UdaciousClient: NSObject {
             }
             
             /* Make sure the data is parsed before returning it */
-            guard let data = UdaciousClient.getSubsetOfData(data) else {
-                completionHandler(result: nil, error: UdaciousClient.errorFromString("Could not parse data in taskForGETMethod"))
-                return
+            let usableData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+            if let parsedData = (try? NSJSONSerialization.JSONObjectWithData(usableData, options: .AllowFragments)) {
+                completionHandler(result: parsedData, error: nil)
+            } else {
+                print("Failed to parse data to JSON in taskForPostMethod")
+                completionHandler(result: nil, error: UdaciousClient.errorFromString("Failed to parse data to JSON in taskForPostMethod"))
             }
             completionHandler(result: data, error: nil)
         }
@@ -119,13 +122,9 @@ class UdaciousClient: NSObject {
                 return
             }
             print("made it")
-            /* Make sure the data is parsed before returning it */
-//            guard let data = UdaciousClient.getSubsetOfData(data) else {
-//                completionHandler(result: nil, error: UdaciousClient.errorFromString("Could not parse data in taskForPOSTMethod"))
-//                return
-//            }
-            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
-            if let parsedData = (try? NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)) {
+
+            let usableData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+            if let parsedData = (try? NSJSONSerialization.JSONObjectWithData(usableData, options: .AllowFragments)) {
             completionHandler(result: parsedData, error: nil)
             } else {
                 print("Failed to parse data to JSON in taskForPostMethod")
@@ -188,13 +187,15 @@ class UdaciousClient: NSObject {
                 return
             }
             
-            /* Make sure the data is parsed before returning it */
-            guard let data = UdaciousClient.getSubsetOfData(data) else {
-                completionHandler(result: nil, error: UdaciousClient.errorFromString("Could not parse data in taskForDELETEMethod"))
-                return
+            /* Parse JSON into a Foundation data object */
+            let usableData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+            if let parsedData = (try? NSJSONSerialization.JSONObjectWithData(usableData, options: .AllowFragments)) {
+                completionHandler(result: parsedData, error: nil)
+            } else {
+                print("Failed to parse data to JSON in taskForPostMethod")
+                completionHandler(result: nil, error: UdaciousClient.errorFromString("Failed to parse data to JSON in taskForPostMethod"))
             }
 
-            completionHandler(result: data, error: nil)
         }
         task.resume()
         return task
@@ -214,15 +215,9 @@ class UdaciousClient: NSObject {
         return NSError(domain: "UdaciousClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(string)"])
     }
     
-    /* Helper function: return subset of data by removing first 5 characters */
-    class func getSubsetOfData(data: NSData?) -> NSData? {
-        if let data = data {
-            print(data)
-            return data.subdataWithRange(NSMakeRange(5, data.length - 5))
-        } else {
-            return nil
-        }
-    }
+    
+    /* Helper Function: Convert Foundation Data to JSON and remove the first 5 bytes */
+
     
     /* Helper Function: Convert JSON to a Foundation object */
     class func parseJSONDataWithCompletionHandler(data: NSData, completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
