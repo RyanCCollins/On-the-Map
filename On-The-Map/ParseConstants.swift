@@ -36,12 +36,12 @@ extension ParseClient {
         static let Error = "error"
         static let Status = "status"
         static let CreatedAt = "createdAt"
-        static let UpdateAt = "updatedAt"
+        static let UpdateTime = "updatedAt"
         static let FirstName = "firstName"
         static let LastName = "lastName"
-        static let MapString = "mapString"
-        static let latitude = "latitude"
-        static let longitude = "longitude"
+        static let GEODescriptor = "mapString"
+        static let Latitude = "latitude"
+        static let Longitude = "longitude"
         static let ACL = "ACL" /* Permissions (Access Command List) */
     }
     

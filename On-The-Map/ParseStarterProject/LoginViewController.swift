@@ -160,41 +160,41 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     /*MARK: Touch ID */
     @IBAction func touchIDButtonTouch(sender: AnyObject) {
-        
-        let context = LAContext()
-        
-        var error: NSError?
-        
-        //check if passcode or touchID sensor exist and response nicely.
-        if !context.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &error){
-            
-            switch error!.code{
-            case LAError.TouchIDNotEnrolled.rawValue:
-                showAlertView("TouchID is not enrolled")
-            case LAError.PasscodeNotSet.rawValue:
-                showAlertView("A passcode has not been set")
-            default:
-                showAlertView("TouchID is not available")
-            }
-            
-            return
-        }
-        // in the first if, check if a username was saved and in the second if, check if there is a password associated with that account in the keychain.
-        if let name = NSUserDefaults.standardUserDefaults().stringForKey(OTMClient.JSONBodyKeys.Username){
-            if let password = SSKeychain.passwordForService("OnTheMap_Password_Service", account: name){
-                
-                //here hasconnectivity use reachablity class to look for internet connection.
-                if self.hasConnectivity(){
-                    startTouchIDOperation(name, password: String(password))
-                }
-            }
-            else{
-                showAlertView("No account info\nEnter username & password and hit login")
-            }
-        }
-        else{
-            showAlertView("No account info\nEnter username & password and hit login")
-        }
+//        
+//        let context = LAContext()
+//        
+//        var error: NSError?
+//        
+//        //check if passcode or touchID sensor exist and response nicely.
+//        if !context.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &error){
+//            
+//            switch error!.code{
+//            case LAError.TouchIDNotEnrolled.rawValue:
+//                showAlertView("TouchID is not enrolled")
+//            case LAError.PasscodeNotSet.rawValue:
+//                showAlertView("A passcode has not been set")
+//            default:
+//                showAlertView("TouchID is not available")
+//            }
+//            
+//            return
+//        }
+//        // in the first if, check if a username was saved and in the second if, check if there is a password associated with that account in the keychain.
+//        if let name = NSUserDefaults.standardUserDefaults().stringForKey(OTMClient.JSONBodyKeys.Username){
+//            if let password = SSKeychain.passwordForService("OnTheMap_Password_Service", account: name){
+//                
+//                //here hasconnectivity use reachablity class to look for internet connection.
+//                if self.hasConnectivity(){
+//                    startTouchIDOperation(name, password: String(password))
+//                }
+//            }
+//            else{
+//                showAlertView("No account info\nEnter username & password and hit login")
+//            }
+//        }
+//        else{
+//            showAlertView("No account info\nEnter username & password and hit login")
+//        }
     }
     
     /* MARK: Did tap signup, direct to udacity page */
