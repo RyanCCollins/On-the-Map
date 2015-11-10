@@ -20,6 +20,13 @@
 		1F24A7051BF2593B00BC2796 /* YokoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A6EE1BF2593B00BC2796 /* YokoTextField.swift */; };
 		1F24A7061BF2593B00BC2796 /* YoshikoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A6EF1BF2593B00BC2796 /* YoshikoTextField.swift */; };
 		1F24A7161BF271D700BC2796 /* PostLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A7151BF271D700BC2796 /* PostLocationViewController.swift */; };
+		1F24A71B1BF2893300BC2796 /* Bakersfield Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F24A7171BF288C000BC2796 /* Bakersfield Bold.ttf */; };
+		1F24A71C1BF2893600BC2796 /* Bakersfield Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F24A7181BF288C000BC2796 /* Bakersfield Light.ttf */; };
+		1F24A71D1BF2893C00BC2796 /* Prime Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F24A7191BF288D600BC2796 /* Prime Light.otf */; };
+		1F24A71E1BF2894200BC2796 /* Prime Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F24A71A1BF288D600BC2796 /* Prime Regular.otf */; };
+		1F24A7201BF28A9F00BC2796 /* Modeka.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F24A71F1BF28A9C00BC2796 /* Modeka.otf */; };
+		1F24A7221BF28BA800BC2796 /* BIG JOHN.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F24A7211BF28BA800BC2796 /* BIG JOHN.otf */; };
+		1F24A7261BF2AEFE00BC2796 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A7251BF2AEFE00BC2796 /* LocationTableViewCell.swift */; };
 		1F787CFC1BEF969900BC80F6 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CF91BEF969900BC80F6 /* Roboto-Medium.ttf */; };
 		1F787CFD1BEF969900BC80F6 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CFA1BEF969900BC80F6 /* Roboto-Regular.ttf */; };
 		1F787CFE1BEF969900BC80F6 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CFB1BEF969900BC80F6 /* Roboto-Thin.ttf */; };
@@ -68,6 +75,13 @@
 		1F24A6EE1BF2593B00BC2796 /* YokoTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YokoTextField.swift; sourceTree = "<group>"; };
 		1F24A6EF1BF2593B00BC2796 /* YoshikoTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoshikoTextField.swift; sourceTree = "<group>"; };
 		1F24A7151BF271D700BC2796 /* PostLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostLocationViewController.swift; sourceTree = "<group>"; };
+		1F24A7171BF288C000BC2796 /* Bakersfield Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bakersfield Bold.ttf"; sourceTree = "<group>"; };
+		1F24A7181BF288C000BC2796 /* Bakersfield Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bakersfield Light.ttf"; sourceTree = "<group>"; };
+		1F24A7191BF288D600BC2796 /* Prime Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Prime Light.otf"; sourceTree = "<group>"; };
+		1F24A71A1BF288D600BC2796 /* Prime Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Prime Regular.otf"; sourceTree = "<group>"; };
+		1F24A71F1BF28A9C00BC2796 /* Modeka.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Modeka.otf; sourceTree = "<group>"; };
+		1F24A7211BF28BA800BC2796 /* BIG JOHN.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BIG JOHN.otf"; sourceTree = "<group>"; };
+		1F24A7251BF2AEFE00BC2796 /* LocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationTableViewCell.swift; path = ParseStarterProject/LocationTableViewCell.swift; sourceTree = "<group>"; };
 		1F787CF61BEF8E1E00BC80F6 /* On-The-Map-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "On-The-Map-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F787CF91BEF969900BC80F6 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		1F787CFA1BEF969900BC80F6 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
@@ -164,9 +178,15 @@
 		1F787CFF1BEF96A200BC80F6 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				1F24A7171BF288C000BC2796 /* Bakersfield Bold.ttf */,
+				1F24A7181BF288C000BC2796 /* Bakersfield Light.ttf */,
+				1F24A71F1BF28A9C00BC2796 /* Modeka.otf */,
+				1F24A7211BF28BA800BC2796 /* BIG JOHN.otf */,
 				1F787CF91BEF969900BC80F6 /* Roboto-Medium.ttf */,
 				1F787CFA1BEF969900BC80F6 /* Roboto-Regular.ttf */,
 				1F787CFB1BEF969900BC80F6 /* Roboto-Thin.ttf */,
+				1F24A7191BF288D600BC2796 /* Prime Light.otf */,
+				1F24A71A1BF288D600BC2796 /* Prime Regular.otf */,
 			);
 			name = Fonts;
 			sourceTree = "<group>";
@@ -208,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				1F787D6B1BF1424200BC80F6 /* MapAnnotation.swift */,
+				1F24A7251BF2AEFE00BC2796 /* LocationTableViewCell.swift */,
 			);
 			name = View;
 			path = ..;
@@ -374,10 +395,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				814C3ACA1B69877600E307BB /* Main.storyboard in Resources */,
+				1F24A71D1BF2893C00BC2796 /* Prime Light.otf in Resources */,
+				1F24A7221BF28BA800BC2796 /* BIG JOHN.otf in Resources */,
 				814C3ACB1B69877600E307BB /* Images.xcassets in Resources */,
 				1F787D1B1BF01A2400BC80F6 /* 1Password.xcassets in Resources */,
+				1F24A71E1BF2894200BC2796 /* Prime Regular.otf in Resources */,
 				1F787CFD1BEF969900BC80F6 /* Roboto-Regular.ttf in Resources */,
+				1F24A7201BF28A9F00BC2796 /* Modeka.otf in Resources */,
+				1F24A71C1BF2893600BC2796 /* Bakersfield Light.ttf in Resources */,
 				1F787CFE1BEF969900BC80F6 /* Roboto-Thin.ttf in Resources */,
+				1F24A71B1BF2893300BC2796 /* Bakersfield Bold.ttf in Resources */,
 				1F787CFC1BEF969900BC80F6 /* Roboto-Medium.ttf in Resources */,
 				1F24A6FE1BF2593B00BC2796 /* Info.plist in Resources */,
 			);
@@ -474,6 +501,7 @@
 				1F787D101BEFB9E500BC80F6 /* LoginViewHelperExtensions.swift in Sources */,
 				1F24A6FF1BF2593B00BC2796 /* IsaoTextField.swift in Sources */,
 				1F787D191BF0194E00BC80F6 /* OnePasswordExtension.m in Sources */,
+				1F24A7261BF2AEFE00BC2796 /* LocationTableViewCell.swift in Sources */,
 				1F787D031BEFAF1000BC80F6 /* MapViewController.swift in Sources */,
 				1F24A7051BF2593B00BC2796 /* YokoTextField.swift in Sources */,
 				1F787D051BEFAF4C00BC80F6 /* ListTableTableViewController.swift in Sources */,

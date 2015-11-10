@@ -1,32 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
-   <Group
-      location = "group:SSKeychain"
-      name = "SSKeychain">
-      <Group
-         location = "group:en.lproj"
-         name = "en.lproj">
-         <FileRef
-            location = "group:SSKeychain.strings">
-         </FileRef>
-      </Group>
-      <FileRef
-         location = "group:Info.plist">
-      </FileRef>
-      <FileRef
-         location = "group:SSKeychain.h">
-      </FileRef>
-      <FileRef
-         location = "group:SSKeychain.m">
-      </FileRef>
-      <FileRef
-         location = "group:SSKeychainQuery.h">
-      </FileRef>
-      <FileRef
-         location = "group:SSKeychainQuery.m">
-      </FileRef>
-   </Group>
    <FileRef
       location = "container:On-The-Map/On The Map.xcodeproj">
    </FileRef>

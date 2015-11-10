@@ -42,6 +42,39 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
     }
     
+    /* refresh the view for data update/retrieval - call asynchronouslt*/
+    func refreshViewForDataUpdate() {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.activityIndicator.startAnimating()
+            self.activityIndicator.alpha = 1.0
+        })
+        
+        loadMapViewWithParseData({ success, error in
+            if success {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.alpha = 1.0
+                })
+                
+            } else {
+                
+                let logoutAction = UIAlertAction(title: "Logout", style: .Destructive, handler: { Void in
+                    self.logoutOfSession()
+                })
+                let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: { Void in
+                    self.refreshDataFromParse()
+                })
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.alertUserWithWithActions("Failed to refresh data", message: "Something went wrong while refreshing the data.  Please retry or logout", actions: [logoutAction, retryAction])
+                })
+                
+            }
+            
+        })
+    }
+    
     /* add parse data to map if first time logging in, get the data, if not, get the shared instance of student data */
     func loadMapViewWithParseData(completionHandler: (success: Bool, error: NSError?)-> Void) {
         
@@ -167,21 +200,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         })
     }
     
-    @IBAction func didTapRefreshTouchUpInside(sender: AnyObject) {
-       
-    }
-    @IBAction func didTapPinTouchUpInside(sender: AnyObject) {
-    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    /* Helper function: construct an NSLocalizedError from an error string */
-    func errorFromString(string: String) -> NSError? {
-        
-        return NSError(domain: "ParseClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(string)"])
-        
-    }
 
 }

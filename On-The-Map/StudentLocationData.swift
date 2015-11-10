@@ -10,17 +10,19 @@ import UIKit
 
 struct StudentLocationData {
     
-        var First: String!
-        var Last: String!
-        var MediaUrl: String!
+    var First: String!
+    var Last: String!
+    var MediaUrl: String!
 
-        var Latitude: Double!
-        var Longitude: Double!
-        var GEODescriptor: String!
+    var Latitude: Double!
+    var Longitude: Double!
+    var GEODescriptor: String!
 
-        var ObjectID: String!
-        var UniqueKey: String!
-        var UpdateTime: String!
+    var ObjectID: String!
+    var UniqueKey: String!
+    var UpdateTime: String!
+    
+    var userImageURL: String?
     
     init(studentLocationDictionary: [String : AnyObject]) {
         /* Initialize data from studentLocationDictionary */
@@ -33,6 +35,10 @@ struct StudentLocationData {
         UniqueKey = studentLocationDictionary[ParseClient.JSONResponseKeys.UniqueKey] as! String
         UpdateTime = studentLocationDictionary[ParseClient.JSONResponseKeys.UpdateTime] as! String
         MediaUrl = studentLocationDictionary[ParseClient.JSONResponseKeys.MediaURL] as! String
+        
+        if let userImageURL = studentLocationDictionary[ParseClient.JSONResponseKeys.UserImageURL] as? String {
+            self.userImageURL = userImageURL
+        }
     }
     
     /* Create an array of student location data from results returned by ParseClient */

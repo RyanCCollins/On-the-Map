@@ -44,7 +44,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         /* Configure log in buttons */
         indicatorLabel.alpha = 0.0
-        
+        self.setStatusBarStyle(UIStatusBarStyleContrast)
     }
     override func viewWillAppear(animated: Bool) {
         
