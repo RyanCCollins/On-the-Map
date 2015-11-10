@@ -69,8 +69,8 @@ class UdaciousClient: NSObject {
             if let parsedData = (try? NSJSONSerialization.JSONObjectWithData(usableData, options: .AllowFragments)) {
                 completionHandler(result: parsedData, error: nil)
             } else {
-                print("Failed to parse data to JSON in taskForPostMethod")
-                completionHandler(result: nil, error: UdaciousClient.errorFromString("Failed to parse data to JSON in taskForPostMethod"))
+                print("Failed to parse data to JSON in taskForGETMethod")
+                completionHandler(result: nil, error: UdaciousClient.errorFromString("Failed to parse data to JSON in taskForGETMethod"))
             }
             completionHandler(result: data, error: nil)
         }

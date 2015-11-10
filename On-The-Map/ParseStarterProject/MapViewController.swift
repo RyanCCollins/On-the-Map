@@ -28,23 +28,50 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewWillAppear(animated: Bool) {
         activityIndicator.alpha = 1.0
         activityIndicator.startAnimating()
+        loadMapViewWithParseData({success, error in
+            if let error = error {
+                print(error)
+            }
+        })
+        
+        activityIndicator.alpha = 0.0
+        activityIndicator.stopAnimating()
     }
     
-    func loadMapViewWithParseData() {
-        if let locations = ParseClient.sharedInstance().studentInfoArray {
+    override func viewDidAppear(animated: Bool) {
+
+    }
+    
+    /* add parse data to map if first time logging in, get the data, if not, get the shared instance of student data */
+    func loadMapViewWithParseData(completionHandler: (success: Bool, error: NSError?)-> Void) {
+        
+        if let locations = ParseClient.sharedInstance().studentData {
             
-//            addPinsToMapForStudents(locations)
-            
+            addPinsToMapForStudents(locations)
+            completionHandler(success: true, error: nil)
+
         } else {
-            
-            /* alert user to failure */
-            
+            ParseClient.sharedInstance().getDataFromParse({success, results, error in
+                
+                if success {
+                    
+                    self.addPinsToMapForStudents(results)
+                    completionHandler(success: true, error: nil)
+                } else {
+                    completionHandler(success: false, error: self.errorFromString("Failed to load map with parsed data in loadMapWithParsedData"))
+                }
+                
+            })
         }
+        
+        
+            completionHandler(success: true, error: nil)
+        
     }
     
     func addPinsToMapForStudents(studentLocations: [StudentLocationData]?) {
         
-        var mapAnnotations = [MKAnnotation]()
+        var annotations = [MKPointAnnotation]()
         
         if let studentLocations = studentLocations {
             
@@ -58,15 +85,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 
                 let latitude = CLLocationDegrees(location.Latitude)
                 let longitude = CLLocationDegrees(location.Longitude)
-                let mapAnnotation = MKAnnotation()
-                mapAnnotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                mapAnnotation.title = "\(firstName) \(lastName)"
-                mapAnnotation.subtitle = mediaURL
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                annotation.title = "\(firstName) \(lastName)"
+                annotation.subtitle = mediaURL
                 
-                mapAnnotations.append(mapAnnotation)
+                
+                annotations.append(annotation)
                 
             }
-            updateMapPointsAsync(mapAnnotations)
+//            studentLocationMapView.addAnnotations(annotations)
+            updateMapPointsAsync(annotations)
             
         }
         
@@ -74,14 +103,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     func updateMapPointsAsync(annotations: [MKAnnotation]){
         dispatch_async(dispatch_get_main_queue(), {
-            for annotation in annotations {
-                self.studentLocationMapView.addAnnotation(annotation)
-            }
+            self.studentLocationMapView.addAnnotations(annotations)
         })
     }
     
+    /* Center on location of map */
+    func centerMapOnLocation(location: CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
+        studentLocationMapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    
+    /* Find current location and zoom in */
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
-        let region = MKCoordinateRegionMakeWithDistance(userLocation, regionRadius, regionRadius)
+        let center = CLLocationCoordinate2D(latitude: (userLocation.location?.coordinate.latitude)!, longitude: (userLocation.location?.coordinate.longitude)!)
+        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpanMake(0.01, 0.01))
         mapView.setRegion(region, animated: true)
     }
     
@@ -93,26 +129,46 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if control == view.rightCalloutAccessoryView {
             
             let appDelegate = UIApplication.sharedApplication()
-            let annotation = CL
-            appDelegate.openURL(NSURL(string: view.))
+            if let urlString = view.annotation?.subtitle! {
+                appDelegate.openURL(NSURL(string: urlString)!)
+            }
         }
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        
+        if (annotation is MKUserLocation) {
+            
+            return nil
+        }
+        
+        
         let pin = "pin"
         
         var pinAnnotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(pin) as? MKPinAnnotationView
-        
+        if pinAnnotationView  == nil {
         pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: pin)
-        pinAnnotationView?.pinTintColor = UIColor.orangeColor()
-        pinAnnotationView?.rightCalloutAccessoryView = UIButton(type: .InfoLight)
+        pinAnnotationView?.canShowCallout = true
+        pinAnnotationView?.pinTintColor = UIColor.greenColor()
+        pinAnnotationView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
         
+        } else {
+            pinAnnotationView?.annotation = annotation
+        }
+    
         return pinAnnotationView
         
     }
     
+    @IBAction func didTapUdacityTouchUpInsided(sender: AnyObject) {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.centerMapOnLocation(self.initialLocation)
+        })
+    }
     
     @IBAction func didTapRefreshTouchUpInside(sender: AnyObject) {
+       
     }
     @IBAction func didTapPinTouchUpInside(sender: AnyObject) {
     }
@@ -121,6 +177,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    
+    /* Helper function: construct an NSLocalizedError from an error string */
+    func errorFromString(string: String) -> NSError? {
+        
+        return NSError(domain: "ParseClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(string)"])
+        
+    }
 
 }

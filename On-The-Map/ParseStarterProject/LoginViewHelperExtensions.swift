@@ -1,5 +1,5 @@
 //
-//  ViewHelperExtensions.swift
+//  LoginViewHelperExtensions.swift
 //  On The Map
 //
 //  Created by Ryan Collins on 11/8/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-//#-MARK: Extension for the UITextFieldDelegate and Keyboard Notification Methods for MemeEditorViewController
+//#-MARK: Extension for the UITextFieldDelegate and Keyboard Notification Methods for LoginViewController
 extension LoginViewController {
     
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
@@ -17,7 +17,7 @@ extension LoginViewController {
     
     /* Configure and deselect text fields when return is pressed */
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-
+        
         textField.resignFirstResponder()
         return true
     }
@@ -36,6 +36,24 @@ extension LoginViewController {
     /* Hide keyboard when view is tapped */
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         view.endEditing(true)
+    }
+    
+    func didLoginSuccessfully() {
+        
+        /* To do - clean up view */
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            let tabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
+            self.presentViewController(tabBarController, animated: true, completion: nil)
+        })
+        
+//        UdaciousClient.sharedInstance().getUserData([:]) {success, error in
+//            if success {
+//                print("success")
+//            } else {
+//                
+//            }
+//        }
     }
     
     func keyboardWillShow(notification: NSNotification) {

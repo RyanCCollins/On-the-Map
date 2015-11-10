@@ -43,13 +43,13 @@ extension UdaciousClient {
                 if let session = JSONResult.valueForKey(UdaciousClient.JSONResponseKeys.Session) {
 
                     if let sessionID = session.valueForKey(UdaciousClient.JSONResponseKeys.SessionID) as? String {
-
+                        print(JSONResult)
                         /* get the account and user from JSONResult */
-                        if let account = JSONResult.valueForKey(UdaciousClient.JSONResponseKeys.Account) {
+                        if let account = JSONResult[UdaciousClient.JSONResponseKeys.Account]  {
 
-                            if let key = account.valueForKey(UdaciousClient.JSONResponseKeys.IDKey) as? String {
+                            if let IDKey = account![UdaciousClient.JSONResponseKeys.IDKey] as? String {
 
-                            completionHandler(success: true, sessionID: sessionID, userKey: key, error: nil)
+                            completionHandler(success: true, sessionID: sessionID, userKey: IDKey, error: nil)
                                 
                             } else {
                                 completionHandler(success: false, sessionID: sessionID, userKey: nil, error: UdaciousClient.errorFromString("Failed to parse the key data in  getSession"))
@@ -72,8 +72,15 @@ extension UdaciousClient {
     func getUserData(parameters: [String : AnyObject]?, completionHandler: (success: Bool, error: NSError?) -> Void) {
         /* Make request and check for success */
         let parameters = [ String : AnyObject ]()
+        print(IDKey)
         
-        let method = UdaciousClient.substituteKeyInMethod(UdaciousClient.Methods.GetUserData, key: "{id}", value: IDKey!)
+        guard let IDKey = IDKey else {
+            
+            completionHandler(success: false, error: UdaciousClient.errorFromString("Failed to get IDKey in getUserData"))
+            return
+        }
+        
+        let method = UdaciousClient.substituteKeyInMethod(UdaciousClient.Methods.GetUserData, key: "{id}", value: IDKey)
         
         taskForGETMethod(method!, parameters: parameters) {JSONResult, error in
             

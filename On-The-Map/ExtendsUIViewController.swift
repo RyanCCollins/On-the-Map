@@ -25,23 +25,20 @@ extension UIViewController {
     func logOutOfApplication() {
         
     }
+
     
-    func didLoginSuccessfully() {
-        dispatch_async(dispatch_get_main_queue(), {
-            let tabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarController")
-            self.presentViewController(tabBarController!, animated: true, completion: nil)
-        })
+    func enterLocationData(){
         
-        UdaciousClient.sharedInstance().getUserData(nil)  {success, error in
-            if success {
-                
-            } else {
-                
-            }
-        }
     }
     
     func userDidLogout(sender: AnyObject) {
+        
+    }
+    
+    /* Helper function: construct an NSLocalizedError from an error string */
+    class func errorFromString(string: String) -> NSError? {
+        
+        return NSError(domain: "ParseClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(string)"])
         
     }
 }
