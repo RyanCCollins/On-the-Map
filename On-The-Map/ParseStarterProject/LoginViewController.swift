@@ -11,6 +11,7 @@ import Parse
 import FBSDKCoreKit
 import FBSDKLoginKit
 import FBSDKShareKit
+import ChameleonFramework
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
@@ -22,6 +23,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var faceBookLoginView: UIView!
     @IBOutlet weak var onepasswordButton: UIButton!
     @IBOutlet weak var oneTimePasswordTextField: UITextField!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +40,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         print(faceBookLoginButton.center)
         print(faceBookLoginView.center)
         print(faceBookLoginButton.frame)
+        
+        
         
     }
     override func viewWillAppear(animated: Bool) {

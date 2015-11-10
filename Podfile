@@ -1,9 +1,11 @@
+use_frameworks!
+
 pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
 pod 'FBSDKShareKit'
 pod 'SSKeychain'
-pod "JJMaterialTextField"
-
+pod 'ChameleonFramework/Swift'
+pod 'PKRevealController'
 platform :ios, '9.0'
 
 workspace 'on-the-map'

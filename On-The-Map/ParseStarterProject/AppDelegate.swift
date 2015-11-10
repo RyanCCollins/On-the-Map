@@ -11,6 +11,7 @@ import UIKit
 
 import Parse
 import FBSDKCoreKit
+import ChameleonFramework
 
 // If you want to use any of the UI components, uncomment this line
 // import ParseUI
@@ -30,8 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         /* set Parse IDs */
         Parse.setApplicationId(ParseClient.Constants.api_key, clientKey: ParseClient.Constants.app_id)
-
         
+        let color = UIColor.flatSkyBlueColorDark()
+        let secondary = UIColor(complementaryFlatColorOf: color)
+        Chameleon.setGlobalThemeUsingPrimaryColor(color, withSecondaryColor: secondary, usingFontName: "Roboto-Regular", andContentStyle: UIContentStyle.Contrast)
         
         // Enable storing and querying data from Local Datastore.
         // Remove this line if you don't want to use Local Datastore features or want to use cachePolicy.
