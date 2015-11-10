@@ -10,17 +10,17 @@ import UIKit
 
 struct StudentLocationData {
     
-        let First: String!
-        let Last: String!
-        let MediaUrl: String!
+        var First: String!
+        var Last: String!
+        var MediaUrl: String!
 
-        let Latitude: Double!
-        let Longitude: Double!
-        let GEODescriptor: String!
+        var Latitude: Double!
+        var Longitude: Double!
+        var GEODescriptor: String!
 
-        let ObjectID: String!
-        let UniqueKey: String!
-        let UpdateTime: String!
+        var ObjectID: String!
+        var UniqueKey: String!
+        var UpdateTime: String!
     
     init(studentLocationDictionary: [String : AnyObject]) {
         /* Initialize data from studentLocationDictionary */
@@ -35,19 +35,19 @@ struct StudentLocationData {
         MediaUrl = studentLocationDictionary[ParseClient.JSONResponseKeys.MediaURL] as! String
     }
     
-    /* Create an array of student location data from results */
-    func generateLocationDataFromResults(results : [[String : AnyObject]]) -> [StudentLocationData] {
-        var locationData = [StudentLocationData]()
+    /* Create an array of student location data from results returned by ParseClient */
+    static func generateLocationDataFromResults(results: [[String : AnyObject]]) -> [StudentLocationData] {
+        var locationDataArray = [StudentLocationData]()
     
     for result in results {
     
-        locationData.append(StudentLocationData(studentLocationDictionary: result))
+        locationDataArray.append(StudentLocationData(studentLocationDictionary: result))
     
     }
         /* Sort location data to be most recent first */
-        locationData.sortInPlace({
+        locationDataArray.sortInPlace({
             $0.UpdateTime > $1.UpdateTime
         })
-    return locationData
+    return locationDataArray
     }
 }

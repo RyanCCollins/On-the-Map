@@ -25,4 +25,23 @@ extension UIViewController {
     func logOutOfApplication() {
         
     }
+    
+    func didLoginSuccessfully() {
+        dispatch_async(dispatch_get_main_queue(), {
+            let tabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarController")
+            self.presentViewController(tabBarController!, animated: true, completion: nil)
+        })
+        
+        UdaciousClient.sharedInstance().getUserData(nil)  {success, error in
+            if success {
+                
+            } else {
+                
+            }
+        }
+    }
+    
+    func userDidLogout(sender: AnyObject) {
+        
+    }
 }

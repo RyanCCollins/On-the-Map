@@ -10,7 +10,7 @@ import UIKit
 
 class ParseClient: NSObject {
     var session: NSURLSession?
-    var studentInfoArray: [StudentLocationData]?
+    var studentData: [StudentLocationData]?
     
     /* Task returned for GETting data from the Parse server */
     func taskForGETMethod (method: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
@@ -21,7 +21,6 @@ class ParseClient: NSObject {
         request.addValue(Constants.app_id, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(Constants.api_key, forHTTPHeaderField: "X-Parse-REST-API-Key")
         
-//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         /*Create a session and then a task */
         let session = NSURLSession.sharedSession()
@@ -70,7 +69,7 @@ class ParseClient: NSObject {
     }
     
     /* Task returned for POSTing data from the Parse server */
-    func taskForPOSTMethod (method: String, parameters completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func taskForPOSTMethod (method: String, JSONBody: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         let urlString = Constants.baseURLSecure + method
         let request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
         
@@ -82,10 +81,13 @@ class ParseClient: NSObject {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         do {
-            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(request, options: .PrettyPrinted)
+            
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(JSONBody, options: .PrettyPrinted)
         } catch {
+            
             print("failed to create a request body in taskForPOSTMethod of ParseClient")
             request.HTTPBody = nil
+            
         }
         
         /*Create a session and then a task.  Parse results in no error. */
@@ -135,16 +137,23 @@ class ParseClient: NSObject {
     
     /* Helper: Given a method, swap the key with the value: */
     class func substituteKeyInMethod(method: String, key: String, value: String) -> String? {
+        
         if method.rangeOfString("{\(key)}") != nil {
+            
             return method.stringByReplacingOccurrencesOfString("{\(key)}", withString: value)
+            
         } else {
+            
             return nil
+            
         }
     }
     
     /* Helper function: construct an NSLocalizedError from an error string */
     class func errorFromString(string: String) -> NSError? {
+        
         return NSError(domain: "ParseClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(string)"])
+        
     }
     
     
