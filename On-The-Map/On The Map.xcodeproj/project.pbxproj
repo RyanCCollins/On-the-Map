@@ -8,6 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		1087EB0B1E546376A747168B /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 495889A71B8DDB6C375A9A59 /* Pods.framework */; };
+		1F24A6FC1BF2593B00BC2796 /* AkiraTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A6E41BF2593B00BC2796 /* AkiraTextField.swift */; };
+		1F24A6FD1BF2593B00BC2796 /* HoshiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A6E51BF2593B00BC2796 /* HoshiTextField.swift */; };
+		1F24A6FE1BF2593B00BC2796 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F24A6E61BF2593B00BC2796 /* Info.plist */; };
+		1F24A6FF1BF2593B00BC2796 /* IsaoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A6E71BF2593B00BC2796 /* IsaoTextField.swift */; };
+		1F24A7001BF2593B00BC2796 /* JiroTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A6E81BF2593B00BC2796 /* JiroTextField.swift */; };
+		1F24A7011BF2593B00BC2796 /* KaedeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A6E91BF2593B00BC2796 /* KaedeTextField.swift */; };
+		1F24A7021BF2593B00BC2796 /* MadokaTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A6EA1BF2593B00BC2796 /* MadokaTextField.swift */; };
+		1F24A7031BF2593B00BC2796 /* MinoruTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A6EB1BF2593B00BC2796 /* MinoruTextField.swift */; };
+		1F24A7041BF2593B00BC2796 /* TextFieldsEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A6ED1BF2593B00BC2796 /* TextFieldsEffects.swift */; };
+		1F24A7051BF2593B00BC2796 /* YokoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A6EE1BF2593B00BC2796 /* YokoTextField.swift */; };
+		1F24A7061BF2593B00BC2796 /* YoshikoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A6EF1BF2593B00BC2796 /* YoshikoTextField.swift */; };
 		1F787CFC1BEF969900BC80F6 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CF91BEF969900BC80F6 /* Roboto-Medium.ttf */; };
 		1F787CFD1BEF969900BC80F6 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CFA1BEF969900BC80F6 /* Roboto-Regular.ttf */; };
 		1F787CFE1BEF969900BC80F6 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CFB1BEF969900BC80F6 /* Roboto-Thin.ttf */; };
@@ -43,6 +54,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F24A6E41BF2593B00BC2796 /* AkiraTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AkiraTextField.swift; sourceTree = "<group>"; };
+		1F24A6E51BF2593B00BC2796 /* HoshiTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoshiTextField.swift; sourceTree = "<group>"; };
+		1F24A6E61BF2593B00BC2796 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F24A6E71BF2593B00BC2796 /* IsaoTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsaoTextField.swift; sourceTree = "<group>"; };
+		1F24A6E81BF2593B00BC2796 /* JiroTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JiroTextField.swift; sourceTree = "<group>"; };
+		1F24A6E91BF2593B00BC2796 /* KaedeTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KaedeTextField.swift; sourceTree = "<group>"; };
+		1F24A6EA1BF2593B00BC2796 /* MadokaTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MadokaTextField.swift; sourceTree = "<group>"; };
+		1F24A6EB1BF2593B00BC2796 /* MinoruTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinoruTextField.swift; sourceTree = "<group>"; };
+		1F24A6EC1BF2593B00BC2796 /* TextFieldEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldEffects.h; sourceTree = "<group>"; };
+		1F24A6ED1BF2593B00BC2796 /* TextFieldsEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldsEffects.swift; sourceTree = "<group>"; };
+		1F24A6EE1BF2593B00BC2796 /* YokoTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YokoTextField.swift; sourceTree = "<group>"; };
+		1F24A6EF1BF2593B00BC2796 /* YoshikoTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoshikoTextField.swift; sourceTree = "<group>"; };
 		1F787CF61BEF8E1E00BC80F6 /* On-The-Map-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "On-The-Map-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F787CF91BEF969900BC80F6 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		1F787CFA1BEF969900BC80F6 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
@@ -109,6 +132,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F24A6E21BF2593B00BC2796 /* TextFieldEffects */ = {
+			isa = PBXGroup;
+			children = (
+				1F24A6E31BF2593B00BC2796 /* TextFieldEffects */,
+			);
+			path = TextFieldEffects;
+			sourceTree = "<group>";
+		};
+		1F24A6E31BF2593B00BC2796 /* TextFieldEffects */ = {
+			isa = PBXGroup;
+			children = (
+				1F24A6E41BF2593B00BC2796 /* AkiraTextField.swift */,
+				1F24A6E51BF2593B00BC2796 /* HoshiTextField.swift */,
+				1F24A6E61BF2593B00BC2796 /* Info.plist */,
+				1F24A6E71BF2593B00BC2796 /* IsaoTextField.swift */,
+				1F24A6E81BF2593B00BC2796 /* JiroTextField.swift */,
+				1F24A6E91BF2593B00BC2796 /* KaedeTextField.swift */,
+				1F24A6EA1BF2593B00BC2796 /* MadokaTextField.swift */,
+				1F24A6EB1BF2593B00BC2796 /* MinoruTextField.swift */,
+				1F24A6EC1BF2593B00BC2796 /* TextFieldEffects.h */,
+				1F24A6ED1BF2593B00BC2796 /* TextFieldsEffects.swift */,
+				1F24A6EE1BF2593B00BC2796 /* YokoTextField.swift */,
+				1F24A6EF1BF2593B00BC2796 /* YoshikoTextField.swift */,
+			);
+			path = TextFieldEffects;
+			sourceTree = "<group>";
+		};
 		1F787CFF1BEF96A200BC80F6 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +235,7 @@
 		814C3AC51B69877600E307BB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1F24A6E21BF2593B00BC2796 /* TextFieldEffects */,
 				814C3AC81B69877600E307BB /* Images.xcassets */,
 				1F787D171BF0194E00BC80F6 /* OnePasswordExtension.h */,
 				1F787D181BF0194E00BC80F6 /* OnePasswordExtension.m */,
@@ -325,6 +376,7 @@
 				1F787CFD1BEF969900BC80F6 /* Roboto-Regular.ttf in Resources */,
 				1F787CFE1BEF969900BC80F6 /* Roboto-Thin.ttf in Resources */,
 				1F787CFC1BEF969900BC80F6 /* Roboto-Medium.ttf in Resources */,
+				1F24A6FE1BF2593B00BC2796 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +450,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F787D011BEFAEE000BC80F6 /* LoginViewController.swift in Sources */,
+				1F24A7031BF2593B00BC2796 /* MinoruTextField.swift in Sources */,
 				1F787D091BEFB03600BC80F6 /* UdaciousConstants.swift in Sources */,
 				1F787D1D1BF054F700BC80F6 /* ExtendsUIViewController.swift in Sources */,
 				81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */,
@@ -405,13 +458,22 @@
 				1F787D071BEFB02900BC80F6 /* UdaciousClient.swift in Sources */,
 				1F787D201BF0562800BC80F6 /* ParseClient.swift in Sources */,
 				1F787D6C1BF1424200BC80F6 /* MapAnnotation.swift in Sources */,
+				1F24A7021BF2593B00BC2796 /* MadokaTextField.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
+				1F24A7011BF2593B00BC2796 /* KaedeTextField.swift in Sources */,
+				1F24A6FD1BF2593B00BC2796 /* HoshiTextField.swift in Sources */,
 				1F787D271BF0598800BC80F6 /* StudentLocationData.swift in Sources */,
+				1F24A7001BF2593B00BC2796 /* JiroTextField.swift in Sources */,
+				1F24A6FC1BF2593B00BC2796 /* AkiraTextField.swift in Sources */,
+				1F24A7061BF2593B00BC2796 /* YoshikoTextField.swift in Sources */,
 				1F787D221BF0563300BC80F6 /* ParseConvenience.swift in Sources */,
 				1F787D101BEFB9E500BC80F6 /* LoginViewHelperExtensions.swift in Sources */,
+				1F24A6FF1BF2593B00BC2796 /* IsaoTextField.swift in Sources */,
 				1F787D191BF0194E00BC80F6 /* OnePasswordExtension.m in Sources */,
 				1F787D031BEFAF1000BC80F6 /* MapViewController.swift in Sources */,
+				1F24A7051BF2593B00BC2796 /* YokoTextField.swift in Sources */,
 				1F787D051BEFAF4C00BC80F6 /* ListTableTableViewController.swift in Sources */,
+				1F24A7041BF2593B00BC2796 /* TextFieldsEffects.swift in Sources */,
 				1F787D241BF0564300BC80F6 /* ParseConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

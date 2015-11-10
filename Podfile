@@ -6,6 +6,7 @@ pod 'FBSDKShareKit'
 pod 'SSKeychain'
 pod 'ChameleonFramework/Swift'
 pod 'PKRevealController'
+
 platform :ios, '9.0'
 
 workspace 'on-the-map'
