@@ -34,7 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let color = UIColor.flatSkyBlueColorDark()
         let secondary = UIColor(complementaryFlatColorOf: color)
-        Chameleon.setGlobalThemeUsingPrimaryColor(color, withSecondaryColor: secondary, usingFontName: "Roboto-Regular", andContentStyle: UIContentStyle.Contrast)
+        Chameleon.setGlobalThemeUsingPrimaryColor(color, withContentStyle: UIContentStyle.Contrast)
+//        Chameleon.setGlobalThemeUsingPrimaryColor(color, withSecondaryColor: secondary, usingFontName: "Roboto-Regular", andContentStyle: UIContentStyle.Contrast)
         
         // Enable storing and querying data from Local Datastore.
         // Remove this line if you don't want to use Local Datastore features or want to use cachePolicy.

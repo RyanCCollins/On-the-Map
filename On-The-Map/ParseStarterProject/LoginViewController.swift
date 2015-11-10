@@ -23,6 +23,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var faceBookLoginView: UIView!
     @IBOutlet weak var onepasswordButton: UIButton!
     @IBOutlet weak var oneTimePasswordTextField: UITextField!
+    @IBOutlet weak var indicatorLabel: UIActivityIndicatorView!
     
     
     override func viewDidLoad() {
@@ -41,7 +42,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         print(faceBookLoginView.center)
         print(faceBookLoginButton.frame)
         
-        
+        /* Configure log in buttons */
+        indicatorLabel.alpha = 0.0
         
     }
     override func viewWillAppear(animated: Bool) {
@@ -49,6 +51,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         subscribeToKeyboardNotification()
         
     }
+    
     
     override func viewWillDisappear(animated: Bool) {
         unsubsribeToKeyboardNotification()
@@ -100,7 +103,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     /* Facebook login delegate methods */
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        if error != nil {
+        if error == nil {
             /* get a token from facebook */
             
             if let token = result.token.tokenString {

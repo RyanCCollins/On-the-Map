@@ -19,6 +19,7 @@
 		1F24A7041BF2593B00BC2796 /* TextFieldsEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A6ED1BF2593B00BC2796 /* TextFieldsEffects.swift */; };
 		1F24A7051BF2593B00BC2796 /* YokoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A6EE1BF2593B00BC2796 /* YokoTextField.swift */; };
 		1F24A7061BF2593B00BC2796 /* YoshikoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A6EF1BF2593B00BC2796 /* YoshikoTextField.swift */; };
+		1F24A7161BF271D700BC2796 /* PostLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A7151BF271D700BC2796 /* PostLocationViewController.swift */; };
 		1F787CFC1BEF969900BC80F6 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CF91BEF969900BC80F6 /* Roboto-Medium.ttf */; };
 		1F787CFD1BEF969900BC80F6 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CFA1BEF969900BC80F6 /* Roboto-Regular.ttf */; };
 		1F787CFE1BEF969900BC80F6 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CFB1BEF969900BC80F6 /* Roboto-Thin.ttf */; };
@@ -66,6 +67,7 @@
 		1F24A6ED1BF2593B00BC2796 /* TextFieldsEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldsEffects.swift; sourceTree = "<group>"; };
 		1F24A6EE1BF2593B00BC2796 /* YokoTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YokoTextField.swift; sourceTree = "<group>"; };
 		1F24A6EF1BF2593B00BC2796 /* YoshikoTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoshikoTextField.swift; sourceTree = "<group>"; };
+		1F24A7151BF271D700BC2796 /* PostLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostLocationViewController.swift; sourceTree = "<group>"; };
 		1F787CF61BEF8E1E00BC80F6 /* On-The-Map-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "On-The-Map-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F787CF91BEF969900BC80F6 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		1F787CFA1BEF969900BC80F6 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				1F787D0F1BEFB9E500BC80F6 /* LoginViewHelperExtensions.swift */,
 				1F787D1C1BF054F700BC80F6 /* ExtendsUIViewController.swift */,
 				1F787D021BEFAF1000BC80F6 /* MapViewController.swift */,
+				1F24A7151BF271D700BC2796 /* PostLocationViewController.swift */,
 				1F787D041BEFAF4C00BC80F6 /* ListTableTableViewController.swift */,
 			);
 			name = Controller;
@@ -205,7 +208,6 @@
 			isa = PBXGroup;
 			children = (
 				1F787D6B1BF1424200BC80F6 /* MapAnnotation.swift */,
-				814C3AC61B69877600E307BB /* Main.storyboard */,
 			);
 			name = View;
 			path = ..;
@@ -270,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
+				814C3AC61B69877600E307BB /* Main.storyboard */,
 				1F787D0D1BEFB05500BC80F6 /* Model */,
 				1F787D1E1BF0550000BC80F6 /* View */,
 				1F787D0E1BEFB06F00BC80F6 /* Controller */,
@@ -465,6 +468,7 @@
 				1F787D271BF0598800BC80F6 /* StudentLocationData.swift in Sources */,
 				1F24A7001BF2593B00BC2796 /* JiroTextField.swift in Sources */,
 				1F24A6FC1BF2593B00BC2796 /* AkiraTextField.swift in Sources */,
+				1F24A7161BF271D700BC2796 /* PostLocationViewController.swift in Sources */,
 				1F24A7061BF2593B00BC2796 /* YoshikoTextField.swift in Sources */,
 				1F787D221BF0563300BC80F6 /* ParseConvenience.swift in Sources */,
 				1F787D101BEFB9E500BC80F6 /* LoginViewHelperExtensions.swift in Sources */,
@@ -487,7 +491,7 @@
 				814C3AC71B69877600E307BB /* Base */,
 			);
 			name = Main.storyboard;
-			path = Resources;
+			path = ../Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

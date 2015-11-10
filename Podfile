@@ -6,6 +6,7 @@ pod 'FBSDKShareKit'
 pod 'SSKeychain'
 pod 'ChameleonFramework/Swift'
 pod 'PKRevealController'
+pod "TextFieldEffects"
 
 platform :ios, '9.0'
 

@@ -23,6 +23,7 @@ PODS:
     - FBSDKCoreKit
   - PKRevealController (2.0.6)
   - SSKeychain (1.2.3)
+  - TextFieldEffects (0.4.8)
 
 DEPENDENCIES:
   - ChameleonFramework/Swift
@@ -31,6 +32,7 @@ DEPENDENCIES:
   - FBSDKShareKit
   - PKRevealController
   - SSKeychain
+  - TextFieldEffects
 
 SPEC CHECKSUMS:
   Bolts: 0e9bce58b9b9f5e8a7a4d47b16d2fabec289072b
@@ -40,5 +42,6 @@ SPEC CHECKSUMS:
   FBSDKShareKit: 213adf63e073f41a346b0e7a689805880dc5150e
   PKRevealController: ffb45a16f5a5032ad90a3d16e5cbb0d8e035bd58
   SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d
+  TextFieldEffects: b2462ad57cfa1533dc28f84f360a942383cf5fb7
 
 COCOAPODS: 0.39.0

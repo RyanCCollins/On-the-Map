@@ -43,8 +43,17 @@ extension LoginViewController {
         /* To do - clean up view */
         
         dispatch_async(dispatch_get_main_queue(), {
+            
+            self.indicatorLabel.alpha = 1.0
+            self.indicatorLabel.startAnimating()
             let tabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
-            self.presentViewController(tabBarController, animated: true, completion: nil)
+            self.presentViewController(tabBarController, animated: true, completion: {
+                
+                self.indicatorLabel.stopAnimating()
+                self.indicatorLabel.hidden = true
+                
+                
+            })
         })
         
 //        UdaciousClient.sharedInstance().getUserData([:]) {success, error in
