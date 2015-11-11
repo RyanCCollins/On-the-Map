@@ -29,11 +29,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>MBProgressHUD.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>PKRevealController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -49,6 +44,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SwiftSpinner.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>TextFieldEffects.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,22 +57,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>12E588AF32E76ACFE417D6ACFDFBAEAE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2B421EA5AF7323E06885877368AEF62C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>568972FA15C4AE13892A3CC67CC80816</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>57ADC05E440A960212657DE6DA1FEDD5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>5D69761C2CD2A1E5C013537B29CAB4CF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5EEE8BD688853DE832033580D992FBFF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8245E7A4F72B8492668AA9ED84B41AE3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,12 +92,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A05ED42EF112D95A4E919C01F47C8815</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E61CE3B6DFA1FE6B3E296965C76C0E10</key>
+		<key>9BF77BCF28DB8E1237C4713052BC0A89</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -10,6 +10,7 @@ import UIKit
 import Parse
 import FBSDKCoreKit
 import FBSDKLoginKit
+import SwiftSpinner
 
 extension UIViewController {
 
@@ -123,6 +124,7 @@ extension UIViewController {
     override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         view.endEditing(true)
     }
+    
     
     func keyboardWillShow(notification: NSNotification) {
         /* slide the view up when keyboard appears, using notifications */

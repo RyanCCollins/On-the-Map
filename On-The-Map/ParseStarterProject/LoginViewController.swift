@@ -12,6 +12,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import FBSDKShareKit
 import ChameleonFramework
+import SwiftSpinner
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
@@ -77,27 +78,34 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     @IBAction func didTapLoginTouchUpInside(sender: AnyObject) {
         
-        guard verifyUserCredentials(usernameTextField.text, password: passwordTextField.text) else {
-            return
-        }
         
-        let parameters = [UdaciousClient.ParameterKeys.Udacity :
-            [UdaciousClient.ParameterKeys.Username : usernameTextField.text!,
-            UdaciousClient.ParameterKeys.Password : passwordTextField.text!
-        ]]
-        print(parameters)
-        UdaciousClient.sharedInstance().authenticateWithViewController(parameters) { success, error in
-            if success {
-                
-                self.didLoginSuccessfully()
-                
-            } else {
-                
-                self.displayDebugMessage("Sorry, but we could not log you in, please try again!")
-                
+        SwiftSpinner.show("Logging in")
+        
+        /* run data update on background thread */
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), {
+            guard self.verifyUserCredentials(self.usernameTextField.text, password: self.passwordTextField.text) else {
+                return
             }
-        }
+            
+            let parameters = [UdaciousClient.ParameterKeys.Udacity :
+                [UdaciousClient.ParameterKeys.Username : self.usernameTextField.text!,
+                    UdaciousClient.ParameterKeys.Password : self.passwordTextField.text!
+                ]]
+            
+            UdaciousClient.sharedInstance().authenticateWithViewController(parameters) { success, error in
+                if success {
+                    
+                    self.didLoginSuccessfully()
+                    
+                } else {
+                    
+                    self.displayDebugMessage("Sorry, but we could not log you in, please try again!")
+                    
+                }
+            }
+        })
     }
+
     
     /* Verify that a proper username and password has been provided */
     func verifyUserCredentials(username: String?, password: String?) -> Bool {
@@ -146,16 +154,48 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+        
         displayDebugMessage("Logged out of Facebook")
+        
     }
     
     /* Async update helper functions */
     func displayDebugMessage(debugString: String) {
         dispatch_async(dispatch_get_main_queue(), {
+            
             self.debugLabel.text = debugString
+            
         })
     }
     
+    
+    func didLoginSuccessfully() {
+        
+        /* To do - clean up view */
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            
+            
+            let tabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
+            self.presentViewController(tabBarController, animated: true, completion: {
+                
+                /* Hide activity Inidcatory */
+                SwiftSpinner.hide()
+                
+            })
+        })
+        
+        //        UdaciousClient.sharedInstance().getUserData([:]) {success, error in
+        //            if success {
+        //                print("success")
+        //            } else {
+        //
+        //            }
+        //        }
+    }
+    
+    
+
     /* 1Password methods */
     @IBAction func findLoginFrom1Password(sender:AnyObject) -> Void {
         OnePasswordExtension.sharedExtension().findLoginForURLString("https://www.udacity.com", forViewController: self, sender: sender, completion: { (loginDictionary, error) -> Void in
@@ -228,6 +268,17 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         let url = NSURL(string : "https://www.udacity.com/account/auth#!/signin")
         UIApplication.sharedApplication().openURL(url!)
     }
+}
+
+/* Mark Touch ID: */
+enum LAError : Int {
+    case AuthenticationFailed
+    case UserCancel
+    case UserFallback
+    case SystemCancel
+    case PasscodeNotSet
+    case TouchIDNotAvailable
+    case TouchIDNotEnrolled
 }
 
 struct FBReadPermissions {

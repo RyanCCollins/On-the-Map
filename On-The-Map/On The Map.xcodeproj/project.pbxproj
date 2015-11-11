@@ -36,7 +36,6 @@
 		1F787D071BEFB02900BC80F6 /* UdaciousClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D061BEFB02900BC80F6 /* UdaciousClient.swift */; };
 		1F787D091BEFB03600BC80F6 /* UdaciousConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D081BEFB03600BC80F6 /* UdaciousConstants.swift */; };
 		1F787D0B1BEFB04200BC80F6 /* UdaciousConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D0A1BEFB04200BC80F6 /* UdaciousConvenience.swift */; };
-		1F787D101BEFB9E500BC80F6 /* LoginViewHelperExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D0F1BEFB9E500BC80F6 /* LoginViewHelperExtensions.swift */; };
 		1F787D141BEFF68900BC80F6 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F787D111BEFF68900BC80F6 /* FBSDKCoreKit.framework */; };
 		1F787D151BEFF68900BC80F6 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F787D121BEFF68900BC80F6 /* FBSDKLoginKit.framework */; };
 		1F787D161BEFF68900BC80F6 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F787D131BEFF68900BC80F6 /* FBSDKShareKit.framework */; };
@@ -92,7 +91,6 @@
 		1F787D061BEFB02900BC80F6 /* UdaciousClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdaciousClient.swift; sourceTree = "<group>"; };
 		1F787D081BEFB03600BC80F6 /* UdaciousConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdaciousConstants.swift; sourceTree = "<group>"; };
 		1F787D0A1BEFB04200BC80F6 /* UdaciousConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdaciousConvenience.swift; sourceTree = "<group>"; };
-		1F787D0F1BEFB9E500BC80F6 /* LoginViewHelperExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewHelperExtensions.swift; sourceTree = "<group>"; };
 		1F787D111BEFF68900BC80F6 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ParseStarterProject/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		1F787D121BEFF68900BC80F6 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ParseStarterProject/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		1F787D131BEFF68900BC80F6 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ParseStarterProject/FBSDKShareKit.framework; sourceTree = "<group>"; };
@@ -215,7 +213,6 @@
 			children = (
 				81BA814C1A49DA1800E65899 /* ViewController.swift */,
 				1F787D001BEFAEE000BC80F6 /* LoginViewController.swift */,
-				1F787D0F1BEFB9E500BC80F6 /* LoginViewHelperExtensions.swift */,
 				1F787D1C1BF054F700BC80F6 /* ExtendsUIViewController.swift */,
 				1F787D021BEFAF1000BC80F6 /* MapViewController.swift */,
 				1F24A7151BF271D700BC2796 /* PostLocationViewController.swift */,
@@ -498,7 +495,6 @@
 				1F24A7161BF271D700BC2796 /* PostLocationViewController.swift in Sources */,
 				1F24A7061BF2593B00BC2796 /* YoshikoTextField.swift in Sources */,
 				1F787D221BF0563300BC80F6 /* ParseConvenience.swift in Sources */,
-				1F787D101BEFB9E500BC80F6 /* LoginViewHelperExtensions.swift in Sources */,
 				1F24A6FF1BF2593B00BC2796 /* IsaoTextField.swift in Sources */,
 				1F787D191BF0194E00BC80F6 /* OnePasswordExtension.m in Sources */,
 				1F24A7261BF2AEFE00BC2796 /* LocationTableViewCell.swift in Sources */,

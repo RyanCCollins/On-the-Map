@@ -10,6 +10,7 @@ import UIKit
 import Parse
 import MapKit
 import MBProgressHUD
+import SwiftSpinner
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var studentLocationMapView: MKMapView!
@@ -36,7 +37,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     /* refresh the view for data update/retrieval - call asynchronously*/
     func refreshViewForDataUpdate() {
         
-        MBProgressHUD.showHUDAddedTo(view, animated: true)
+        dispatch_async(dispatch_get_main_queue(), {
+            
+            SwiftSpinner.show("Updating...").addTapHandler({
+                SwiftSpinner.hide()
+            })
+            
+        })
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), {
             self.loadMapViewWithParseData({success, error in
@@ -59,11 +66,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     
                 }
                 
-                dispatch_async(dispatch_get_main_queue(), {
-                    
-                    MBProgressHUD.hideHUDForView(self.view, animated: true)
-                    
-                })
+                SwiftSpinner.hide()
                 
             })
         })
@@ -87,6 +90,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     
                     self.addPinsToMapForStudents(results)
                     completionHandler!(success: true, error: nil)
+                    
                 } else {
                     completionHandler!(success: false, error: self.errorFromString("Failed to load map with parsed data in loadMapWithParsedData"))
                 }
@@ -124,20 +128,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 annotations.append(annotation)
                 
             }
-//            studentLocationMapView.addAnnotations(annotations)
-            updateMapPointsAsync(annotations)
+            /* TODO: Add activity indicator */
+            self.studentLocationMapView.addAnnotations(annotations)
             
         }
         
     }
-    
-    func updateMapPointsAsync(annotations: [MKAnnotation]){
-        dispatch_async(dispatch_get_main_queue(), {
-            
-            self.studentLocationMapView.addAnnotations(annotations)
-            
-        })
-    }
+
     
     /* Center on location of map */
     func centerMapOnLocation(location: CLLocation) {

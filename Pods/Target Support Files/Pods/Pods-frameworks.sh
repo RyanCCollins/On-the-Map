@@ -89,9 +89,9 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/FBSDKCoreKit.framework"
   install_framework "Pods/FBSDKLoginKit.framework"
   install_framework "Pods/FBSDKShareKit.framework"
-  install_framework "Pods/MBProgressHUD.framework"
   install_framework "Pods/PKRevealController.framework"
   install_framework "Pods/SSKeychain.framework"
+  install_framework "Pods/SwiftSpinner.framework"
   install_framework "Pods/TextFieldEffects.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -100,8 +100,8 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/FBSDKCoreKit.framework"
   install_framework "Pods/FBSDKLoginKit.framework"
   install_framework "Pods/FBSDKShareKit.framework"
-  install_framework "Pods/MBProgressHUD.framework"
   install_framework "Pods/PKRevealController.framework"
   install_framework "Pods/SSKeychain.framework"
+  install_framework "Pods/SwiftSpinner.framework"
   install_framework "Pods/TextFieldEffects.framework"
 fi
