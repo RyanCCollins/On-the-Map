@@ -29,6 +29,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>PKRevealController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,17 +57,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2277B6F41727B7B707D2CBE82924B224</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>57ADC05E440A960212657DE6DA1FEDD5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>5D69761C2CD2A1E5C013537B29CAB4CF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5EEE8BD688853DE832033580D992FBFF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8245E7A4F72B8492668AA9ED84B41AE3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -77,12 +87,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AB0F32A104D34F189DDA9359E0F3AB40</key>
+		<key>A05ED42EF112D95A4E919C01F47C8815</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C2496287655F90F3F4D09A4C72FEEC24</key>
+		<key>E61CE3B6DFA1FE6B3E296965C76C0E10</key>
 		<dict>
 			<key>primary</key>
 			<true/>

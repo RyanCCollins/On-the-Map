@@ -25,7 +25,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var faceBookLoginView: UIView!
     @IBOutlet weak var onepasswordButton: UIButton!
     @IBOutlet weak var oneTimePasswordTextField: UITextField!
-    @IBOutlet weak var indicatorLabel: UIActivityIndicatorView!
+
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func viewDidLoad() {
@@ -45,7 +45,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         print(faceBookLoginButton.frame)
         
         /* Configure log in buttons */
-        indicatorLabel.alpha = 0.0
+
         self.setStatusBarStyle(UIStatusBarStyleContrast)
         
         setUpColorScheme()
@@ -54,12 +54,12 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func setUpColorScheme(){
-        /* Set colors of buttons */
-        let colorScheme = appDelegate.colorScheme
-        loginButton.backgroundColor = colorScheme[1] as? UIColor
-        signUpButton.backgroundColor = UIColor.clearColor()
-        usernameTextField.backgroundColor = colorScheme[2] as? UIColor
-        passwordTextField.backgroundColor = colorScheme[2] as? UIColor
+//        /* Set colors of buttons */
+//        let colorScheme = appDelegate.colorScheme
+//        loginButton.backgroundColor = colorScheme[1] as? UIColor
+//        signUpButton.backgroundColor = UIColor.clearColor()
+//        usernameTextField.backgroundColor = colorScheme[2] as? UIColor
+//        passwordTextField.backgroundColor = colorScheme[2] as? UIColor
         onepasswordButton.backgroundColor = UIColor.clearColor()
     }
     
@@ -161,6 +161,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         OnePasswordExtension.sharedExtension().findLoginForURLString("https://www.udacity.com", forViewController: self, sender: sender, completion: { (loginDictionary, error) -> Void in
             if loginDictionary == nil {
                 if error!.code != Int(AppExtensionErrorCodeCancelledByUser) {
+                    
                     print("Error invoking 1Password App Extension for find login: \(error)")
                 }
                 return

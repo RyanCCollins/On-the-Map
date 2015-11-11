@@ -7,6 +7,7 @@ pod 'SSKeychain'
 pod 'ChameleonFramework/Swift'
 pod 'PKRevealController'
 pod "TextFieldEffects"
+pod 'MBProgressHUD', '~> 0.9.1'
 
 platform :ios, '9.0'
 

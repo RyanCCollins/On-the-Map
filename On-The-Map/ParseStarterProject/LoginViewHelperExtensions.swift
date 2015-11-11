@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 //#-MARK: Extension for the UITextFieldDelegate and Keyboard Notification Methods for LoginViewController
 extension LoginViewController {
@@ -18,13 +19,11 @@ extension LoginViewController {
         
         dispatch_async(dispatch_get_main_queue(), {
             
-            self.indicatorLabel.alpha = 1.0
-            self.indicatorLabel.startAnimating()
+            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
             let tabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
             self.presentViewController(tabBarController, animated: true, completion: {
                 
-                self.indicatorLabel.stopAnimating()
-                self.indicatorLabel.hidden = true
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
                 
                 
             })

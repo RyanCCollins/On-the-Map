@@ -66,16 +66,11 @@ extension UIViewController {
     
     @IBAction func didTapRefreshTouchUpInside(sender: AnyObject) {
         reloadData()
-        if let parent = sender.parentViewController as? MapViewController {
+        
+        let mapViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MapViewController")
+        
+        presentViewController(mapViewController!, animated: true, completion: nil)
 
-            parent.refreshViewForDataUpdate()
-
-            
-        } else if let parent = sender.parentViewController as? ListTableViewController {
-
-            parent.refreshViewForDataUpdate()
-
-        }
     }
     
     /* Helper function to show alerts to user */

@@ -91,8 +91,8 @@ class ListTableViewController: UITableViewController {
                 let logoutAction = UIAlertAction(title: "Logout", style: .Destructive, handler: { Void in
                     self.logoutOfSession()
                 })
-                let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: { Void in
-                    self.refreshDataFromParse()
+                let retryAction = UIAlertAction(title: "Ok", style: .Default, handler: { Void in
+
                     self.refreshControl?.endRefreshing()
                 })
                 

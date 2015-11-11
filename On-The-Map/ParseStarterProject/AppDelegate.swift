@@ -24,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var colorScheme: NSArray!
-    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
     
 
     //--------------------------------------
@@ -35,12 +34,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         /* set Parse IDs */
         Parse.setApplicationId(ParseClient.Constants.api_key, clientKey: ParseClient.Constants.app_id)
         
-        let color = UIColor.flatSkyBlueColorDark()
+//        let color = UIColor.flatMaroonColorDark()
+        let color = UIColor.flatNavyBlueColorDark()
 //        let secondary = UIColor.flatWatermelonColor()
         colorScheme = NSArray(ofColorsWithColorScheme: ColorScheme.Analogous, usingColor: color, withFlatScheme: true)
         //let color = colorArray[0]
-        let secondary = colorScheme[1] as! UIColor
-        Chameleon.setGlobalThemeUsingPrimaryColor(color, withSecondaryColor: secondary, andContentStyle: .Contrast)
+        Chameleon.setGlobalThemeUsingPrimaryColor(color, withContentStyle: .Contrast)
         
         // Enable storing and querying data from Local Datastore.
         // Remove this line if you don't want to use Local Datastore features or want to use cachePolicy.

@@ -16,7 +16,8 @@ class LocationTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        self.accessoryView?.backgroundColor = UIColor.clearColor()
+        self.accessoryView?.tintColor = UIColor.flatMintColor()
     }
 
 }

@@ -9,79 +9,76 @@
 import UIKit
 import Parse
 import MapKit
+import MBProgressHUD
 
 class MapViewController: UIViewController, MKMapViewDelegate {
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var studentLocationMapView: MKMapView!
     let initialLocation = CLLocation(latitude: 37.399872, longitude: -122.108296)
     let regionRadius: CLLocationDistance = 1000
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         /* Get shared session */
         ParseClient.sharedInstance()
-        
+        refreshViewForDataUpdate()
+        studentLocationMapView.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
-        activityIndicator.alpha = 1.0
-        activityIndicator.startAnimating()
-        loadMapViewWithParseData({success, error in
-            if let error = error {
-                print(error)
-            }
-        })
         
-        activityIndicator.alpha = 0.0
-        activityIndicator.stopAnimating()
     }
     
     override func viewDidAppear(animated: Bool) {
 
     }
     
-    /* refresh the view for data update/retrieval - call asynchronouslt*/
+    /* refresh the view for data update/retrieval - call asynchronously*/
     func refreshViewForDataUpdate() {
         
-        dispatch_async(dispatch_get_main_queue(), {
-            self.activityIndicator.startAnimating()
-            self.activityIndicator.alpha = 1.0
+        MBProgressHUD.showHUDAddedTo(view, animated: true)
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), {
+            self.loadMapViewWithParseData({success, error in
+                if error != nil {
+                    
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    
+                    let logoutAction = UIAlertAction(title: "Logout", style: .Destructive, handler: { Void in
+                        self.logoutOfSession()
+                    })
+                    let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: { Void in
+                        self.loadMapViewWithParseData(nil)
+                    })
+                    
+                    self.alertUserWithWithActions("Failed to refresh data", message: "Something went wrong while refreshing the data.  Please retry or logout", actions: [logoutAction, retryAction])
+                    
+                } else {
+                    
+                    
+                    
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    
+                })
+                
+            })
         })
         
-        loadMapViewWithParseData({ success, error in
-            if success {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.activityIndicator.stopAnimating()
-                    self.activityIndicator.alpha = 1.0
-                })
-                
-            } else {
-                
-                let logoutAction = UIAlertAction(title: "Logout", style: .Destructive, handler: { Void in
-                    self.logoutOfSession()
-                })
-                let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: { Void in
-                    self.refreshDataFromParse()
-                })
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.alertUserWithWithActions("Failed to refresh data", message: "Something went wrong while refreshing the data.  Please retry or logout", actions: [logoutAction, retryAction])
-                })
-                
-            }
+        
             
-        })
     }
     
     /* add parse data to map if first time logging in, get the data, if not, get the shared instance of student data */
-    func loadMapViewWithParseData(completionHandler: (success: Bool, error: NSError?)-> Void) {
+    func loadMapViewWithParseData(completionHandler: ((success: Bool, error: NSError?)-> Void)?) {
         
         if let locations = ParseClient.sharedInstance().studentData {
             
             addPinsToMapForStudents(locations)
-            completionHandler(success: true, error: nil)
+            completionHandler!(success: true, error: nil)
 
         } else {
             ParseClient.sharedInstance().getDataFromParse({success, results, error in
@@ -89,16 +86,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 if success {
                     
                     self.addPinsToMapForStudents(results)
-                    completionHandler(success: true, error: nil)
+                    completionHandler!(success: true, error: nil)
                 } else {
-                    completionHandler(success: false, error: self.errorFromString("Failed to load map with parsed data in loadMapWithParsedData"))
+                    completionHandler!(success: false, error: self.errorFromString("Failed to load map with parsed data in loadMapWithParsedData"))
                 }
                 
             })
         }
         
         
-            completionHandler(success: true, error: nil)
+            completionHandler!(success: true, error: nil)
         
     }
     
@@ -136,14 +133,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     func updateMapPointsAsync(annotations: [MKAnnotation]){
         dispatch_async(dispatch_get_main_queue(), {
+            
             self.studentLocationMapView.addAnnotations(annotations)
+            
         })
     }
     
     /* Center on location of map */
     func centerMapOnLocation(location: CLLocation) {
+        
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
         studentLocationMapView.setRegion(coordinateRegion, animated: true)
+        
     }
     
     
@@ -162,8 +163,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if control == view.rightCalloutAccessoryView {
             
             let appDelegate = UIApplication.sharedApplication()
+            
             if let urlString = view.annotation?.subtitle! {
+                
                 appDelegate.openURL(NSURL(string: urlString)!)
+                
             }
         }
     }
@@ -193,18 +197,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return pinAnnotationView
         
     }
-    
+
+    /* Zoom in on Udacity headquarters */
     @IBAction func didTapUdacityTouchUpInsided(sender: AnyObject) {
         dispatch_async(dispatch_get_main_queue(), {
+            
             self.centerMapOnLocation(self.initialLocation)
+            
         })
     }
-    
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
 }

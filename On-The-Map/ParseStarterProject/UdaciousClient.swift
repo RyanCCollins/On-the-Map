@@ -182,19 +182,28 @@ class UdaciousClient: NSObject {
             
             /* GUARD: was there an error? */
             guard error == nil else {
+                
                 completionHandler(result: nil, error: UdaciousClient.errorFromString("An error occured while initializing the task in taskForDELETEMethod in UdaciousClient"))
+                
                 return
             }
             
             
             /* GUARD: Did we get a successful response code of 2XX? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
+                
                 var statusError = "taskForDELETEMethod request returned an invalid response!"
+                
                 if let response = response as? NSHTTPURLResponse {
+                    
                     statusError += " Status code: \(response.statusCode)!"
+                
                 } else if let response = response {
+                    
                     statusError += " Response: \(response)!"
+                
                 }
+                
                 completionHandler(result: nil, error: UdaciousClient.errorFromString(statusError))
                 return
             }
@@ -267,9 +276,13 @@ class UdaciousClient: NSObject {
     
     /* Singleton shared instance of UdaciousClient */
     class func sharedInstance() -> UdaciousClient {
+        
         struct Singleton {
+            
             static var sharedInstance = UdaciousClient()
+            
         }
+        
         return Singleton.sharedInstance
     }
 }

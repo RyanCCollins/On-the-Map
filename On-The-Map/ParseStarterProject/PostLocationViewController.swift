@@ -8,16 +8,23 @@
 
 import UIKit
 import MapKit
+import MBProgressHUD
 
 class PostLocationViewController: UIViewController {
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var locationTextField: JiroTextField!
     @IBOutlet weak var helpLabel: UILabel!
-    @IBOutlet weak var submitLocationButton: UIButton!
+    @IBOutlet weak var submitButton: UIButton!
     
+    @IBOutlet weak var postLocationViewContainer: UIView!
     @IBOutlet weak var linkTextField: JiroTextField!
-    @IBOutlet weak var submitLinkButton: UIButton!
+    @IBOutlet weak var mapView: MKMapView!
     
+    @IBOutlet weak var linkViewContainer: UIView!
+    let coordinateSpan = MKCoordinateSpan()
+    let regionRadius: CLLocationDistance = 1000
+    
+    var isSubmittingURL = false
     var locationString: String? = nil
     var mediaURL: String? = nil
 
@@ -41,19 +48,23 @@ class PostLocationViewController: UIViewController {
     
     @IBAction func didTapCancelButtonTouchUpInside(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: {
-            
+            /* ToDo refresh view */
         })
     }
-
-    @IBAction func didTapSubmitLinkUpInside(sender: AnyObject) {
-        
-    }
+    
+    
     @IBAction func userDidTapSubmitLocationUpInside(sender: AnyObject) {
-        if ((sender.titleLabel!!.text?.containsString("Location")) != nil) {
+        if isSubmittingURL == false {
+            
+            isSubmittingURL = true
+            
+            
             
             if let location = locationTextField.text {
 
                 locationString = location
+                verifyLocation(locationString!)
+                
             } else {
                 
                 /* alert user of bad string */
@@ -62,7 +73,7 @@ class PostLocationViewController: UIViewController {
             
         } else {
             
-            if let mediaURL = locationTextField.text {
+            if let mediaURL = linkTextField.text {
             
             let parameters = ParseClient.sharedInstance().makeDictionaryForPostLocation(mediaURL, mapString: locationString!)
                 
@@ -70,10 +81,17 @@ class PostLocationViewController: UIViewController {
                     
                     if let error = error {
                         
-                        /* todo alert user  */
+                        let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: nil)
+                        let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: {Void in
+                            self.didTapRefreshTouchUpInside(self)
+                        })
+                        
+                        self.alertUserWithWithActions("Something went wrong", message: "An error occured while submitting your location, please retry or go back to the Map.", actions: [retryAction, dismissAction])
+                        
                     } else {
                         
-                        self.refreshDataFromParse()
+                        /* refresh and present mapViewController */
+                        self.didTapRefreshTouchUpInside(self)
                         
                     }
                     
@@ -88,32 +106,67 @@ class PostLocationViewController: UIViewController {
         }
     }
     
-    func verifyLocation(location: String) -> Bool {
+    
+    func verifyLocation(location: String) {
         let geocoder = CLGeocoder()
         
+        MBProgressHUD.showHUDAddedTo(view, animated: true)
+        
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), {
+
+            geocoder.geocodeAddressString(location, completionHandler: { placemarks, error in
+                
+                if let placemark = placemarks![0] as? CLPlacemark {
+                    
+                    self.configureDisplay(false)
+                    
+                    UdaciousClient.sharedInstance().latitude = CLLocationDegrees(placemark.location!.coordinate.latitude)
+                    UdaciousClient.sharedInstance().longitude = CLLocationDegrees(placemark.location!.coordinate.longitude)
+                    
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = CLLocationCoordinate2D(latitude: placemark.location!.coordinate.latitude, longitude: placemark.location!.coordinate.longitude)
+                    
+                    
+                   let coordinateRegion = MKCoordinateRegionMakeWithDistance(placemark.location!.coordinate, self.regionRadius * 2.0, self.regionRadius * 2.0)
+                    
+                    self.mapView.setRegion(coordinateRegion, animated: true)
+                    
+                    self.mapView.addAnnotation(annotation)
+                    
+                } else {
+                    
+                    let tryAgain = UIAlertAction(title: "Try again", style: .Default, handler: nil)
+                    
+                    self.alertUserWithWithActions("Could not verify location", message: "Sorry, but we could not verify your location. Please try again", actions: [tryAgain])
+                    
+                }
+                
+            })
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
+        
+        })
+        })
         
     }
     
     /* configure display for reset */
     func configureDisplay(reset: Bool) {
         
-        submitLocationButton.hidden = !reset
-        locationTextField.hidden = !reset
-        linkTextField.hidden = reset
-        submitLinkButton.hidden = reset
         
-        if reset {
-            
-            headerLabel.text = "Where are you studying today?"
-            helpLabel.text = "Enter your location above and press submit to find on the map."
-            
-            
-        } else {
-            
-            headerLabel.text = "What are you studying?"
-            helpLabel.text = "Enter a link to what you're studying above and press submit."
-
-        }
+        mapView.hidden = reset
+        linkTextField.hidden = reset
+        linkTextField.hidden = reset
+        
+        locationTextField.hidden = !reset
+        headerLabel.hidden = !reset
+        helpLabel.hidden = !reset
+        linkViewContainer.hidden = !reset
+        
+        
     }
     
 }
