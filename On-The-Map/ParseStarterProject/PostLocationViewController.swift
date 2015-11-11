@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import MapKit
 
 class PostLocationViewController: UIViewController {
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var locationTextField: JiroTextField!
     @IBOutlet weak var helpLabel: UILabel!
-    @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var submitLocationButton: UIButton!
+    
+    @IBOutlet weak var linkTextField: JiroTextField!
+    @IBOutlet weak var submitLinkButton: UIButton!
     
     var locationString: String? = nil
     var mediaURL: String? = nil
@@ -41,7 +45,10 @@ class PostLocationViewController: UIViewController {
         })
     }
 
-    @IBAction func userDidTapSubmitUpInside(sender: AnyObject) {
+    @IBAction func didTapSubmitLinkUpInside(sender: AnyObject) {
+        
+    }
+    @IBAction func userDidTapSubmitLocationUpInside(sender: AnyObject) {
         if ((sender.titleLabel!!.text?.containsString("Location")) != nil) {
             
             if let location = locationTextField.text {
@@ -81,24 +88,31 @@ class PostLocationViewController: UIViewController {
         }
     }
     
+    func verifyLocation(location: String) -> Bool {
+        let geocoder = CLGeocoder()
+        
+        
+    }
+    
     /* configure display for reset */
     func configureDisplay(reset: Bool) {
+        
+        submitLocationButton.hidden = !reset
+        locationTextField.hidden = !reset
+        linkTextField.hidden = reset
+        submitLinkButton.hidden = reset
+        
         if reset {
             
             headerLabel.text = "Where are you studying today?"
             helpLabel.text = "Enter your location above and press submit to find on the map."
-            submitButton.titleLabel?.text = "Submit Location"
-            locationTextField.placeholder = "Enter your location"
-            locationTextField.text = nil
+            
             
         } else {
             
             headerLabel.text = "What are you studying?"
             helpLabel.text = "Enter a link to what you're studying above and press submit."
-            submitButton.titleLabel?.text = "Submit Link"
-            locationTextField.placeholder = "Enter a link here"
-            locationTextField.text = nil
-            
+
         }
     }
     

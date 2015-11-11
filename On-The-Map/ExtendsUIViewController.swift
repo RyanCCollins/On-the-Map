@@ -12,17 +12,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 
 extension UIViewController {
-    
-    func loginCompletedSuccessfully() {
-        /* Code for parse here */
-    }
-    
-    func refreshDataFromParse(){
-       
-        
-    }
-    
-    
+
     
     func reloadData() {
         /* reload Parse data */

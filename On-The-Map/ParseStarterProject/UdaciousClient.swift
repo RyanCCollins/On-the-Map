@@ -110,28 +110,40 @@ class UdaciousClient: NSObject {
             
             /* GUARD: Did we get a successful response code of 2XX? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
+                
                 var statusError = "taskForPOSTMethod request returned an invalid response!"
+                
                 if let response = response as? NSHTTPURLResponse {
+                    
                     statusError += " Status code: \(response.statusCode)!"
+                
                 } else if let response = response {
+                    
                     statusError += " Response: \(response)!"
+                
                 }
-                print(urlString)
                 
                 completionHandler(result: nil, error: UdaciousClient.errorFromString(statusError))
                 return
             }
-            print("made it")
+
 
             let usableData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+            
             if let parsedData = (try? NSJSONSerialization.JSONObjectWithData(usableData, options: .AllowFragments)) {
+                
             completionHandler(result: parsedData, error: nil)
+                
             } else {
+                
                 print("Failed to parse data to JSON in taskForPostMethod")
+                
                 completionHandler(result: nil, error: UdaciousClient.errorFromString("Failed to parse data to JSON in taskForPostMethod"))
             }
         }
+        
         task.resume()
+        
         return task
     }
     
@@ -221,7 +233,9 @@ class UdaciousClient: NSObject {
         
         var parsedResult: AnyObject!
         do {
+            
             parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+            
         } catch {
             let userInfo = [NSLocalizedDescriptionKey : "Failed to parse data as JSON: '\(data)'"]
             completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 0, userInfo: userInfo))

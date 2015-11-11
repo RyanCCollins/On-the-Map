@@ -16,6 +16,7 @@
             <string>Prime-Regular</string>
             <string>Prime-Regular</string>
             <string>Prime-Regular</string>
+            <string>Prime-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -363,8 +364,8 @@
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iuD-fm-Agz">
                                 <rect key="frame" x="0.0" y="202" width="600" height="195"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter location" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="fQZ-bf-Yba" customClass="JiroTextField" customModule="On_The_Map" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="11" width="584" height="172"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter your location" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="fQZ-bf-Yba" customClass="JiroTextField" customModule="On_The_Map" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="8" width="584" height="179"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="35"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -373,7 +374,21 @@
                                                 <color key="value" red="0.85043728351593018" green="0.21816034615039825" blue="0.15920260548591614" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                                <color key="value" red="0.19376453757286072" green="0.50850099325180054" blue="0.85232251882553101" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.68888300657272339" green="0.71366006135940552" blue="0.73448425531387329" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter a link to what you're studying" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="pxk-1G-ele" customClass="JiroTextField" customModule="On_The_Map" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="8" width="584" height="179"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="35"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.85043728350000003" green="0.21816034619999999" blue="0.15920260550000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                <color key="value" red="0.68888300660000001" green="0.71366006140000005" blue="0.73448425530000006" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
@@ -382,21 +397,24 @@
                                 <color key="backgroundColor" red="0.15410047769546509" green="0.41306763887405396" blue="0.69063264131546021" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="fQZ-bf-Yba" secondAttribute="trailing" constant="8" id="8x0-CX-7On"/>
+                                    <constraint firstItem="pxk-1G-ele" firstAttribute="centerX" secondItem="iuD-fm-Agz" secondAttribute="centerX" id="JfE-Rv-G48"/>
                                     <constraint firstItem="fQZ-bf-Yba" firstAttribute="centerX" secondItem="iuD-fm-Agz" secondAttribute="centerX" id="Oml-Eq-vuN"/>
                                     <constraint firstItem="fQZ-bf-Yba" firstAttribute="leading" secondItem="iuD-fm-Agz" secondAttribute="leading" constant="8" id="daw-Iw-RK3"/>
+                                    <constraint firstItem="pxk-1G-ele" firstAttribute="leading" secondItem="iuD-fm-Agz" secondAttribute="leading" constant="8" id="oOh-C6-cDA"/>
+                                    <constraint firstAttribute="trailing" secondItem="pxk-1G-ele" secondAttribute="trailing" constant="8" id="wre-vO-nsD"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9X6-L0-rRU">
                                 <rect key="frame" x="69" y="28" width="462" height="172"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Where are you studying today?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4f-qN-U8D">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Where are you studying today?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4f-qN-U8D">
                                         <rect key="frame" x="8" y="8" width="446" height="156"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="156" id="LD7-tu-V6p"/>
                                             <constraint firstAttribute="height" constant="134" id="kE1-QT-POI"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="44"/>
+                                        <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="41"/>
                                         <color key="textColor" red="0.15410047769546509" green="0.41306763887405396" blue="0.69063264131546021" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -420,19 +438,32 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1B-Rx-DC9">
-                                <rect key="frame" x="126" y="529" width="349" height="51"/>
+                                <rect key="frame" x="149" y="529" width="309" height="51"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                 <size key="titleShadowOffset" width="2" height="1"/>
                                 <state key="normal" title="Submit Location"/>
+                                <connections>
+                                    <action selector="userDidTapSubmitLocationUpInside:" destination="44F-AA-Y0U" eventType="touchUpInside" id="Esl-70-yyO"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Enter your location above and press submit to find on the map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2HU-En-Fmf">
                                 <rect key="frame" x="20" y="405" width="560" height="45"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="11"/>
+                                <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="13"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9pv-UF-YvJ">
+                                <rect key="frame" x="149" y="470" width="309" height="51"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <size key="titleShadowOffset" width="2" height="1"/>
+                                <state key="normal" title="Submit Link"/>
+                                <connections>
+                                    <action selector="didTapSubmitLinkUpInside:" destination="44F-AA-Y0U" eventType="touchUpInside" id="KHa-TP-bCR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.68888300657272339" green="0.71366006135940552" blue="0.73448425531387329" alpha="1" colorSpace="calibratedRGB"/>
@@ -445,9 +476,12 @@
                             <constraint firstItem="iuD-fm-Agz" firstAttribute="centerY" secondItem="vEr-6L-QfU" secondAttribute="centerY" id="CHQ-3r-7M6"/>
                             <constraint firstItem="9X6-L0-rRU" firstAttribute="leading" secondItem="vEr-6L-QfU" secondAttribute="leadingMargin" constant="49" id="DJr-f3-aOF"/>
                             <constraint firstItem="iuD-fm-Agz" firstAttribute="width" secondItem="vEr-6L-QfU" secondAttribute="width" id="JNN-cE-F3z"/>
+                            <constraint firstItem="9pv-UF-YvJ" firstAttribute="width" secondItem="C1B-Rx-DC9" secondAttribute="width" id="PLc-sE-vh5"/>
                             <constraint firstAttribute="leadingMargin" secondItem="2HU-En-Fmf" secondAttribute="leading" id="Pma-Mp-4Oe"/>
+                            <constraint firstItem="9pv-UF-YvJ" firstAttribute="centerX" secondItem="vEr-6L-QfU" secondAttribute="centerX" id="XpP-sh-Qhe"/>
                             <constraint firstItem="iuD-fm-Agz" firstAttribute="top" secondItem="9X6-L0-rRU" secondAttribute="bottom" constant="12" id="bLa-fJ-R9c"/>
                             <constraint firstItem="9X6-L0-rRU" firstAttribute="centerX" secondItem="vEr-6L-QfU" secondAttribute="centerX" id="cVb-z1-JLq"/>
+                            <constraint firstItem="RKC-yZ-HOO" firstAttribute="top" secondItem="9pv-UF-YvJ" secondAttribute="bottom" constant="20" id="g9d-rU-j4p"/>
                             <constraint firstItem="2HU-En-Fmf" firstAttribute="top" secondItem="iuD-fm-Agz" secondAttribute="bottom" constant="8" id="gUy-Gr-5dv"/>
                             <constraint firstItem="C1B-Rx-DC9" firstAttribute="centerX" secondItem="vEr-6L-QfU" secondAttribute="centerX" id="iqr-Cx-Iww"/>
                             <constraint firstItem="9X6-L0-rRU" firstAttribute="top" secondItem="1nv-sM-hhI" secondAttribute="bottom" constant="8" id="lJv-Su-IQu"/>
@@ -462,8 +496,10 @@
                     <connections>
                         <outlet property="headerLabel" destination="e4f-qN-U8D" id="GCk-g6-62y"/>
                         <outlet property="helpLabel" destination="2HU-En-Fmf" id="eRe-ZY-wEO"/>
+                        <outlet property="linkTextField" destination="pxk-1G-ele" id="1hX-1K-igd"/>
                         <outlet property="locationTextField" destination="fQZ-bf-Yba" id="zst-Zp-hAI"/>
-                        <outlet property="submitButton" destination="C1B-Rx-DC9" id="pg4-ru-yQy"/>
+                        <outlet property="submitLinkButton" destination="9pv-UF-YvJ" id="i1g-rf-Gc0"/>
+                        <outlet property="submitLocationButton" destination="C1B-Rx-DC9" id="QFt-IS-fTC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o0m-n6-c9m" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var colorScheme: NSArray!
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+    
 
     //--------------------------------------
     // MARK: - UIApplicationDelegate
