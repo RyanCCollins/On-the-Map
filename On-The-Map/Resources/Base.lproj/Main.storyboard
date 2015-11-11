@@ -7,11 +7,10 @@
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="BIG JOHN.otf">
-            <string>BigJohn</string>
-            <string>BigJohn</string>
-        </mutableArray>
         <mutableArray key="Prime Regular.otf">
+            <string>Prime-Regular</string>
+            <string>Prime-Regular</string>
+            <string>Prime-Regular</string>
             <string>Prime-Regular</string>
             <string>Prime-Regular</string>
             <string>Prime-Regular</string>
@@ -44,7 +43,7 @@
                                         <fragment content="Don't have an account? Signup.">
                                             <attributes>
                                                 <color key="NSColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
-                                                <font key="NSFont" size="15" name="HelveticaNeue"/>
+                                                <font key="NSFont" size="15" name="Prime-Regular"/>
                                             </attributes>
                                         </fragment>
                                     </attributedString>
@@ -60,7 +59,7 @@
                                     <constraint firstAttribute="height" constant="21" id="RcW-Td-3ry"/>
                                     <constraint firstAttribute="height" constant="50" id="lAT-NM-dSq"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="16"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -182,8 +181,8 @@
                                     <constraint firstAttribute="width" constant="250" id="BIe-gw-2W1"/>
                                     <constraint firstAttribute="height" constant="50" id="fdG-DC-nyD"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="BigJohn" family="Big John" pointSize="32"/>
-                                <size key="titleShadowOffset" width="3" height="3"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                <size key="titleShadowOffset" width="2.2250738585072014e-308" height="2.2250738585072014e-308"/>
                                 <state key="normal" title="Login">
                                     <color key="titleColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" red="0.18198148906230927" green="0.69426733255386353" blue="0.53024792671203613" alpha="1" colorSpace="calibratedRGB"/>
@@ -224,12 +223,13 @@
                     </view>
                     <connections>
                         <outlet property="debugLabel" destination="yZ3-hk-guV" id="631-s2-KaX"/>
-                        <outlet property="didTapSignupButtonTouchUpInside" destination="Nhj-sJ-kBt" id="zld-ey-OgB"/>
                         <outlet property="faceBookLoginView" destination="zV8-TC-5Oa" id="pOZ-G3-CQ9"/>
                         <outlet property="indicatorLabel" destination="Jn4-z5-NPI" id="IFB-75-qbd"/>
+                        <outlet property="loginButton" destination="i3F-Rz-XKj" id="8Hr-gn-5MG"/>
+                        <outlet property="onePasswordContainer" destination="FKO-nQ-bfK" id="7YX-3Q-2Je"/>
                         <outlet property="onepasswordButton" destination="YIF-5a-Y5Q" id="0BI-TY-1fs"/>
                         <outlet property="passwordTextField" destination="Bqm-75-0Gx" id="y4a-jT-yIL"/>
-                        <outlet property="signUpButton" destination="Nhj-sJ-kBt" id="y1D-ad-FJa"/>
+                        <outlet property="signUpButton" destination="Nhj-sJ-kBt" id="i59-sm-tr3"/>
                         <outlet property="usernameTextField" destination="uld-8z-8od" id="86a-qt-2g2"/>
                     </connections>
                 </viewController>
@@ -360,54 +360,52 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iuD-fm-Agz">
-                                <rect key="frame" x="0.0" y="156" width="600" height="288"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iuD-fm-Agz">
+                                <rect key="frame" x="0.0" y="174" width="600" height="253"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fQZ-bf-Yba" customClass="AkiraTextField" customModule="On_The_Map" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="58" width="584" height="172"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fQZ-bf-Yba" customClass="JiroTextField" customModule="On_The_Map" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="40" width="584" height="172"/>
                                         <animations/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="35"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.51784205439999997" green="0.58159953360000005" blue="0.58617168659999996" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                <color key="value" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </textField>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" red="0.15410047769546509" green="0.41306763887405396" blue="0.69063264131546021" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="fQZ-bf-Yba" secondAttribute="trailing" constant="8" id="8x0-CX-7On"/>
+                                    <constraint firstItem="fQZ-bf-Yba" firstAttribute="centerX" secondItem="iuD-fm-Agz" secondAttribute="centerX" id="Oml-Eq-vuN"/>
+                                    <constraint firstItem="fQZ-bf-Yba" firstAttribute="leading" secondItem="iuD-fm-Agz" secondAttribute="leading" constant="8" id="daw-Iw-RK3"/>
+                                </constraints>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9X6-L0-rRU">
-                                <rect key="frame" x="139" y="28" width="322" height="116"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9X6-L0-rRU">
+                                <rect key="frame" x="69" y="28" width="462" height="138"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4f-qN-U8D">
-                                        <rect key="frame" x="8" y="8" width="306" height="100"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Where are you studying today?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4f-qN-U8D">
+                                        <rect key="frame" x="8" y="8" width="446" height="122"/>
                                         <animations/>
-                                        <attributedString key="attributedText">
-                                            <fragment content="Where are you ">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.15410047769546509" green="0.41306763887405396" blue="0.69063264131546021" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <font key="NSFont" size="44" name="Modeka"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                            <fragment content="studying">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.15410047769546509" green="0.41306763887405396" blue="0.69063264131546021" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <font key="NSFont" size="44" name="Modeka"/>
-                                                    <font key="NSOriginalFont" size="38" name="HelveticaNeue-Bold"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                            <fragment content=" today?">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.15410047769546509" green="0.41306763887405396" blue="0.69063264131546021" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <font key="NSFont" size="44" name="Modeka"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
+                                        <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="44"/>
+                                        <color key="textColor" red="0.15410047769546509" green="0.41306763887405396" blue="0.69063264131546021" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="e4f-qN-U8D" firstAttribute="top" secondItem="9X6-L0-rRU" secondAttribute="top" constant="8" id="08o-Bw-nCp"/>
+                                    <constraint firstAttribute="trailing" secondItem="e4f-qN-U8D" secondAttribute="trailing" constant="8" id="EOY-EW-KGP"/>
+                                    <constraint firstItem="e4f-qN-U8D" firstAttribute="centerX" secondItem="9X6-L0-rRU" secondAttribute="centerX" id="OTE-Ge-aF2"/>
+                                    <constraint firstAttribute="bottom" secondItem="e4f-qN-U8D" secondAttribute="bottom" constant="8" id="bAR-ZJ-5rn"/>
+                                    <constraint firstItem="e4f-qN-U8D" firstAttribute="leading" secondItem="9X6-L0-rRU" secondAttribute="leading" constant="8" id="vFY-nF-oC7"/>
+                                </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNz-FR-ZGb">
                                 <rect key="frame" x="532" y="20" width="48" height="30"/>
@@ -417,26 +415,30 @@
                                     <action selector="didTapCancelButtonTouchUpInside:" destination="44F-AA-Y0U" eventType="touchUpInside" id="XcW-kt-FxA"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Enter your location above and press submit to find on the map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2HU-En-Fmf">
-                                <rect key="frame" x="20" y="452" width="560" height="45"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1B-Rx-DC9">
+                                <rect key="frame" x="126" y="529" width="349" height="51"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <size key="titleShadowOffset" width="2" height="1"/>
+                                <state key="normal" title="Submit Location"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Enter your location above and press submit to find on the map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2HU-En-Fmf">
+                                <rect key="frame" x="20" y="435" width="560" height="45"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="11"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1B-Rx-DC9">
-                                <rect key="frame" x="126" y="529" width="349" height="51"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" name="BigJohn" family="Big John" pointSize="29"/>
-                                <size key="titleShadowOffset" width="2" height="1"/>
-                                <state key="normal" title="Submit Location"/>
-                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.8912609816" green="0.35455638169999998" blue="0.39968371390000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="9X6-L0-rRU" secondAttribute="trailing" constant="49" id="2yo-PI-BOQ"/>
                             <constraint firstItem="RKC-yZ-HOO" firstAttribute="top" secondItem="C1B-Rx-DC9" secondAttribute="bottom" constant="20" id="45X-CB-Ym4"/>
+                            <constraint firstItem="MNz-FR-ZGb" firstAttribute="leading" secondItem="9X6-L0-rRU" secondAttribute="trailing" constant="1" id="4yy-7T-j8p"/>
+                            <constraint firstItem="MNz-FR-ZGb" firstAttribute="leading" secondItem="9X6-L0-rRU" secondAttribute="trailing" constant="1" id="6bG-5g-UZQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2HU-En-Fmf" secondAttribute="trailing" id="7Fp-Ui-uzE"/>
+                            <constraint firstItem="9X6-L0-rRU" firstAttribute="leading" secondItem="vEr-6L-QfU" secondAttribute="leadingMargin" constant="49" id="DJr-f3-aOF"/>
                             <constraint firstItem="iuD-fm-Agz" firstAttribute="width" secondItem="vEr-6L-QfU" secondAttribute="width" id="JNN-cE-F3z"/>
                             <constraint firstAttribute="leadingMargin" secondItem="2HU-En-Fmf" secondAttribute="leading" id="Pma-Mp-4Oe"/>
                             <constraint firstItem="iuD-fm-Agz" firstAttribute="top" secondItem="9X6-L0-rRU" secondAttribute="bottom" constant="12" id="bLa-fJ-R9c"/>
@@ -445,10 +447,12 @@
                             <constraint firstItem="2HU-En-Fmf" firstAttribute="top" secondItem="iuD-fm-Agz" secondAttribute="bottom" constant="8" id="gUy-Gr-5dv"/>
                             <constraint firstItem="C1B-Rx-DC9" firstAttribute="centerX" secondItem="vEr-6L-QfU" secondAttribute="centerX" id="iqr-Cx-Iww"/>
                             <constraint firstItem="9X6-L0-rRU" firstAttribute="top" secondItem="1nv-sM-hhI" secondAttribute="bottom" constant="8" id="lJv-Su-IQu"/>
+                            <constraint firstItem="MNz-FR-ZGb" firstAttribute="leading" secondItem="9X6-L0-rRU" secondAttribute="trailing" constant="1" id="n4h-pn-BnR"/>
                             <constraint firstItem="MNz-FR-ZGb" firstAttribute="top" secondItem="1nv-sM-hhI" secondAttribute="bottom" id="pX8-wf-Jp1"/>
                             <constraint firstItem="iuD-fm-Agz" firstAttribute="centerX" secondItem="vEr-6L-QfU" secondAttribute="centerX" id="qEN-uh-GkS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="MNz-FR-ZGb" secondAttribute="trailing" id="uX6-JS-fLU"/>
                             <constraint firstItem="2HU-En-Fmf" firstAttribute="centerX" secondItem="iuD-fm-Agz" secondAttribute="centerX" id="x5o-YW-bEh"/>
+                            <constraint firstItem="MNz-FR-ZGb" firstAttribute="leading" secondItem="e4f-qN-U8D" secondAttribute="trailing" constant="9" id="zg2-iQ-yYe"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -459,7 +463,7 @@
         <!--On The Map-->
         <scene sceneID="nhQ-zV-NaA">
             <objects>
-                <tableViewController storyboardIdentifier="ListTableViewController" title="On The Map" id="np9-Px-QYp" customClass="ListTableTableViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ListTableViewController" title="On The Map" id="np9-Px-QYp" customClass="ListTableViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="94" sectionHeaderHeight="28" sectionFooterHeight="28" id="pkd-V2-Q5b">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -552,6 +556,10 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="LTb-QW-yTT">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cQa-qi-9Fm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

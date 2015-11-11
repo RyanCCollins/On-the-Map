@@ -17,14 +17,16 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
 
+    @IBOutlet weak var loginButton: UIButton!
 
+    @IBOutlet weak var onePasswordContainer: UIView!
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var debugLabel: UILabel!
     @IBOutlet weak var faceBookLoginView: UIView!
     @IBOutlet weak var onepasswordButton: UIButton!
     @IBOutlet weak var oneTimePasswordTextField: UITextField!
     @IBOutlet weak var indicatorLabel: UIActivityIndicatorView!
-    
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +38,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         /* Hide 1Password Button if not installed */
 //        self.onepasswordButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
         faceBookLoginView.addSubview(faceBookLoginButton)
-//        faceBookLoginButton.center = faceBookLoginView.center
+        faceBookLoginButton.center = faceBookLoginView.center
 //        faceBookLoginButton.frame = faceBookLoginView.frame
         print(faceBookLoginButton.center)
         print(faceBookLoginView.center)
@@ -45,7 +47,26 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         /* Configure log in buttons */
         indicatorLabel.alpha = 0.0
         self.setStatusBarStyle(UIStatusBarStyleContrast)
+        
+        setUpColorScheme()
+        
+        
     }
+    
+    func setUpColorScheme(){
+        /* Set colors of buttons */
+        let colorScheme = appDelegate.colorScheme
+        loginButton.backgroundColor = colorScheme[1] as? UIColor
+        signUpButton.backgroundColor = UIColor.clearColor()
+        usernameTextField.backgroundColor = colorScheme[2] as? UIColor
+        passwordTextField.backgroundColor = colorScheme[2] as? UIColor
+        print(colorScheme[1])
+        print(colorScheme[2])
+        onePasswordContainer.backgroundColor = colorScheme[1] as? UIColor
+    }
+    
+    
+    
     override func viewWillAppear(animated: Bool) {
         
         subscribeToKeyboardNotification()
@@ -79,9 +100,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             }
         }
     }
-    
-    @IBOutlet weak var didTapSignupButtonTouchUpInside: UIButton!
-    
     
     /* Verify that a proper username and password has been provided */
     func verifyUserCredentials(username: String?, password: String?) -> Bool {

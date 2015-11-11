@@ -23,6 +23,7 @@ import ChameleonFramework
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var colorScheme: NSArray!
 
     //--------------------------------------
     // MARK: - UIApplicationDelegate
@@ -34,11 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let color = UIColor.flatSkyBlueColorDark()
 //        let secondary = UIColor.flatWatermelonColor()
-        var colorArray = NSArray(ofColorsWithColorScheme: ColorScheme.Analogous, usingColor: color, withFlatScheme: true)
+        colorScheme = NSArray(ofColorsWithColorScheme: ColorScheme.Analogous, usingColor: color, withFlatScheme: true)
         //let color = colorArray[0]
-        let secondary = colorArray[1] as! UIColor
-        let third = colorArray[2] as! UIColor
-        //Chameleon.setGlobalThemeUsingPrimaryColor(color, withContentStyle: UIContentStyle.Contrast)
+        let secondary = colorScheme[1] as! UIColor
         Chameleon.setGlobalThemeUsingPrimaryColor(color, withSecondaryColor: secondary, andContentStyle: .Contrast)
         
         // Enable storing and querying data from Local Datastore.

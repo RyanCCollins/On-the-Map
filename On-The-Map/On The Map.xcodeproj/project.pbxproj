@@ -32,7 +32,7 @@
 		1F787CFE1BEF969900BC80F6 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CFB1BEF969900BC80F6 /* Roboto-Thin.ttf */; };
 		1F787D011BEFAEE000BC80F6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D001BEFAEE000BC80F6 /* LoginViewController.swift */; };
 		1F787D031BEFAF1000BC80F6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D021BEFAF1000BC80F6 /* MapViewController.swift */; };
-		1F787D051BEFAF4C00BC80F6 /* ListTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D041BEFAF4C00BC80F6 /* ListTableTableViewController.swift */; };
+		1F787D051BEFAF4C00BC80F6 /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D041BEFAF4C00BC80F6 /* ListTableViewController.swift */; };
 		1F787D071BEFB02900BC80F6 /* UdaciousClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D061BEFB02900BC80F6 /* UdaciousClient.swift */; };
 		1F787D091BEFB03600BC80F6 /* UdaciousConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D081BEFB03600BC80F6 /* UdaciousConstants.swift */; };
 		1F787D0B1BEFB04200BC80F6 /* UdaciousConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D0A1BEFB04200BC80F6 /* UdaciousConvenience.swift */; };
@@ -88,7 +88,7 @@
 		1F787CFB1BEF969900BC80F6 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		1F787D001BEFAEE000BC80F6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1F787D021BEFAF1000BC80F6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		1F787D041BEFAF4C00BC80F6 /* ListTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableTableViewController.swift; sourceTree = "<group>"; };
+		1F787D041BEFAF4C00BC80F6 /* ListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewController.swift; sourceTree = "<group>"; };
 		1F787D061BEFB02900BC80F6 /* UdaciousClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdaciousClient.swift; sourceTree = "<group>"; };
 		1F787D081BEFB03600BC80F6 /* UdaciousConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdaciousConstants.swift; sourceTree = "<group>"; };
 		1F787D0A1BEFB04200BC80F6 /* UdaciousConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdaciousConvenience.swift; sourceTree = "<group>"; };
@@ -219,7 +219,7 @@
 				1F787D1C1BF054F700BC80F6 /* ExtendsUIViewController.swift */,
 				1F787D021BEFAF1000BC80F6 /* MapViewController.swift */,
 				1F24A7151BF271D700BC2796 /* PostLocationViewController.swift */,
-				1F787D041BEFAF4C00BC80F6 /* ListTableTableViewController.swift */,
+				1F787D041BEFAF4C00BC80F6 /* ListTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -504,7 +504,7 @@
 				1F24A7261BF2AEFE00BC2796 /* LocationTableViewCell.swift in Sources */,
 				1F787D031BEFAF1000BC80F6 /* MapViewController.swift in Sources */,
 				1F24A7051BF2593B00BC2796 /* YokoTextField.swift in Sources */,
-				1F787D051BEFAF4C00BC80F6 /* ListTableTableViewController.swift in Sources */,
+				1F787D051BEFAF4C00BC80F6 /* ListTableViewController.swift in Sources */,
 				1F24A7041BF2593B00BC2796 /* TextFieldsEffects.swift in Sources */,
 				1F787D241BF0564300BC80F6 /* ParseConstants.swift in Sources */,
 			);

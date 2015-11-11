@@ -1,5 +1,5 @@
 //
-//  ListTableTableViewController.swift
+//  ListTableViewController.swift
 //  On-The-Map
 //
 //  Created by Ryan Collins on 11/8/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 import Parse
-class ListTableTableViewController: UITableViewController {
+class ListTableViewController: UITableViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let session = NSURLSession.sharedSession()
@@ -16,7 +16,9 @@ class ListTableTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.refreshControl?.addTarget(self, addTarget: "refreshViewForDataUpdate", forControlEvents: .ValueChanged)
+        
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -74,19 +76,14 @@ class ListTableTableViewController: UITableViewController {
         
     }
     
-    /* refresh the view for data update/retrieval - call asynchronouslt*/
+    /* refresh the view for data update/retrieval - call asynchronously*/
     func refreshViewForDataUpdate() {
         
-        dispatch_async(dispatch_get_main_queue(), {
-//            self.activityIndicator.startAnimating()
-//            self.activityIndicator.alpha = 1.0
-        })
         
         loadWithParseData({ success, error in
             if success {
                 dispatch_async(dispatch_get_main_queue(), {
-//                    self.activityIndicator.stopAnimating()
-//                    self.activityIndicator.alpha = 1.0
+                    self.refreshControl?.stopAnimating()
                 })
                 
             } else {
@@ -96,6 +93,7 @@ class ListTableTableViewController: UITableViewController {
                 })
                 let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: { Void in
                     self.refreshDataFromParse()
+                    self.refreshControl?.stopAnimating()
                 })
                 
                 dispatch_async(dispatch_get_main_queue(), {
