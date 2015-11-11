@@ -43,7 +43,7 @@ extension ParseClient {
             } else {
                 
                 /* If we receive a response with an object ID, then we return it */
-                if let objectId = result[JSONResponseKeys.ObjectID] as? String {
+                if let _ = result[JSONResponseKeys.ObjectID] as? String {
                     
                     completionHandler(success: true, error: nil)
                     
@@ -56,5 +56,19 @@ extension ParseClient {
             }
             
         }
+    }
+    
+    /* Helper function, creates JSON Body for POSTing to Parse */
+    func makeDictionaryForPostLocation(mediaURL: String, mapString: String) -> [String : AnyObject]{
+        let dictionary: [String : AnyObject] = [
+            ParseClient.JSONResponseKeys.UniqueKey : UdaciousClient.sharedInstance().IDKey!,
+            ParseClient.JSONResponseKeys.FirstName : UdaciousClient.sharedInstance().firstName!,
+            ParseClient.JSONResponseKeys.LastName : UdaciousClient.sharedInstance().lastName!,
+            ParseClient.JSONResponseKeys.Latitude : UdaciousClient.sharedInstance().latitude!,
+            ParseClient.JSONResponseKeys.Longitude : UdaciousClient.sharedInstance().longitude!,
+            ParseClient.JSONResponseKeys.GEODescriptor : mapString,
+            ParseClient.JSONResponseKeys.MediaURL : mediaURL
+        ]
+        return dictionary
     }
 }

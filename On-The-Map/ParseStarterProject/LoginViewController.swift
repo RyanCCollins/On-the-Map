@@ -60,9 +60,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         signUpButton.backgroundColor = UIColor.clearColor()
         usernameTextField.backgroundColor = colorScheme[2] as? UIColor
         passwordTextField.backgroundColor = colorScheme[2] as? UIColor
-        print(colorScheme[1])
-        print(colorScheme[2])
-        onePasswordContainer.backgroundColor = colorScheme[1] as? UIColor
+        onepasswordButton.backgroundColor = UIColor.clearColor()
     }
     
     

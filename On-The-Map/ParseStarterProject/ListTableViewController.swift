@@ -17,7 +17,7 @@ class ListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.refreshControl?.addTarget(self, addTarget: "refreshViewForDataUpdate", forControlEvents: .ValueChanged)
+        self.refreshControl?.addTarget(self, action: "refreshViewForDataUpdate", forControlEvents: .ValueChanged)
         
     }
 
@@ -83,7 +83,7 @@ class ListTableViewController: UITableViewController {
         loadWithParseData({ success, error in
             if success {
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.refreshControl?.stopAnimating()
+                    self.refreshControl?.endRefreshing()
                 })
                 
             } else {
@@ -93,7 +93,7 @@ class ListTableViewController: UITableViewController {
                 })
                 let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: { Void in
                     self.refreshDataFromParse()
-                    self.refreshControl?.stopAnimating()
+                    self.refreshControl?.endRefreshing()
                 })
                 
                 dispatch_async(dispatch_get_main_queue(), {

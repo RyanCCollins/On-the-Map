@@ -361,19 +361,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iuD-fm-Agz">
-                                <rect key="frame" x="0.0" y="174" width="600" height="253"/>
+                                <rect key="frame" x="0.0" y="202" width="600" height="195"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fQZ-bf-Yba" customClass="JiroTextField" customModule="On_The_Map" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="40" width="584" height="172"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter location" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="fQZ-bf-Yba" customClass="JiroTextField" customModule="On_The_Map" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="11" width="584" height="172"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="35"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="0.51784205439999997" green="0.58159953360000005" blue="0.58617168659999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.85043728351593018" green="0.21816034615039825" blue="0.15920260548591614" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                                <color key="value" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.19376453757286072" green="0.50850099325180054" blue="0.85232251882553101" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
@@ -387,11 +387,15 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9X6-L0-rRU">
-                                <rect key="frame" x="69" y="28" width="462" height="138"/>
+                                <rect key="frame" x="69" y="28" width="462" height="172"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Where are you studying today?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4f-qN-U8D">
-                                        <rect key="frame" x="8" y="8" width="446" height="122"/>
+                                        <rect key="frame" x="8" y="8" width="446" height="156"/>
                                         <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="156" id="LD7-tu-V6p"/>
+                                            <constraint firstAttribute="height" constant="134" id="kE1-QT-POI"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="44"/>
                                         <color key="textColor" red="0.15410047769546509" green="0.41306763887405396" blue="0.69063264131546021" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -423,7 +427,7 @@
                                 <state key="normal" title="Submit Location"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Enter your location above and press submit to find on the map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2HU-En-Fmf">
-                                <rect key="frame" x="20" y="435" width="560" height="45"/>
+                                <rect key="frame" x="20" y="405" width="560" height="45"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="11"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -431,19 +435,19 @@
                             </label>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="0.8912609816" green="0.35455638169999998" blue="0.39968371390000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.68888300657272339" green="0.71366006135940552" blue="0.73448425531387329" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="9X6-L0-rRU" secondAttribute="trailing" constant="49" id="2yo-PI-BOQ"/>
                             <constraint firstItem="RKC-yZ-HOO" firstAttribute="top" secondItem="C1B-Rx-DC9" secondAttribute="bottom" constant="20" id="45X-CB-Ym4"/>
                             <constraint firstItem="MNz-FR-ZGb" firstAttribute="leading" secondItem="9X6-L0-rRU" secondAttribute="trailing" constant="1" id="4yy-7T-j8p"/>
                             <constraint firstItem="MNz-FR-ZGb" firstAttribute="leading" secondItem="9X6-L0-rRU" secondAttribute="trailing" constant="1" id="6bG-5g-UZQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2HU-En-Fmf" secondAttribute="trailing" id="7Fp-Ui-uzE"/>
+                            <constraint firstItem="iuD-fm-Agz" firstAttribute="centerY" secondItem="vEr-6L-QfU" secondAttribute="centerY" id="CHQ-3r-7M6"/>
                             <constraint firstItem="9X6-L0-rRU" firstAttribute="leading" secondItem="vEr-6L-QfU" secondAttribute="leadingMargin" constant="49" id="DJr-f3-aOF"/>
                             <constraint firstItem="iuD-fm-Agz" firstAttribute="width" secondItem="vEr-6L-QfU" secondAttribute="width" id="JNN-cE-F3z"/>
                             <constraint firstAttribute="leadingMargin" secondItem="2HU-En-Fmf" secondAttribute="leading" id="Pma-Mp-4Oe"/>
                             <constraint firstItem="iuD-fm-Agz" firstAttribute="top" secondItem="9X6-L0-rRU" secondAttribute="bottom" constant="12" id="bLa-fJ-R9c"/>
                             <constraint firstItem="9X6-L0-rRU" firstAttribute="centerX" secondItem="vEr-6L-QfU" secondAttribute="centerX" id="cVb-z1-JLq"/>
-                            <constraint firstItem="iuD-fm-Agz" firstAttribute="centerY" secondItem="vEr-6L-QfU" secondAttribute="centerY" id="dli-hE-4XY"/>
                             <constraint firstItem="2HU-En-Fmf" firstAttribute="top" secondItem="iuD-fm-Agz" secondAttribute="bottom" constant="8" id="gUy-Gr-5dv"/>
                             <constraint firstItem="C1B-Rx-DC9" firstAttribute="centerX" secondItem="vEr-6L-QfU" secondAttribute="centerX" id="iqr-Cx-Iww"/>
                             <constraint firstItem="9X6-L0-rRU" firstAttribute="top" secondItem="1nv-sM-hhI" secondAttribute="bottom" constant="8" id="lJv-Su-IQu"/>
@@ -455,6 +459,12 @@
                             <constraint firstItem="MNz-FR-ZGb" firstAttribute="leading" secondItem="e4f-qN-U8D" secondAttribute="trailing" constant="9" id="zg2-iQ-yYe"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="headerLabel" destination="e4f-qN-U8D" id="GCk-g6-62y"/>
+                        <outlet property="helpLabel" destination="2HU-En-Fmf" id="eRe-ZY-wEO"/>
+                        <outlet property="locationTextField" destination="fQZ-bf-Yba" id="zst-Zp-hAI"/>
+                        <outlet property="submitButton" destination="C1B-Rx-DC9" id="pg4-ru-yQy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o0m-n6-c9m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -488,21 +498,21 @@
                                             <rect key="frame" x="93" y="37" width="452" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="14"/>
-                                            <color key="textColor" red="0.68888300660000001" green="0.71366006140000005" blue="0.73448425530000006" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBu-sj-TIe">
                                             <rect key="frame" x="93" y="64" width="452" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="14"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4iI-dL-SAa">
                                             <rect key="frame" x="93" y="8" width="452" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="20"/>
-                                            <color key="textColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.12637259066104889" green="0.12639245390892029" blue="0.12636536359786987" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -597,7 +607,7 @@
         <image name="udacityWhite" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cjt-74-M8U"/>
-        <segue reference="hj5-7b-GbU"/>
+        <segue reference="3fo-Op-7E2"/>
+        <segue reference="pZA-58-x7y"/>
     </inferredMetricsTieBreakers>
 </document>
