@@ -31,7 +31,7 @@ extension UIViewController {
     }
     
     /* Alert before logging out, then logout */
-    func userWillLogout(sender: AnyObject) {
+    @IBAction func userWillLogout(sender: AnyObject) {
         UdaciousClient.sharedInstance().logoutOfSession({success, error in
             if success {
                 
@@ -60,21 +60,18 @@ extension UIViewController {
     }
     
     func logoutOfSession(){
-        dispatch_async(dispatch_get_main_queue(), {
-            self.performSegueWithIdentifier("logoutSegue", sender: self)
+        
+        self.dismissViewControllerAnimated(true, completion: {
+            self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController")
         })
+
     }
     
     @IBAction func didTapRefreshTouchUpInside(sender: AnyObject) {
-        reloadData()
         
         let tabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarController")
         
-        SwiftSpinner.show("Reloading Map Data")
-        
-        presentViewController(tabBarController!, animated: true, completion: {
-            SwiftSpinner.hide()
-        })
+        presentViewController(tabBarController!, animated: true, completion: nil)
 
     }
     
@@ -148,6 +145,5 @@ extension UIViewController {
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
         return keyboardSize.CGRectValue().height
     }
-    
 
 }

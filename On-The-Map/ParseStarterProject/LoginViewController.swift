@@ -55,29 +55,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
     }
     
-    func setUpColorScheme(){
-        /* Set colors of buttons */
-        let colorScheme = appDelegate.colorScheme
-        
-        view.backgroundColor = colorScheme[1] as? UIColor
-        
-        usernameTextField.backgroundColor = colorScheme[2] as? UIColor
-        
-        passwordTextField.backgroundColor = colorScheme[2] as? UIColor
-        
-        usernameTextField.foregroundColor = colorScheme[1] as? UIColor
-        
-        passwordTextField.foregroundColor = colorScheme[1] as? UIColor
-        
-        
-        onePasswordContainer.backgroundColor = colorScheme[1] as? UIColor
-        
-        loginButton.backgroundColor = colorScheme[3] as? UIColor
-        signUpButton.backgroundColor = colorScheme[3] as? UIColor
-        
-        
-        onepasswordButton.backgroundColor = UIColor.clearColor()
-    }
+
     
     
     
@@ -96,18 +74,25 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBAction func didTapLoginTouchUpInside(sender: AnyObject) {
         
         
-        
-        
         /* run data update on background thread */
         
+            /* if you cannot verify the users credentials, show an error message. */
             guard self.verifyUserCredentials(self.usernameTextField.text, password: self.passwordTextField.text) else {
+                
+                /* Show alert */
+                SwiftSpinner.show("Please enter a valid email address and password").addTapHandler ({
+                    SwiftSpinner.hide()
+                    }, subtitle: "Tap to dismiss")
+                
                 return
             }
+        
+        /* show log in message */
         dispatch_async(dispatch_get_main_queue(), {
             SwiftSpinner.show("Logging in")
         })
         
-        
+        /* aunthenticate then get user information  in didLoginSuccessfully */
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), {
             
             let parameters = [UdaciousClient.ParameterKeys.Udacity :
@@ -118,13 +103,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             UdaciousClient.sharedInstance().authenticateWithViewController(parameters) { success, error in
                 if success {
                     
-                    
-                    SwiftSpinner.hide()
                     self.didLoginSuccessfully()
                     
                 } else {
-                    
-                    SwiftSpinner.hide()
+ 
                     SwiftSpinner.show("Sorry, but we were not able to log you in.").addTapHandler ({
                         SwiftSpinner.hide()
                     }, subtitle: "Please try again.")
@@ -132,6 +114,35 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 }
             }
         })
+    }
+    
+    func didLoginSuccessfully() {
+        
+        /* To do - clean up view */
+        UdaciousClient.sharedInstance().getUserData() {success, error in
+            if success {
+                
+                dispatch_async(dispatch_get_main_queue(), {
+
+                    let tabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
+                    self.presentViewController(tabBarController, animated: true, completion: {
+                        
+                        /* Hide activity Indicator*/
+                        SwiftSpinner.hide()
+                        
+                    })
+                })
+            } else {
+                
+                SwiftSpinner.show("Sorry, but we were unable to log you in.").addTapHandler({
+                    SwiftSpinner.hide()
+                    }, subtitle: "Tap to dismiss")
+                
+            }
+            
+            
+            
+        }
     }
 
     
@@ -149,10 +160,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
             }
         }
-        SwiftSpinner.hide()
-        SwiftSpinner.show("Please enter a valid email address and password").addTapHandler ({
-            SwiftSpinner.hide()
-            }, subtitle: "Tap to dismiss")
+        
         return false
     }
     
@@ -161,6 +169,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         if error == nil {
             /* get a token from facebook */
             
+            SwiftSpinner.show("Logging you in through Facebook. Just a moment")
+            
             if let token = result.token.tokenString {
                 
                 let parameters = [UdaciousClient.ParameterKeys.Facebook : [UdaciousClient.ParameterKeys.AccessToken : token]]
@@ -168,19 +178,37 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 UdaciousClient.sharedInstance().authenticateWithViewController(parameters) { success, error in
                     /* if successful, complete login, otherwise update debug message */
                     if success {
-                        print("success")
+                        
+                        SwiftSpinner.hide()
+                        
                         self.didLoginSuccessfully()
+                    
                     } else {
-                        self.displayDebugMessage("An error occured while logging into facebook.  Please try again or login through Udacity")
+                        
+                        SwiftSpinner.show("Could not log you in using facebook").addTapHandler({
+                                SwiftSpinner.hide()
+                            }, subtitle: "Tap to dismiss")
+                        
+                        self.displayDebugMessage("Please try logging in again")
                     }
                 }
             } else {
-                self.displayDebugMessage("An error occured while logging in with Facebook, please try again or login through Udacity")
+                
+                SwiftSpinner.show("Could not log you in using facebook").addTapHandler({
+                    SwiftSpinner.hide()
+                    }, subtitle: "Tap to dismiss")
+                
+                self.displayDebugMessage("Please try logging in again")
+                
             }
         } else {
-            let debugString = "An error occured while logging in with Facebook, please try again or login through Udacity"
-            print("\(debugString) \(error)")
-            displayDebugMessage(debugString)
+
+            SwiftSpinner.show("Could not log you in using facebook").addTapHandler({
+                SwiftSpinner.hide()
+                }, subtitle: "Tap to dismiss")
+            
+            self.displayDebugMessage("Please try logging in again")
+
         }
     }
     
@@ -200,37 +228,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     
-    func didLoginSuccessfully() {
-        
-        /* To do - clean up view */
-        UdaciousClient.sharedInstance().getUserData() {success, error in
-            if success {
-                dispatch_async(dispatch_get_main_queue(), {
-                    
-                    
-                    let tabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
-                    self.presentViewController(tabBarController, animated: true, completion: {
-                        
-                        /* Hide activity Indicator*/
-                        SwiftSpinner.hide()
-                        
-                    })
-                })
-            } else {
-                
-                SwiftSpinner.show("Sorry, but we were unable to log you in.").addTapHandler({
-                    SwiftSpinner.hide() 
-                }, subtitle: "Tap to dismiss")
-                
-            }
-            
-        
-    
-        }
-    }
-    
-    
-
     /* 1Password methods */
     @IBAction func findLoginFrom1Password(sender:AnyObject) -> Void {
         OnePasswordExtension.sharedExtension().findLoginForURLString("https://www.udacity.com", forViewController: self, sender: sender, completion: { (loginDictionary, error) -> Void in
@@ -259,63 +256,42 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         })
     }
     
-    /*MARK: Touch ID */
-    @IBAction func touchIDButtonTouch(sender: AnyObject) {
-//        
-//        let context = LAContext()
-//        
-//        var error: NSError?
-//        
-//        //check if passcode or touchID sensor exist and response nicely.
-//        if !context.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &error){
-//            
-//            switch error!.code{
-//            case LAError.TouchIDNotEnrolled.rawValue:
-//                showAlertView("TouchID is not enrolled")
-//            case LAError.PasscodeNotSet.rawValue:
-//                showAlertView("A passcode has not been set")
-//            default:
-//                showAlertView("TouchID is not available")
-//            }
-//            
-//            return
-//        }
-//        // in the first if, check if a username was saved and in the second if, check if there is a password associated with that account in the keychain.
-//        if let name = NSUserDefaults.standardUserDefaults().stringForKey(OTMClient.JSONBodyKeys.Username){
-//            if let password = SSKeychain.passwordForService("OnTheMap_Password_Service", account: name){
-//                
-//                //here hasconnectivity use reachablity class to look for internet connection.
-//                if self.hasConnectivity(){
-//                    startTouchIDOperation(name, password: String(password))
-//                }
-//            }
-//            else{
-//                showAlertView("No account info\nEnter username & password and hit login")
-//            }
-//        }
-//        else{
-//            showAlertView("No account info\nEnter username & password and hit login")
-//        }
-    }
     
     /* MARK: Did tap signup, direct to udacity page */
     @IBAction func didTapSignUpTouchUpInside(sender: AnyObject) {
         let url = NSURL(string : "https://www.udacity.com/account/auth#!/signin")
         UIApplication.sharedApplication().openURL(url!)
     }
+    
+    /* setup colors of main login buttons */
+    func setUpColorScheme(){
+        /* Set colors of buttons */
+        let colorScheme = appDelegate.colorScheme
+        
+        view.backgroundColor = colorScheme[1] as? UIColor
+        
+        usernameTextField.backgroundColor = colorScheme[2] as? UIColor
+        
+        passwordTextField.backgroundColor = colorScheme[2] as? UIColor
+        
+        usernameTextField.foregroundColor = colorScheme[1] as? UIColor
+        
+        passwordTextField.foregroundColor = colorScheme[1] as? UIColor
+        
+        
+        onePasswordContainer.backgroundColor = colorScheme[1] as? UIColor
+        
+        loginButton.backgroundColor = colorScheme[3] as? UIColor
+        signUpButton.backgroundColor = colorScheme[3] as? UIColor
+        
+        
+        onepasswordButton.backgroundColor = UIColor.clearColor()
+    }
+    
 }
 
-/* Mark Touch ID: */
-enum LAError : Int {
-    case AuthenticationFailed
-    case UserCancel
-    case UserFallback
-    case SystemCancel
-    case PasscodeNotSet
-    case TouchIDNotAvailable
-    case TouchIDNotEnrolled
-}
 
+/* Defines FB Read Permissions */
 struct FBReadPermissions {
     static let PublicProfile = "public_profile"
     static let Email = "email"

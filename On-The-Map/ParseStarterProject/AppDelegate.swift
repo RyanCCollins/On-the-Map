@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         /* set Parse IDs */
-        Parse.setApplicationId(ParseClient.Constants.api_key, clientKey: ParseClient.Constants.app_id)
+//        Parse.setApplicationId(ParseClient.Constants.api_key, clientKey: ParseClient.Constants.app_id)
         
         let color = UIColor.flatNavyBlueColorDark()
        let secondary = UIColor.flatBlueColorDark()
@@ -59,8 +59,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Uncomment the line inside ParseStartProject-Bridging-Header and the following line here:
         // PFFacebookUtils.initializeFacebook()
         // ****************************************************************************
-//        Parse.setApplicationId("QsRf7t1UHL1PaFVPVk6lCV70dGao4Lqvre5zXKDL",
-//            clientKey: "o383Qm9g9ejRTSMjHcfiFhHdIVTmSC9rPkHnF9vf")
+        Parse.setApplicationId("QsRf7t1UHL1PaFVPVk6lCV70dGao4Lqvre5zXKDL",
+            clientKey: "o383Qm9g9ejRTSMjHcfiFhHdIVTmSC9rPkHnF9vf")
         
         PFUser.enableAutomaticUser()
 
@@ -87,21 +87,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
-        //
-        //  Swift 1.2
-        //
-        //        if application.respondsToSelector("registerUserNotificationSettings:") {
-        //            let userNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound
-        //            let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
-        //            application.registerUserNotificationSettings(settings)
-        //            application.registerForRemoteNotifications()
-        //        } else {
-        //            let types = UIRemoteNotificationType.Badge | UIRemoteNotificationType.Alert | UIRemoteNotificationType.Sound
-        //            application.registerForRemoteNotificationTypes(types)
-        //        }
-
-        
-//          Swift 2.0
         
                 if #available(iOS 8.0, *) {
                     let types: UIUserNotificationType = [.Alert, .Badge, .Sound]

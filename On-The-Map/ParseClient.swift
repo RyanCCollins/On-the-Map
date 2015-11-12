@@ -90,7 +90,7 @@ class ParseClient: NSObject {
             
         }
         
-        /*Create a session and then a task.  Parse results in no error. */
+        /*Create a session and then a task.  Parse results if no error. */
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithRequest(request) { data, response, error in

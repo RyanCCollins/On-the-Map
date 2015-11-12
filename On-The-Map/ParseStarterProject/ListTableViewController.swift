@@ -19,14 +19,18 @@ class ListTableViewController: UITableViewController {
         
         self.refreshControl?.addTarget(self, action: "refreshViewForDataUpdate", forControlEvents: .ValueChanged)
         
-    }
-
-    override func viewWillAppear(animated: Bool) {
         loadWithParseData({success, error in
             if let error = error {
                 print(error)
             }
         })
+        
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tableView.reloadData()
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

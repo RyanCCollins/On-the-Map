@@ -78,7 +78,7 @@ extension UdaciousClient {
             completionHandler(success: false, error: UdaciousClient.errorFromString("Failed to get IDKey in getUserData"))
             return
         }
-        print(IDKey)
+
         guard let method = UdaciousClient.substituteKeyInMethod(UdaciousClient.Methods.GetUserData, key: "id", value: IDKey) else {
             print("failed")
             completionHandler(success: false, error: UdaciousClient.errorFromString("Failed to construct the method call in getUserData"))
@@ -94,12 +94,14 @@ extension UdaciousClient {
             } else {
                 
                 /* If user data found, parse the results */
-                if let result = JSONResult.valueForKey(UdaciousClient.JSONResponseKeys.User) {
+                if let result = JSONResult[UdaciousClient.JSONResponseKeys.User] {
                     
-                    if let firstName = result.valueForKey(UdaciousClient.JSONResponseKeys.FirstName) as? String {
+                    if let firstName = result![UdaciousClient.JSONResponseKeys.FirstName] as? String {
                         self.firstName = firstName
-                        if let lastName = result.valueForKey(UdaciousClient.JSONResponseKeys.LastName) as? String{
+
+                        if let lastName = result![UdaciousClient.JSONResponseKeys.LastName] as? String{
                             self.lastName = lastName
+
                             /* Return with completion handler */
                             print("\(result)")
                             completionHandler(success: true, error: nil)

@@ -43,8 +43,8 @@ extension ParseClient {
             } else {
                 
                 /* If we receive a response with an object ID, then we return it */
-                if let _ = result[JSONResponseKeys.ObjectID] as? String {
-                    
+                if let objectID = result[JSONResponseKeys.ObjectID] as? String {
+                    print(objectID)
                     completionHandler(success: true, error: nil)
                     
                 } else {

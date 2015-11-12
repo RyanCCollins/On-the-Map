@@ -51,24 +51,18 @@ class PostLocationViewController: UIViewController {
         })
     }
     
-    
+    /* If user is submitting a valid location, show on the map */
     @IBAction func userDidTapSubmitLocationUpInside(sender: AnyObject) {
         if isSubmittingURL == false {
             
-            isSubmittingURL = true
             
-            
-            
-            if let location = locationTextField.text {
-
-                locationString = location
-                verifyLocation(locationString!)
-                
-            } else {
-                
-                /* alert user of bad string */
+            guard locationTextField.text != nil else {
+    
+                return
                 
             }
+            
+            verifyLocation(locationTextField.text!)
             
         } else {
             
@@ -78,11 +72,11 @@ class PostLocationViewController: UIViewController {
                 
                 ParseClient.sharedInstance().postDataToParse(parameters, completionHandler: {success, error in
                     
-                    if let error = error {
+                    if error != nil {
                         
                         let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: nil)
                         let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: {Void in
-                            self.didTapRefreshTouchUpInside(self)
+                            self.dismissViewControllerAnimated(true, completion: nil)
                         })
                         
                         self.alertUserWithWithActions("Something went wrong", message: "An error occured while submitting your location, please retry or go back to the Map.", actions: [retryAction, dismissAction])
@@ -90,21 +84,23 @@ class PostLocationViewController: UIViewController {
                     } else {
                         
                         /* refresh and present mapViewController */
-                        self.didTapRefreshTouchUpInside(self)
+                        self.dismissViewControllerAnimated(true, completion: nil)
                         
                     }
                     
                 })
                 
             } else {
-                
-                /*
-                alertUser */
+                let okAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+                alertUserWithWithActions("Something's missing", message: "Please enter a valid string when submitting the URL", actions: [okAction])
             }
             
         }
     }
     
+    func compareSubmissionToParse () {
+        
+    }
     
     func verifyLocation(location: String) {
         let geocoder = CLGeocoder()
@@ -116,12 +112,19 @@ class PostLocationViewController: UIViewController {
 
             geocoder.geocodeAddressString(location, completionHandler: { placemarks, error in
                 
-                if let placemark = placemarks![0] as? CLPlacemark {
+                if placemarks != nil {
                     
+                    self.locationString = location
+                    
+                    let placemark = placemarks![0]
+                    
+                    self.isSubmittingURL = true
                     self.configureDisplay(false)
                     
                     UdaciousClient.sharedInstance().latitude = CLLocationDegrees(placemark.location!.coordinate.latitude)
                     UdaciousClient.sharedInstance().longitude = CLLocationDegrees(placemark.location!.coordinate.longitude)
+                    
+                    
                     
                     let annotation = MKPointAnnotation()
                     annotation.coordinate = CLLocationCoordinate2D(latitude: placemark.location!.coordinate.latitude, longitude: placemark.location!.coordinate.longitude)
@@ -135,10 +138,10 @@ class PostLocationViewController: UIViewController {
                     
                 } else {
                     
-                    let tryAgain = UIAlertAction(title: "Try again", style: .Default, handler: nil)
-                    
-                    self.alertUserWithWithActions("Could not verify location", message: "Sorry, but we could not verify your location. Please try again", actions: [tryAgain])
-                    
+                let tryAgain = UIAlertAction(title: "Try again", style: .Default, handler: nil)
+                
+                self.alertUserWithWithActions("Could not verify location", message: "Sorry, but we could not verify your location. Please try again", actions: [tryAgain])
+                
                 }
                 
             })

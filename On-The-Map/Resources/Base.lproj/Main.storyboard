@@ -87,13 +87,14 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="-2" translatesAutoresizingMaskIntoConstraints="NO" id="UKS-pC-Sfg">
                                 <rect key="frame" x="20" y="330" width="560" height="50"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="23" translatesAutoresizingMaskIntoConstraints="NO" id="Bqm-75-0Gx" customClass="KaedeTextField" customModule="On_The_Map" customModuleProvider="target">
+                                    <textField opaque="NO" clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Password" minimumFontSize="23" translatesAutoresizingMaskIntoConstraints="NO" id="Bqm-75-0Gx" customClass="KaedeTextField" customModule="On_The_Map" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="512" height="50"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="cXT-8X-Qh1"/>
                                         </constraints>
+                                        <color key="textColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
@@ -154,7 +155,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="uGA-8J-xuf"/>
                                 </constraints>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -291,7 +292,7 @@
                         <leftBarButtonItems>
                             <barButtonItem image="door13" id="0MN-kn-4A6">
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="showDetail" identifier="logoutSegue" action="showViewController:sender:" id="3fo-Op-7E2"/>
+                                    <action selector="userWillLogout:" destination="oCb-Zs-Dq7" id="nZO-Pm-dPu"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="udacityWhite" id="RQc-Yf-hLC">
@@ -336,14 +337,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iuD-fm-Agz">
                                 <rect key="frame" x="0.0" y="202" width="600" height="195"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter your location" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="fQZ-bf-Yba" customClass="KaedeTextField" customModule="On_The_Map" customModuleProvider="target">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter your location" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="fQZ-bf-Yba" customClass="AkiraTextField" customModule="On_The_Map" customModuleProvider="target">
                                         <rect key="frame" x="8" y="8" width="584" height="179"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="35"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="0.85043728351593018" green="0.21816034615039825" blue="0.15920260548591614" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.18198148906230927" green="0.69426733255386353" blue="0.53024792671203613" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
                                                 <color key="value" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
@@ -371,7 +372,7 @@
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9X6-L0-rRU">
                                 <rect key="frame" x="0.0" y="1" width="600" height="202"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Where are you studying today?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4f-qN-U8D">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Where are you studying today?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="e4f-qN-U8D">
                                         <rect key="frame" x="34" y="20" width="532" height="182"/>
                                         <animations/>
                                         <constraints>
@@ -386,7 +387,7 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNz-FR-ZGb">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNz-FR-ZGb">
                                         <rect key="frame" x="544" y="20" width="48" height="30"/>
                                         <animations/>
                                         <state key="normal" title="Cancel"/>
@@ -395,7 +396,7 @@
                                         </connections>
                                     </button>
                                     <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter a link to share" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Hcx-dO-GCw" customClass="AkiraTextField" customModule="On_The_Map" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="20" width="584" height="156"/>
+                                        <rect key="frame" x="8" y="49" width="584" height="134"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="35"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -412,17 +413,25 @@
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="Hcx-dO-GCw" firstAttribute="centerY" secondItem="9X6-L0-rRU" secondAttribute="centerY" id="1ix-z6-BI0"/>
                                     <constraint firstItem="e4f-qN-U8D" firstAttribute="centerX" secondItem="9X6-L0-rRU" secondAttribute="centerX" id="ChG-pu-Dt3"/>
+                                    <constraint firstAttribute="bottom" secondItem="Hcx-dO-GCw" secondAttribute="bottom" constant="19" id="DT4-VP-7N8"/>
                                     <constraint firstItem="MNz-FR-ZGb" firstAttribute="top" secondItem="e4f-qN-U8D" secondAttribute="top" id="LHP-SS-D25"/>
                                     <constraint firstItem="e4f-qN-U8D" firstAttribute="leading" secondItem="9X6-L0-rRU" secondAttribute="leading" constant="34" id="MuX-Oe-49s"/>
+                                    <constraint firstAttribute="trailing" secondItem="MNz-FR-ZGb" secondAttribute="trailing" constant="8" id="NJN-7t-aRp"/>
+                                    <constraint firstItem="Hcx-dO-GCw" firstAttribute="top" secondItem="e4f-qN-U8D" secondAttribute="bottom" constant="-153" id="O6R-bV-fdy"/>
+                                    <constraint firstItem="Hcx-dO-GCw" firstAttribute="top" secondItem="MNz-FR-ZGb" secondAttribute="bottom" id="ORv-gk-J30"/>
                                     <constraint firstItem="Hcx-dO-GCw" firstAttribute="leading" secondItem="9X6-L0-rRU" secondAttribute="leading" constant="8" id="XDv-DL-wPi"/>
                                     <constraint firstItem="e4f-qN-U8D" firstAttribute="top" secondItem="9X6-L0-rRU" secondAttribute="top" constant="20" id="bCk-wR-nzW"/>
-                                    <constraint firstItem="Hcx-dO-GCw" firstAttribute="top" secondItem="9X6-L0-rRU" secondAttribute="top" constant="20" id="bKl-9M-71J"/>
                                     <constraint firstAttribute="trailing" secondItem="Hcx-dO-GCw" secondAttribute="trailing" constant="8" id="fRh-Dw-tQ9"/>
                                     <constraint firstItem="Hcx-dO-GCw" firstAttribute="centerX" secondItem="9X6-L0-rRU" secondAttribute="centerX" id="k8L-Xk-Bx6"/>
+                                    <constraint firstItem="Hcx-dO-GCw" firstAttribute="top" secondItem="MNz-FR-ZGb" secondAttribute="bottom" constant="-1" id="kCk-Yh-OBs"/>
                                     <constraint firstAttribute="trailing" secondItem="e4f-qN-U8D" secondAttribute="trailing" constant="34" id="psV-EZ-wkK"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="kCk-Yh-OBs"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="m8n-7u-s4B">
                                 <rect key="frame" x="0.0" y="202" width="600" height="398"/>
@@ -558,7 +567,7 @@
                     <navigationItem key="navigationItem" title="On The Map" id="YQ2-oX-AVK">
                         <barButtonItem key="leftBarButtonItem" image="door13" id="AWu-AN-37R">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="showDetail" identifier="logoutSegue" id="hj5-7b-GbU"/>
+                                <action selector="userWillLogout:" destination="np9-Px-QYp" id="f3k-86-PR5"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
@@ -617,7 +626,6 @@
         <image name="udacityWhite" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hj5-7b-GbU"/>
         <segue reference="cjt-74-M8U"/>
     </inferredMetricsTieBreakers>
 </document>

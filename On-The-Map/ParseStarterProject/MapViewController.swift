@@ -28,38 +28,60 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        SwiftSpinner.showWithDelay(2.0, title: "Refreshing Map").addTapHandler({
-            SwiftSpinner.hide()
-        })
-        
-        self.loadMapViewWithParseData()
-        
-        SwiftSpinner.hide()
         
     }
     
-    
-    
     override func viewDidAppear(animated: Bool) {
-        SwiftSpinner.hide()
+        /* Show progress indicator while loading */
+        
+        
+        let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
+        
+        hud.labelText = "Loading map"
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), {
+            self.loadMapViewWithParseData({success, error in
+                
+                if success {
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.addPinsToMapForStudents(ParseClient.sharedInstance().studentData)
+                    })
+                    
+                } else {
+                    
+                    /* alert user */
+                    print("An error occured in viewWillAppear MapViewController")
+                    
+                }
+                
+            })
+            dispatch_async(dispatch_get_main_queue(), {
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
+            })
+            
+        })
     }
     
     /* add parse data to map if first time logging in, get the data, if not, get the shared instance of student data */
-    func loadMapViewWithParseData() {
+    func loadMapViewWithParseData(completionHandler: (success: Bool, error: NSError?)-> Void) {
         
         if let locations = ParseClient.sharedInstance().studentData {
             
             addPinsToMapForStudents(locations)
 
         } else {
+            
             ParseClient.sharedInstance().getDataFromParse({success, results, error in
                 
                 if success {
                     
-                    self.addPinsToMapForStudents(results)
+                    completionHandler(success: true, error: nil)
+                    
                     
                 } else {
                     
+                    completionHandler(success: false, error: self.errorFromString("Failed to load data in: loadMapWithParseData"))
                     SwiftSpinner.show("Sorry, but something went wrong while trying to reload the network data.").addTapHandler({
                         
                         SwiftSpinner.hide()
@@ -77,7 +99,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         var annotations = [MKPointAnnotation]()
         
         if let studentLocations = studentLocations {
-            
+
             for location in studentLocations {
                 
                 /* initialize objects for map */
@@ -97,9 +119,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 annotations.append(annotation)
                 
             }
-            /* TODO: Add activity indicator */
+
             self.studentLocationMapView.addAnnotations(annotations)
-            
         }
         
     }
@@ -139,7 +160,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     /* create a mapView indicator */
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
-        
+
         if (annotation is MKUserLocation) {
             
             return nil
