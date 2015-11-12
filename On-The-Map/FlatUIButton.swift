@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FlatUIKit
 
 class FlatUIButton: UIButton {
 

@@ -69,23 +69,28 @@ extension UdaciousClient {
     }
     /* 2. Get the user's data */
     
-    func getUserData(parameters: [String : AnyObject]?, completionHandler: (success: Bool, error: NSError?) -> Void) {
+    func getUserData(completionHandler: (success: Bool, error: NSError?) -> Void) {
         /* Make request and check for success */
-        let parameters = [ String : AnyObject ]()
-        print(IDKey)
+
         
         guard let IDKey = IDKey else {
             
             completionHandler(success: false, error: UdaciousClient.errorFromString("Failed to get IDKey in getUserData"))
             return
         }
-        
-        let method = UdaciousClient.substituteKeyInMethod(UdaciousClient.Methods.GetUserData, key: "{id}", value: IDKey)
-        
-        taskForGETMethod(method!, parameters: parameters) {JSONResult, error in
+        print(IDKey)
+        guard let method = UdaciousClient.substituteKeyInMethod(UdaciousClient.Methods.GetUserData, key: "id", value: IDKey) else {
+            print("failed")
+            completionHandler(success: false, error: UdaciousClient.errorFromString("Failed to construct the method call in getUserData"))
+            return
+        }
+        print(method)
+        taskForGETMethod(method, parameters: [:]) {JSONResult, error in
             
             if let error = error {
+                
                 completionHandler(success: false, error: error)
+                
             } else {
                 
                 /* If user data found, parse the results */
@@ -96,6 +101,7 @@ extension UdaciousClient {
                         if let lastName = result.valueForKey(UdaciousClient.JSONResponseKeys.LastName) as? String{
                             self.lastName = lastName
                             /* Return with completion handler */
+                            print("\(result)")
                             completionHandler(success: true, error: nil)
                         }
                         

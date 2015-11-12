@@ -65,8 +65,8 @@ class UdaciousClient: NSObject {
             }
             
             /* Make sure the data is parsed before returning it */
-            let usableData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
-            if let parsedData = (try? NSJSONSerialization.JSONObjectWithData(usableData, options: .AllowFragments)) {
+            let usableData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
+            if let parsedData = (try? NSJSONSerialization.JSONObjectWithData(usableData, options: .AllowFragments)) as? [ String : AnyObject]{
                 completionHandler(result: parsedData, error: nil)
             } else {
                 print("Failed to parse data to JSON in taskForGETMethod")
