@@ -41,6 +41,15 @@ class ListTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return locations.count
     }
+    
+    /* reload table view data */
+    @IBAction func didTapLoadUpInside(sender: AnyObject) {
+        loadWithParseData({success, error in
+            if let error = error {
+                print(error)
+            }
+        })
+    }
 
     
     /* add parse data to list if first time logging in, get the data, if not, get the shared instance of student data */

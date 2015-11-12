@@ -33,32 +33,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         /* set Parse IDs */
 //        Parse.setApplicationId(ParseClient.Constants.api_key, clientKey: ParseClient.Constants.app_id)
+        Parse.setApplicationId("YtYNWpjjNi24CxucN1EOocGIGdn1rVtRX8B9m5Hs", clientKey: "g61S9JHsFfXrSNyvXozmllmFEzK0L2dIki91HnAi")
         
+        /* Configure color */
         let color = UIColor.flatNavyBlueColorDark()
        let secondary = UIColor.flatBlueColorDark()
-//        let secondary = UIColor.flatWatermelonColor()
+
 
         colorScheme = NSArray(ofColorsWithColorScheme: .Analogous, usingColor: color, withFlatScheme: true)
-        //let color = colorArray[0]
-//        Chameleon.setGlobalThemeUsingPrimaryColor(color, withSecondaryColor: secondary, andContentStyle: .Contrast)
-        Chameleon.setGlobalThemeUsingPrimaryColor(secondary, withContentStyle: .Contrast)
-        // Enable storing and querying data from Local Datastore.
-        // Remove this line if you don't want to use Local Datastore features or want to use cachePolicy.
-        
-//        Parse.enableLocalDatastore()
 
-        // ****************************************************************************
-        // Uncomment this line if you want to enable Crash Reporting
-//         ParseCrashReporting.enable()
-        //
-        // Uncomment and fill in with your Parse credentials:
-         Parse.setApplicationId("YtYNWpjjNi24CxucN1EOocGIGdn1rVtRX8B9m5Hs", clientKey: "g61S9JHsFfXrSNyvXozmllmFEzK0L2dIki91HnAi")
-        //
-        // If you are using Facebook, uncomment and add your FacebookAppID to your bundle's plist as
-        // described here: https://developers.facebook.com/docs/getting-started/facebook-sdk-for-ios/
-        // Uncomment the line inside ParseStartProject-Bridging-Header and the following line here:
-        // PFFacebookUtils.initializeFacebook()
-        // ****************************************************************************
+
+        Chameleon.setGlobalThemeUsingPrimaryColor(secondary, withContentStyle: .Contrast)
+        
+        
         Parse.setApplicationId("QsRf7t1UHL1PaFVPVk6lCV70dGao4Lqvre5zXKDL",
             clientKey: "o383Qm9g9ejRTSMjHcfiFhHdIVTmSC9rPkHnF9vf")
         
@@ -110,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         installation.setDeviceTokenFromData(deviceToken)
         installation.saveInBackground()
 
-        PFPush.subscribeToChannelInBackground("") { (succeeded: Bool, error: NSError?) in
+        PFPush.subscribeToChannelInBackground("global") { (succeeded: Bool, error: NSError?) in
             if succeeded {
                 print("ParseStarterProject successfully subscribed to push notifications on the broadcast channel.\n");
             } else {
@@ -138,6 +125,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Uncomment this method if you want to use Push Notifications with Background App Refresh
     ///////////////////////////////////////////////////////////
      func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        
+        PFPush.handlePush(userInfo)
+        
          if application.applicationState == UIApplicationState.Inactive {
              PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
          }

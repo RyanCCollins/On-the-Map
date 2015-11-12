@@ -61,19 +61,10 @@ extension UIViewController {
     
     func logoutOfSession(){
         
-        self.dismissViewControllerAnimated(true, completion: {
-            self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController")
-        })
+        self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController")
 
     }
     
-    @IBAction func didTapRefreshTouchUpInside(sender: AnyObject) {
-        
-        let tabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarController")
-        
-        presentViewController(tabBarController!, animated: true, completion: nil)
-
-    }
     
     /* Helper function to show alerts to user */
     func alertUserWithWithActions(title: String, message: String, actions: [UIAlertAction]) {

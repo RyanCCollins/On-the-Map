@@ -26,14 +26,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         studentLocationMapView.delegate = self
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
+    @IBAction func didTapRefreshUpInside(sender: AnyObject) {
+        studentLocationMapView.removeAnnotations(studentLocationMapView.annotations)
+        startMapRefreshWithHUD()
     }
     
     override func viewDidAppear(animated: Bool) {
         /* Show progress indicator while loading */
         
+        startMapRefreshWithHUD()
+        
+    }
+    
+    func startMapRefreshWithHUD() {
         
         let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
         

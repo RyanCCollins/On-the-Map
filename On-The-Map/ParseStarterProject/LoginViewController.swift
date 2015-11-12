@@ -21,12 +21,15 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
 
     @IBOutlet weak var loginButton: UIButton!
 
+    @IBOutlet weak var loginLabel: UILabel!
+    @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var onePasswordContainer: UIView!
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var debugLabel: UILabel!
     @IBOutlet weak var faceBookLoginView: UIView!
     @IBOutlet weak var onepasswordButton: UIButton!
     @IBOutlet weak var oneTimePasswordTextField: UITextField!
+    @IBOutlet weak var imageView: UIImageView!
 
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
@@ -106,7 +109,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                     self.didLoginSuccessfully()
                     
                 } else {
- 
+                    
                     SwiftSpinner.show("Sorry, but we were not able to log you in.").addTapHandler ({
                         SwiftSpinner.hide()
                     }, subtitle: "Please try again.")
@@ -266,24 +269,27 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     /* setup colors of main login buttons */
     func setUpColorScheme(){
         /* Set colors of buttons */
-        let colorScheme = appDelegate.colorScheme
+//        let colorScheme = appDelegate.colorScheme
         
+        let colorScheme = NSArray(ofColorsFromImage: imageView.image, withFlatScheme: true)
         view.backgroundColor = colorScheme[1] as? UIColor
         
-        usernameTextField.backgroundColor = colorScheme[2] as? UIColor
+        usernameTextField.backgroundColor = colorScheme[1] as? UIColor
         
-        passwordTextField.backgroundColor = colorScheme[2] as? UIColor
+        passwordTextField.backgroundColor = colorScheme[1] as? UIColor
         
-        usernameTextField.foregroundColor = colorScheme[1] as? UIColor
+        usernameTextField.foregroundColor = colorScheme[2] as? UIColor
         
-        passwordTextField.foregroundColor = colorScheme[1] as? UIColor
+        passwordTextField.foregroundColor = colorScheme[2] as? UIColor
         
         
-        onePasswordContainer.backgroundColor = colorScheme[1] as? UIColor
+        onePasswordContainer.backgroundColor = colorScheme[2] as? UIColor
         
         loginButton.backgroundColor = colorScheme[3] as? UIColor
         signUpButton.backgroundColor = colorScheme[3] as? UIColor
         
+        loginLabel.textColor = colorScheme[3] as? UIColor
+        headerLabel.textColor = colorScheme[3] as? UIColor
         
         onepasswordButton.backgroundColor = UIColor.clearColor()
     }
