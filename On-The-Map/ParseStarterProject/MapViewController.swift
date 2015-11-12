@@ -28,48 +28,70 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-
-    }
-    
-    /* refresh the view for data update/retrieval - call asynchronously*/
-    func refreshViewForDataUpdate() {
-        
-        dispatch_async(dispatch_get_main_queue(), {
-            
-            SwiftSpinner.show("Updating...").addTapHandler({
-                SwiftSpinner.hide()
-            })
-            
+        SwiftSpinner.showWithDelay(2.0, title: "Refreshing Map").addTapHandler({
+            SwiftSpinner.hide()
         })
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), {
             self.loadMapViewWithParseData({success, error in
-                if error != nil {
-                    
-                    MBProgressHUD.hideHUDForView(self.view, animated: true)
-                    
-                    let logoutAction = UIAlertAction(title: "Logout", style: .Destructive, handler: { Void in
-                        self.logoutOfSession()
-                    })
-                    let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: { Void in
-                        self.loadMapViewWithParseData(nil)
-                    })
-                    
-                    self.alertUserWithWithActions("Failed to refresh data", message: "Something went wrong while refreshing the data.  Please retry or logout", actions: [logoutAction, retryAction])
-                    
+                if success {
+                    SwiftSpinner.hide()
                 } else {
-                    
-                    
-                    
+                    SwiftSpinner.show("Sorry but we could not load the data.").addTapHandler({
+     
+                    SwiftSpinner.hide()
+                }, subtitle: "Please try again.")
                 }
-                
-                SwiftSpinner.hide()
-                
             })
         })
+        
+    }
+    
+    
+    func delay(seconds seconds: Double, completion:()->()) {
+        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
+        
+        dispatch_after(popTime, dispatch_get_main_queue()) {
+            completion()
+        }
+    }
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        SwiftSpinner.hide()
+    }
+    
+    /* refresh the view for data update/retrieval - call asynchronously*/
+    func refreshViewForDataUpdate() {
+//        
+//        dispatch_async(dispatch_get_main_queue(), {
+//            
+//            SwiftSpinner.show("Updating Map Data...").addTapHandler({
+//                SwiftSpinner.hide()
+//            })
+//            
+//        })
+//        
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), {
+//            self.loadMapViewWithParseData({success, error in
+//                if error != nil {
+//                    
+//                    
+//                    /* If error,
+//                    
+//                    SwiftSpinner.show("Failed to refresh map data.  Please try again.")
+////                    self.alertUserWithWithActions("Failed to refresh data", message: "Something went wrong while refreshing the data.  Please retry or logout", actions: [logoutAction, retryAction])
+//                    
+//                } else {
+//                    
+//                    
+//                    
+//                }
+//                
+//                SwiftSpinner.hide()
+//                
+//            })
+//        })
         
         
             
@@ -92,7 +114,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     completionHandler!(success: true, error: nil)
                     
                 } else {
+                    
                     completionHandler!(success: false, error: self.errorFromString("Failed to load map with parsed data in loadMapWithParsedData"))
+                    
                 }
                 
             })
@@ -144,6 +168,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
     }
     
+    /* MARK: Map view delegate methods */
     
     /* Find current location and zoom in */
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
@@ -152,9 +177,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.setRegion(region, animated: true)
     }
     
-    @IBAction func zoomToCurrentLocation(sender: AnyObject) {
-        
-    }
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
@@ -169,6 +191,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    /* create a mapView indicator */
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
         
@@ -184,7 +207,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if pinAnnotationView  == nil {
         pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: pin)
         pinAnnotationView?.canShowCallout = true
-        pinAnnotationView?.pinTintColor = UIColor.greenColor()
+        pinAnnotationView?.pinTintColor = UIColor.flatMintColor()
         pinAnnotationView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
         
         } else {

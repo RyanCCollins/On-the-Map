@@ -32,7 +32,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nhj-sJ-kBt">
+                            <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nhj-sJ-kBt">
                                 <rect key="frame" x="175" y="446" width="250" height="30"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -87,10 +87,10 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="-2" translatesAutoresizingMaskIntoConstraints="NO" id="UKS-pC-Sfg">
                                 <rect key="frame" x="20" y="330" width="560" height="50"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Password" minimumFontSize="23" translatesAutoresizingMaskIntoConstraints="NO" id="Bqm-75-0Gx" customClass="KaedeTextField" customModule="On_The_Map" customModuleProvider="target">
+                                    <textField opaque="NO" clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="23" translatesAutoresizingMaskIntoConstraints="NO" id="Bqm-75-0Gx" customClass="KaedeTextField" customModule="On_The_Map" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="512" height="50"/>
                                         <animations/>
-                                        <color key="backgroundColor" red="0.17077735066413879" green="0.30895513296127319" blue="0.37797331809997559" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="cXT-8X-Qh1"/>
                                         </constraints>
@@ -98,13 +98,10 @@
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="foregroundColor">
-                                                <color key="value" red="0.18998533487319946" green="0.35768887400627136" blue="0.43821841478347778" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.1707773507" green="0.30895513299999999" blue="0.37797331810000001" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
                                                 <color key="value" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                <color key="value" red="0.18198148906230927" green="0.69426733255386353" blue="0.53024792671203613" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
@@ -123,7 +120,7 @@
                                             </button>
                                         </subviews>
                                         <animations/>
-                                        <color key="backgroundColor" red="0.18998533487319946" green="0.35768887400627136" blue="0.43821841478347778" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.1707773507" green="0.30895513299999999" blue="0.37797331810000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="FKO-nQ-bfK" secondAttribute="height" multiplier="1:1" id="znG-2V-tNo"/>
                                         </constraints>
@@ -158,10 +155,10 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Email" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="uld-8z-8od" customClass="KaedeTextField" customModule="On_The_Map" customModuleProvider="target">
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Email" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="uld-8z-8od" customClass="KaedeTextField" customModule="On_The_Map" customModuleProvider="target">
                                 <rect key="frame" x="20" y="272" width="560" height="50"/>
                                 <animations/>
-                                <color key="backgroundColor" red="0.18198148906230927" green="0.69426733255386353" blue="0.53024792671203613" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="uGA-8J-xuf"/>
                                 </constraints>
@@ -173,11 +170,11 @@
                                         <color key="value" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="foregroundColor">
-                                        <color key="value" red="0.18998533487319946" green="0.35768887400627136" blue="0.43821841478347778" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" red="0.17077735066413879" green="0.30895513296127319" blue="0.37797331809997559" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3F-Rz-XKj">
+                            <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3F-Rz-XKj">
                                 <rect key="frame" x="175" y="388" width="250" height="50"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -195,7 +192,7 @@
                             </button>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="0.1334631741" green="0.1823148429" blue="0.25190103050000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.18198148906230927" green="0.69426733255386353" blue="0.53024792671203613" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="aQM-Cz-Z9Q" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1nG-9a-fp3"/>
                             <constraint firstItem="uld-8z-8od" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="2dC-Zh-tQo"/>
@@ -352,10 +349,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iuD-fm-Agz">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iuD-fm-Agz">
                                 <rect key="frame" x="0.0" y="202" width="600" height="195"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter your location" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="fQZ-bf-Yba" customClass="JiroTextField" customModule="On_The_Map" customModuleProvider="target">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter your location" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="fQZ-bf-Yba" customClass="KaedeTextField" customModule="On_The_Map" customModuleProvider="target">
                                         <rect key="frame" x="8" y="8" width="584" height="179"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="35"/>
@@ -365,7 +362,7 @@
                                                 <color key="value" red="0.85043728351593018" green="0.21816034615039825" blue="0.15920260548591614" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                                <color key="value" red="0.68888300657272339" green="0.71366006135940552" blue="0.73448425531387329" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
@@ -375,86 +372,86 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="fQZ-bf-Yba" secondAttribute="trailing" constant="8" id="8x0-CX-7On"/>
                                     <constraint firstItem="fQZ-bf-Yba" firstAttribute="centerX" secondItem="iuD-fm-Agz" secondAttribute="centerX" id="Oml-Eq-vuN"/>
+                                    <constraint firstItem="fQZ-bf-Yba" firstAttribute="bottom" secondItem="iuD-fm-Agz" secondAttribute="bottomMargin" id="Xjr-DG-md4"/>
                                     <constraint firstItem="fQZ-bf-Yba" firstAttribute="leading" secondItem="iuD-fm-Agz" secondAttribute="leading" constant="8" id="daw-Iw-RK3"/>
+                                    <constraint firstItem="fQZ-bf-Yba" firstAttribute="top" secondItem="iuD-fm-Agz" secondAttribute="topMargin" id="pAx-ks-fUW"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter your location and press submit to find on the map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2HU-En-Fmf">
-                                <rect key="frame" x="20" y="405" width="560" height="45"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your location and press submit to find on the map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2HU-En-Fmf">
+                                <rect key="frame" x="135" y="405" width="330" height="45"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="13"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iJw-P4-xWI">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="202"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9X6-L0-rRU">
+                                <rect key="frame" x="0.0" y="1" width="600" height="202"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNz-FR-ZGb">
-                                        <rect key="frame" x="544" y="21" width="48" height="30"/>
+                                    <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter a link to share" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Hcx-dO-GCw" customClass="AkiraTextField" customModule="On_The_Map" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="20" width="584" height="156"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="35"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.18198148906230927" green="0.69426733255386353" blue="0.53024792671203613" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                <color key="value" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where are you studying today?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4f-qN-U8D">
+                                        <rect key="frame" x="77" y="20" width="446" height="156"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="156" id="LD7-tu-V6p"/>
+                                            <constraint firstAttribute="height" constant="134" id="kE1-QT-POI"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="41"/>
+                                        <color key="textColor" red="0.15410047769546509" green="0.41306763887405396" blue="0.69063264131546021" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="kE1-QT-POI"/>
+                                            </mask>
+                                        </variation>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNz-FR-ZGb">
+                                        <rect key="frame" x="544" y="20" width="48" height="30"/>
                                         <animations/>
                                         <state key="normal" title="Cancel"/>
                                         <connections>
                                             <action selector="didTapCancelButtonTouchUpInside:" destination="44F-AA-Y0U" eventType="touchUpInside" id="XcW-kt-FxA"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter your location" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="KKr-4M-xjM" customClass="JiroTextField" customModule="On_The_Map" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="15" width="584" height="172"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="35"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="0.85043728350000003" green="0.21816034619999999" blue="0.15920260550000001" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                                <color key="value" red="0.68888300660000001" green="0.71366006140000005" blue="0.73448425530000006" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </textField>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9X6-L0-rRU">
-                                        <rect key="frame" x="69" y="15" width="462" height="172"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Where are you studying today?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4f-qN-U8D">
-                                                <rect key="frame" x="8" y="8" width="446" height="156"/>
-                                                <animations/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="156" id="LD7-tu-V6p"/>
-                                                    <constraint firstAttribute="height" constant="134" id="kE1-QT-POI"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="41"/>
-                                                <color key="textColor" red="0.15410047769546509" green="0.41306763887405396" blue="0.69063264131546021" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <animations/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="e4f-qN-U8D" secondAttribute="bottom" constant="8" id="2hC-kG-LtA"/>
-                                            <constraint firstItem="e4f-qN-U8D" firstAttribute="leading" secondItem="9X6-L0-rRU" secondAttribute="leading" constant="8" id="MAp-hB-8a5"/>
-                                            <constraint firstAttribute="trailing" secondItem="e4f-qN-U8D" secondAttribute="trailing" constant="8" id="Vfm-4a-ILf"/>
-                                            <constraint firstItem="e4f-qN-U8D" firstAttribute="top" secondItem="9X6-L0-rRU" secondAttribute="top" constant="8" id="jno-74-bGz"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <animations/>
-                                <color key="backgroundColor" red="0.15410047769546509" green="0.41306763887405396" blue="0.69063264131546021" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="9X6-L0-rRU" firstAttribute="centerX" secondItem="iJw-P4-xWI" secondAttribute="centerX" id="ENT-Sx-edH"/>
-                                    <constraint firstAttribute="trailing" secondItem="KKr-4M-xjM" secondAttribute="trailing" constant="8" id="MEP-4P-bVV"/>
-                                    <constraint firstItem="KKr-4M-xjM" firstAttribute="centerY" secondItem="iJw-P4-xWI" secondAttribute="centerY" id="Mgb-3r-zAP"/>
-                                    <constraint firstItem="KKr-4M-xjM" firstAttribute="top" secondItem="iJw-P4-xWI" secondAttribute="top" constant="15" id="eFl-Ta-ZdA"/>
-                                    <constraint firstItem="KKr-4M-xjM" firstAttribute="leading" secondItem="iJw-P4-xWI" secondAttribute="leading" constant="8" id="q2k-AJ-8gL"/>
-                                    <constraint firstAttribute="bottom" secondItem="KKr-4M-xjM" secondAttribute="bottom" constant="15" id="rWy-ug-gBy"/>
+                                    <constraint firstItem="Hcx-dO-GCw" firstAttribute="centerY" secondItem="9X6-L0-rRU" secondAttribute="centerY" id="1ix-z6-BI0"/>
+                                    <constraint firstItem="MNz-FR-ZGb" firstAttribute="leading" secondItem="e4f-qN-U8D" secondAttribute="trailing" constant="21" id="9vs-Zp-R9U"/>
+                                    <constraint firstItem="e4f-qN-U8D" firstAttribute="centerX" secondItem="9X6-L0-rRU" secondAttribute="centerX" id="ChG-pu-Dt3"/>
+                                    <constraint firstItem="MNz-FR-ZGb" firstAttribute="top" secondItem="e4f-qN-U8D" secondAttribute="top" id="LHP-SS-D25"/>
+                                    <constraint firstItem="e4f-qN-U8D" firstAttribute="leading" secondItem="9X6-L0-rRU" secondAttribute="leading" constant="77" id="SCK-bR-agN"/>
+                                    <constraint firstItem="Hcx-dO-GCw" firstAttribute="leading" secondItem="9X6-L0-rRU" secondAttribute="leading" constant="8" id="XDv-DL-wPi"/>
+                                    <constraint firstItem="e4f-qN-U8D" firstAttribute="top" secondItem="9X6-L0-rRU" secondAttribute="top" constant="20" id="bCk-wR-nzW"/>
+                                    <constraint firstItem="Hcx-dO-GCw" firstAttribute="top" secondItem="9X6-L0-rRU" secondAttribute="top" constant="20" id="bKl-9M-71J"/>
+                                    <constraint firstAttribute="bottom" secondItem="e4f-qN-U8D" secondAttribute="bottom" constant="26" id="d3W-bt-wV2"/>
+                                    <constraint firstAttribute="trailing" secondItem="Hcx-dO-GCw" secondAttribute="trailing" constant="8" id="fRh-Dw-tQ9"/>
+                                    <constraint firstItem="Hcx-dO-GCw" firstAttribute="centerX" secondItem="9X6-L0-rRU" secondAttribute="centerX" id="k8L-Xk-Bx6"/>
                                 </constraints>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="m8n-7u-s4B">
-                                <rect key="frame" x="0.0" y="554" width="600" height="47"/>
+                            <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="m8n-7u-s4B">
+                                <rect key="frame" x="0.0" y="202" width="600" height="398"/>
                                 <animations/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1B-Rx-DC9">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1B-Rx-DC9">
                                 <rect key="frame" x="242" y="529" width="117" height="51"/>
                                 <animations/>
                                 <accessibility key="accessibilityConfiguration" hint="Submit location" identifier="Submit Button" label="Submit"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="51" id="DnM-mM-nbo"/>
                                     <constraint firstAttribute="width" constant="117" id="sSS-es-Ak3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -468,23 +465,32 @@
                         <animations/>
                         <color key="backgroundColor" red="0.68888300657272339" green="0.71366006135940552" blue="0.73448425531387329" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="m8n-7u-s4B" firstAttribute="leading" secondItem="vEr-6L-QfU" secondAttribute="leadingMargin" constant="-20" id="Ksx-6V-NlC"/>
-                            <constraint firstItem="C1B-Rx-DC9" firstAttribute="centerX" secondItem="vEr-6L-QfU" secondAttribute="centerX" id="UwS-aU-bC7"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="m8n-7u-s4B" secondAttribute="bottom" id="caG-Ev-QV4"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="m8n-7u-s4B" secondAttribute="trailing" constant="-20" id="dkA-BX-hwg"/>
-                            <constraint firstItem="RKC-yZ-HOO" firstAttribute="top" secondItem="C1B-Rx-DC9" secondAttribute="bottom" constant="20" id="eDd-9B-5oc"/>
-                            <constraint firstItem="m8n-7u-s4B" firstAttribute="top" secondItem="iJw-P4-xWI" secondAttribute="bottom" id="vna-kw-CR3"/>
+                            <constraint firstItem="iuD-fm-Agz" firstAttribute="leading" secondItem="m8n-7u-s4B" secondAttribute="leading" id="2He-bM-XHG"/>
+                            <constraint firstItem="C1B-Rx-DC9" firstAttribute="centerX" secondItem="iuD-fm-Agz" secondAttribute="centerX" id="44S-cK-h9l"/>
+                            <constraint firstItem="iuD-fm-Agz" firstAttribute="top" secondItem="m8n-7u-s4B" secondAttribute="top" id="DZz-cH-OC2"/>
+                            <constraint firstItem="iuD-fm-Agz" firstAttribute="centerY" secondItem="vEr-6L-QfU" secondAttribute="centerY" id="EoP-cj-256"/>
+                            <constraint firstAttribute="bottom" secondItem="C1B-Rx-DC9" secondAttribute="bottom" constant="20" symbolic="YES" id="Mwy-Ve-r07"/>
+                            <constraint firstItem="2HU-En-Fmf" firstAttribute="centerX" secondItem="vEr-6L-QfU" secondAttribute="centerX" id="Rhf-jk-5yC"/>
+                            <constraint firstItem="iuD-fm-Agz" firstAttribute="leading" secondItem="9X6-L0-rRU" secondAttribute="leading" id="Ueb-zk-TWo"/>
+                            <constraint firstItem="C1B-Rx-DC9" firstAttribute="centerX" secondItem="m8n-7u-s4B" secondAttribute="centerX" id="Vjf-ZM-x3G"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="m8n-7u-s4B" secondAttribute="trailing" constant="-20" id="Xu8-cz-hD3"/>
+                            <constraint firstItem="C1B-Rx-DC9" firstAttribute="top" secondItem="2HU-En-Fmf" secondAttribute="bottom" constant="79" id="fE8-JU-jh8"/>
+                            <constraint firstItem="C1B-Rx-DC9" firstAttribute="centerX" secondItem="9X6-L0-rRU" secondAttribute="centerX" id="muk-Lx-nGL"/>
+                            <constraint firstItem="iuD-fm-Agz" firstAttribute="top" secondItem="1nv-sM-hhI" secondAttribute="bottom" constant="182" id="oU2-SR-zNa"/>
+                            <constraint firstItem="RKC-yZ-HOO" firstAttribute="top" secondItem="m8n-7u-s4B" secondAttribute="bottom" id="s44-yK-oZM"/>
+                            <constraint firstItem="m8n-7u-s4B" firstAttribute="leading" secondItem="vEr-6L-QfU" secondAttribute="leadingMargin" constant="-20" id="s92-ej-LhX"/>
+                            <constraint firstItem="2HU-En-Fmf" firstAttribute="top" secondItem="iuD-fm-Agz" secondAttribute="bottom" constant="8" id="s9D-01-q7a"/>
+                            <constraint firstItem="m8n-7u-s4B" firstAttribute="top" secondItem="9X6-L0-rRU" secondAttribute="bottom" id="yjL-aM-Plq"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="headerLabel" destination="e4f-qN-U8D" id="GCk-g6-62y"/>
                         <outlet property="helpLabel" destination="2HU-En-Fmf" id="eRe-ZY-wEO"/>
-                        <outlet property="linkTextField" destination="KKr-4M-xjM" id="pI5-fc-j5x"/>
-                        <outlet property="linkViewContainer" destination="iJw-P4-xWI" id="40c-W2-hef"/>
+                        <outlet property="linkTextField" destination="Hcx-dO-GCw" id="7GZ-CP-V8m"/>
                         <outlet property="locationTextField" destination="fQZ-bf-Yba" id="zst-Zp-hAI"/>
-                        <outlet property="mapView" destination="m8n-7u-s4B" id="xlg-6A-AWp"/>
-                        <outlet property="postLocationViewContainer" destination="iJw-P4-xWI" id="cb2-uc-SsK"/>
+                        <outlet property="mapView" destination="m8n-7u-s4B" id="Kc4-N7-FpL"/>
                         <outlet property="submitButton" destination="C1B-Rx-DC9" id="D9W-vc-zFr"/>
+                        <outlet property="topViewContainer" destination="9X6-L0-rRU" id="9dp-Qo-p0j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o0m-n6-c9m" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -501,7 +507,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="locationCell" rowHeight="94" id="DKM-xW-jx6" customClass="LocationTableViewCell" customModule="On_The_Map" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="locationCell" rowHeight="94" id="DKM-xW-jx6" customClass="LocationTableViewCell" customModule="On_The_Map" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="94"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DKM-xW-jx6" id="XxN-FZ-cxV">
@@ -519,21 +525,21 @@
                                             <rect key="frame" x="93" y="37" width="452" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="14"/>
-                                            <color key="textColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.12637259066104889" green="0.12639245390892029" blue="0.12636536359786987" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBu-sj-TIe">
                                             <rect key="frame" x="93" y="64" width="452" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="14"/>
-                                            <color key="textColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.12637259066104889" green="0.12639245390892029" blue="0.12636536359786987" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4iI-dL-SAa">
                                             <rect key="frame" x="93" y="8" width="452" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="20"/>
-                                            <color key="textColor" red="0.13346317410469055" green="0.18231484293937683" blue="0.25190103054046631" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.12637259070000001" green="0.12639245390000001" blue="0.1263653636" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -551,7 +557,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <animations/>
-                                <color key="backgroundColor" red="0.51784205436706543" green="0.58159953355789185" blue="0.58617168664932251" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.68888300657272339" green="0.71366006135940552" blue="0.73448425531387329" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="geoTextLabel" destination="bBu-sj-TIe" id="AIJ-Su-xm6"/>
                                     <outlet property="mainImageView" destination="FCL-Kf-W9v" id="cOl-yl-eEL"/>
@@ -628,7 +634,7 @@
         <image name="udacityWhite" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3fo-Op-7E2"/>
+        <segue reference="hj5-7b-GbU"/>
         <segue reference="cjt-74-M8U"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -8,7 +8,7 @@ pod 'ChameleonFramework/Swift'
 pod 'PKRevealController'
 pod "TextFieldEffects"
 pod "SwiftSpinner"
-pod
+pod "MBProgressHUD"
 
 platform :ios, '9.0'
 

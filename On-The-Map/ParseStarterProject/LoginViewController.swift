@@ -15,8 +15,8 @@ import ChameleonFramework
 import SwiftSpinner
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
-    @IBOutlet weak var usernameTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var usernameTextField: KaedeTextField!
+    @IBOutlet weak var passwordTextField: KaedeTextField!
 
     @IBOutlet weak var loginButton: UIButton!
 
@@ -55,12 +55,28 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func setUpColorScheme(){
-//        /* Set colors of buttons */
-//        let colorScheme = appDelegate.colorScheme
-//        loginButton.backgroundColor = colorScheme[1] as? UIColor
-//        signUpButton.backgroundColor = UIColor.clearColor()
-//        usernameTextField.backgroundColor = colorScheme[2] as? UIColor
-//        passwordTextField.backgroundColor = colorScheme[2] as? UIColor
+        /* Set colors of buttons */
+        let colorScheme = appDelegate.colorScheme
+        
+        let backgroundColor = 
+        
+        view.backgroundColor = colorScheme[1] as? UIColor
+        
+        usernameTextField.backgroundColor = colorScheme[2] as? UIColor
+        
+        passwordTextField.backgroundColor = colorScheme[2] as? UIColor
+        
+        usernameTextField.foregroundColor = colorScheme[1] as? UIColor
+        
+        passwordTextField.foregroundColor = colorScheme[1] as? UIColor
+        
+        
+        onePasswordContainer.backgroundColor = colorScheme[1] as? UIColor
+        
+        loginButton.backgroundColor = colorScheme[3] as? UIColor
+        signUpButton.backgroundColor = colorScheme[3] as? UIColor
+        
+        
         onepasswordButton.backgroundColor = UIColor.clearColor()
     }
     
@@ -76,6 +92,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewWillDisappear(animated: Bool) {
         unsubsribeToKeyboardNotification()
     }
+    
+    
     @IBAction func didTapLoginTouchUpInside(sender: AnyObject) {
         
         
@@ -179,7 +197,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             let tabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
             self.presentViewController(tabBarController, animated: true, completion: {
                 
-                /* Hide activity Inidcatory */
+                /* Hide activity Indicator*/
                 SwiftSpinner.hide()
                 
             })

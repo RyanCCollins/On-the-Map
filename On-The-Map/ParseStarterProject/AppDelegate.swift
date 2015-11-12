@@ -34,13 +34,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         /* set Parse IDs */
         Parse.setApplicationId(ParseClient.Constants.api_key, clientKey: ParseClient.Constants.app_id)
         
-//        let color = UIColor.flatMaroonColorDark()
         let color = UIColor.flatNavyBlueColorDark()
+       let secondary = UIColor.flatBlueColorDark()
 //        let secondary = UIColor.flatWatermelonColor()
-        colorScheme = NSArray(ofColorsWithColorScheme: ColorScheme.Analogous, usingColor: color, withFlatScheme: true)
+
+        colorScheme = NSArray(ofColorsWithColorScheme: .Analogous, usingColor: color, withFlatScheme: true)
         //let color = colorArray[0]
-        Chameleon.setGlobalThemeUsingPrimaryColor(color, withContentStyle: .Contrast)
-        
+//        Chameleon.setGlobalThemeUsingPrimaryColor(color, withSecondaryColor: secondary, andContentStyle: .Contrast)
+        Chameleon.setGlobalThemeUsingPrimaryColor(secondary, withContentStyle: .Contrast)
         // Enable storing and querying data from Local Datastore.
         // Remove this line if you don't want to use Local Datastore features or want to use cachePolicy.
         

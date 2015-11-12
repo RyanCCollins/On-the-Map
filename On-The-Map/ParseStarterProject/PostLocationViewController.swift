@@ -12,15 +12,14 @@ import MBProgressHUD
 
 class PostLocationViewController: UIViewController {
     @IBOutlet weak var headerLabel: UILabel!
-    @IBOutlet weak var locationTextField: JiroTextField!
+    @IBOutlet weak var locationTextField: KaedeTextField!
     @IBOutlet weak var helpLabel: UILabel!
     @IBOutlet weak var submitButton: UIButton!
-    
-    @IBOutlet weak var postLocationViewContainer: UIView!
-    @IBOutlet weak var linkTextField: JiroTextField!
+  
+    @IBOutlet weak var linkTextField: KaedeTextField!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var topViewContainer: UIView!
     
-    @IBOutlet weak var linkViewContainer: UIView!
     let coordinateSpan = MKCoordinateSpan()
     let regionRadius: CLLocationDistance = 1000
     
@@ -164,9 +163,10 @@ class PostLocationViewController: UIViewController {
         locationTextField.hidden = !reset
         headerLabel.hidden = !reset
         helpLabel.hidden = !reset
-        linkViewContainer.hidden = !reset
         
-        
+        if !reset {
+            topViewContainer.backgroundColor = UIColor.flatBlueColor()
+        }
     }
     
 }
