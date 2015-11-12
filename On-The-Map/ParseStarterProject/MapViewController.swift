@@ -22,88 +22,34 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         /* Get shared session */
         ParseClient.sharedInstance()
-        refreshViewForDataUpdate()
+        
         studentLocationMapView.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
-        
+        super.viewWillAppear(animated)
         SwiftSpinner.showWithDelay(2.0, title: "Refreshing Map").addTapHandler({
             SwiftSpinner.hide()
         })
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), {
-            self.loadMapViewWithParseData({success, error in
-                if success {
-                    SwiftSpinner.hide()
-                } else {
-                    SwiftSpinner.show("Sorry but we could not load the data.").addTapHandler({
-     
-                    SwiftSpinner.hide()
-                }, subtitle: "Please try again.")
-                }
-            })
-        })
+        self.loadMapViewWithParseData()
+        
+        SwiftSpinner.hide()
         
     }
     
-    
-    func delay(seconds seconds: Double, completion:()->()) {
-        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
-        
-        dispatch_after(popTime, dispatch_get_main_queue()) {
-            completion()
-        }
-    }
     
     
     override func viewDidAppear(animated: Bool) {
         SwiftSpinner.hide()
     }
     
-    /* refresh the view for data update/retrieval - call asynchronously*/
-    func refreshViewForDataUpdate() {
-//        
-//        dispatch_async(dispatch_get_main_queue(), {
-//            
-//            SwiftSpinner.show("Updating Map Data...").addTapHandler({
-//                SwiftSpinner.hide()
-//            })
-//            
-//        })
-//        
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), {
-//            self.loadMapViewWithParseData({success, error in
-//                if error != nil {
-//                    
-//                    
-//                    /* If error,
-//                    
-//                    SwiftSpinner.show("Failed to refresh map data.  Please try again.")
-////                    self.alertUserWithWithActions("Failed to refresh data", message: "Something went wrong while refreshing the data.  Please retry or logout", actions: [logoutAction, retryAction])
-//                    
-//                } else {
-//                    
-//                    
-//                    
-//                }
-//                
-//                SwiftSpinner.hide()
-//                
-//            })
-//        })
-        
-        
-            
-    }
-    
     /* add parse data to map if first time logging in, get the data, if not, get the shared instance of student data */
-    func loadMapViewWithParseData(completionHandler: ((success: Bool, error: NSError?)-> Void)?) {
+    func loadMapViewWithParseData() {
         
         if let locations = ParseClient.sharedInstance().studentData {
             
             addPinsToMapForStudents(locations)
-            completionHandler!(success: true, error: nil)
 
         } else {
             ParseClient.sharedInstance().getDataFromParse({success, results, error in
@@ -111,19 +57,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 if success {
                     
                     self.addPinsToMapForStudents(results)
-                    completionHandler!(success: true, error: nil)
                     
                 } else {
                     
-                    completionHandler!(success: false, error: self.errorFromString("Failed to load map with parsed data in loadMapWithParsedData"))
-                    
+                    SwiftSpinner.show("Sorry, but something went wrong while trying to reload the network data.").addTapHandler({
+                        
+                        SwiftSpinner.hide()
+                        
+                    }, subtitle: "Tap to dismiss")
                 }
                 
             })
         }
-        
-        
-            completionHandler!(success: true, error: nil)
         
     }
     

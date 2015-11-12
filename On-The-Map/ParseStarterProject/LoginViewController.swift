@@ -13,6 +13,7 @@ import FBSDKLoginKit
 import FBSDKShareKit
 import ChameleonFramework
 import SwiftSpinner
+import FlatUIKit
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var usernameTextField: KaedeTextField!
@@ -57,8 +58,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     func setUpColorScheme(){
         /* Set colors of buttons */
         let colorScheme = appDelegate.colorScheme
-        
-        let backgroundColor = 
         
         view.backgroundColor = colorScheme[1] as? UIColor
         

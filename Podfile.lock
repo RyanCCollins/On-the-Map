@@ -21,6 +21,7 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.7.1):
     - FBSDKCoreKit
+  - FlatUIKit (1.6.2)
   - MBProgressHUD (0.9.1)
   - PKRevealController (2.0.6)
   - SSKeychain (1.2.3)
@@ -32,6 +33,7 @@ DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
+  - FlatUIKit
   - MBProgressHUD
   - PKRevealController
   - SSKeychain
@@ -44,6 +46,7 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: 9141b70960a37930850370495fe565f4a27ac141
   FBSDKLoginKit: c11ed3c2833472db3bb4a4aecf27af4a6f69b173
   FBSDKShareKit: 213adf63e073f41a346b0e7a689805880dc5150e
+  FlatUIKit: 1b41f0d4952ce8d970d8479ce79df54a960242c4
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   PKRevealController: ffb45a16f5a5032ad90a3d16e5cbb0d8e035bd58
   SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d

@@ -9,6 +9,7 @@ pod 'PKRevealController'
 pod "TextFieldEffects"
 pod "SwiftSpinner"
 pod "MBProgressHUD"
+pod 'FlatUIKit'
 
 platform :ios, '9.0'
 

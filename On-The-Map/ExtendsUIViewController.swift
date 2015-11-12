@@ -68,9 +68,13 @@ extension UIViewController {
     @IBAction func didTapRefreshTouchUpInside(sender: AnyObject) {
         reloadData()
         
-        let mapViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MapViewController")
+        let tabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarController")
         
-        presentViewController(mapViewController!, animated: true, completion: nil)
+        SwiftSpinner.show("Reloading Map Data")
+        
+        presentViewController(tabBarController!, animated: true, completion: {
+            SwiftSpinner.hide()
+        })
 
     }
     
