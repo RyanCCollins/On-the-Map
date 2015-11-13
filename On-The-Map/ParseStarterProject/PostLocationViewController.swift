@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import MBProgressHUD
+import Foundation
 
 class PostLocationViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var headerLabel: UILabel!
@@ -53,9 +54,6 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
     /* If user is submitting a valid location, show on the map */
     @IBAction func userDidTapSubmitLocationUpInside(sender: AnyObject) {
         
-        let hud = MBProgressHUD()
-        hud.labelText = "Locating..."
-        
         if isSubmittingURL == false {
             
             
@@ -66,8 +64,14 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
             }
             
             /* Show progress while verifying location */
-            hud.showAnimated(true, whileExecutingBlock: {
-                self.verifyLocation(self.locationTextField.text!)
+            
+            let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            hud.labelText = "Locating..."
+            
+            self.verifyLocation(self.locationTextField.text!, completionCallback: {
+                dispatch_async(dispatch_get_main_queue(), {
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                })
             })
 
         } else {
@@ -81,14 +85,16 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
                     
                 }
                 
-                
                 /* Show progress while submitting data */
-                hud.showAnimated(true, whileExecutingBlock: {
-                    
-                    self.updateOrAddNewDataToParse(mediaURL, mapString: self.locationString!)
-                    
+                let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                hud.labelText = "Posting..."
+                
+
+                self.updateOrAddNewDataToParse(mediaURL, mapString: self.locationString!, completionCallback: {
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
                 })
 
+                
                 
             } else {
                 
@@ -100,7 +106,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func updateOrAddNewDataToParse(mediaURL: String, mapString: String) {
+    func updateOrAddNewDataToParse(mediaURL: String, mapString: String, completionCallback: (()-> Void)?) {
         
         let JSONBody = ParseClient.sharedInstance().makeDictionaryForPostLocation(mediaURL, mapString: self.locationString!)
         ParseClient.sharedInstance().postDataToParse(JSONBody, completionHandler: {success, error in
@@ -114,7 +120,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
                     
                 let tryAgain = UIAlertAction(title: "Try again", style: .Default, handler: {Void in
                     
-                    self.updateOrAddNewDataToParse(mediaURL, mapString: self.locationString!)
+                    self.updateOrAddNewDataToParse(mediaURL, mapString: self.locationString!, completionCallback: nil)
                     
                 })
                 
@@ -125,39 +131,14 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
                 self.alertUserWithWithActions("Something went wrong", message: "An error occured while updating your location.  Submit as new or get out of here?", actions: [tryAgain, dismissAction])
                 
             }
+            
+            completionCallback!()
 
         })
     }
     
-//    func postNewLocationToParse(mediaURL: String, locationString: String) {
-//        
-//        let parameters = ParseClient.sharedInstance().makeDictionaryForPostLocation(mediaURL, mapString: locationString)
-//        
-//        ParseClient.sharedInstance().postDataToParse(parameters, completionHandler: {success, error in
-//            
-//            if error != nil {
-//                
-//                let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: nil)
-//                let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive, handler: {Void in
-//                    self.dismissViewControllerAnimated(true, completion: nil)
-//                })
-//                
-//                self.alertUserWithWithActions("Something went wrong", message: "An error occured while submitting your location, please retry or cancel submission.", actions: [retryAction, cancelAction])
-//                
-//            } else {
-//                
-//                /* Zero out data and dismiss the view */
-//                ParseClient.sharedInstance().studentData = nil
-//                self.dismissViewControllerAnimated(true, completion: nil)
-//                
-//            }
-//            
-//        })
-//        
-//        
-//    }
     
-    func verifyLocation(locationString: String){
+    func verifyLocation(locationString: String, completionCallback: ()-> Void){
         let geocoder = CLGeocoder()
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), {
@@ -197,12 +178,9 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
                 }
                 
             })
-        
-//        dispatch_async(dispatch_get_main_queue(), {
-//            
-//            MBProgressHUD.hideHUDForView(self.view, animated: true)
-//        
-//        })
+            
+            completionCallback()
+
         })
         
     }
