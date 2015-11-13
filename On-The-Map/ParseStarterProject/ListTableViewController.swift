@@ -102,7 +102,7 @@ class ListTableViewController: UITableViewController {
             } else {
                 
                 let logoutAction = UIAlertAction(title: "Logout", style: .Destructive, handler: { Void in
-                    self.logoutOfSession()
+                    self.didTapLoadUpInside(self)
                 })
                 let retryAction = UIAlertAction(title: "Ok", style: .Default, handler: { Void in
 

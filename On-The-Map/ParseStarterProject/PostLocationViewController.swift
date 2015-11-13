@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import MBProgressHUD
 
-class PostLocationViewController: UIViewController {
+class PostLocationViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var locationTextField: KaedeTextField!
     @IBOutlet weak var helpLabel: UILabel!
@@ -30,8 +30,8 @@ class PostLocationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        // Do any additional setup after loading the view.
+        linkTextField.delegate = self
+        locationTextField.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -67,7 +67,14 @@ class PostLocationViewController: UIViewController {
         } else {
             
             if let mediaURL = linkTextField.text {
-            
+                guard let _ = NSURL(string: mediaURL) else {
+                    let okAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+                    
+                    alertUserWithWithActions("Not a valid URL", message: "Sorry, but the url you provided is not valid.  Please share a new link.", actions: [okAction])
+                    return
+                    
+                }
+                
             let parameters = ParseClient.sharedInstance().makeDictionaryForPostLocation(mediaURL, mapString: locationString!)
                 
                 ParseClient.sharedInstance().postDataToParse(parameters, completionHandler: {success, error in

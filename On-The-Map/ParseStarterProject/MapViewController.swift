@@ -11,6 +11,7 @@ import Parse
 import MapKit
 import MBProgressHUD
 import SwiftSpinner
+import Foundation
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var studentLocationMapView: MKMapView!
@@ -156,11 +157,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             
             if let urlString = view.annotation?.subtitle! {
                 
-                appDelegate.openURL(NSURL(string: urlString)!)
+                if let url = NSURL(string: urlString) {
+                    
+                    appDelegate.openURL(url)
+                    
+                } else {
+                    
+                    let okAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+                    alertUserWithWithActions("Not a valid URL", message: "Sorry, but the URL you selected is not valid.", actions: [okAction])
+                    
+                }
                 
             }
         }
     }
+    
+    
     
     /* create a mapView indicator */
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {

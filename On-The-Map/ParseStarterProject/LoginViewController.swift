@@ -15,7 +15,7 @@ import ChameleonFramework
 import SwiftSpinner
 import FlatUIKit
 
-class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
+class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFieldDelegate {
     @IBOutlet weak var usernameTextField: KaedeTextField!
     @IBOutlet weak var passwordTextField: KaedeTextField!
 
@@ -25,7 +25,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var onePasswordContainer: UIView!
     @IBOutlet weak var signUpButton: UIButton!
-    @IBOutlet weak var debugLabel: UILabel!
     @IBOutlet weak var faceBookLoginView: UIView!
     @IBOutlet weak var onepasswordButton: UIButton!
     @IBOutlet weak var oneTimePasswordTextField: UITextField!
@@ -41,16 +40,18 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         faceBookLoginButton.readPermissions = [FBReadPermissions.PublicProfile, FBReadPermissions.Email, FBReadPermissions.UserFriends]
         
         /* Hide 1Password Button if not installed */
-//        self.onepasswordButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
+//        self.onepasswordButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())   
+        /* Add facebook button */
+        faceBookLoginButton.center = view.center
+        
         faceBookLoginView.addSubview(faceBookLoginButton)
-        faceBookLoginButton.center = faceBookLoginView.center
-//        faceBookLoginButton.frame = faceBookLoginView.frame
-        print(faceBookLoginButton.center)
-        print(faceBookLoginView.center)
-        print(faceBookLoginButton.frame)
+        
         
         /* Configure log in buttons */
-
+        
+        passwordTextField.delegate = self
+        usernameTextField.delegate = self
+        
         self.setStatusBarStyle(UIStatusBarStyleContrast)
         
         setUpColorScheme()
@@ -59,23 +60,20 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
 
-    
-    
-    
     override func viewWillAppear(animated: Bool) {
-        
+        super.viewWillAppear(animated)
         subscribeToKeyboardNotification()
         
     }
     
     
     override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
         unsubsribeToKeyboardNotification()
     }
     
     
     @IBAction func didTapLoginTouchUpInside(sender: AnyObject) {
-        
         
         /* run data update on background thread */
         
@@ -110,7 +108,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                     
                 } else {
                     
-                    SwiftSpinner.show("Sorry, but we were not able to log you in.").addTapHandler ({
+                    SwiftSpinner.show("Sorry, but we could not authenticate your Udacity account.").addTapHandler ({
                         SwiftSpinner.hide()
                     }, subtitle: "Please try again.")
                     
@@ -125,8 +123,13 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         UdaciousClient.sharedInstance().getUserData() {success, error in
             if success {
                 
+                /* Set user as authenticate */
+                self.appDelegate.userAuthenticated = true
+                
                 dispatch_async(dispatch_get_main_queue(), {
-
+                    
+                    
+                    
                     let tabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
                     self.presentViewController(tabBarController, animated: true, completion: {
                         
@@ -137,7 +140,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 })
             } else {
                 
-                SwiftSpinner.show("Sorry, but we were unable to log you in.").addTapHandler({
+                SwiftSpinner.show("Sorry, but we were unable to obtain your user information from Udacity.").addTapHandler({
                     SwiftSpinner.hide()
                     }, subtitle: "Tap to dismiss")
                 
@@ -152,18 +155,14 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     /* Verify that a proper username and password has been provided */
     func verifyUserCredentials(username: String?, password: String?) -> Bool {
         
-        if let password = password {
-            
-            if let username = username {
-                
-                if username.containsString("@") && username.containsString(".") {
-                    
-                    return true
-                }
-        
-            }
+        if password != nil && username!.containsString("@") && username!.containsString(".") {
+            return true
+         
         }
         
+        SwiftSpinner.show("Please enter a valid username and password").addTapHandler ({
+            SwiftSpinner.hide()
+            }, subtitle: "Tap to dismiss")
         return false
     }
     
@@ -192,7 +191,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                                 SwiftSpinner.hide()
                             }, subtitle: "Tap to dismiss")
                         
-                        self.displayDebugMessage("Please try logging in again")
                     }
                 }
             } else {
@@ -201,7 +199,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                     SwiftSpinner.hide()
                     }, subtitle: "Tap to dismiss")
                 
-                self.displayDebugMessage("Please try logging in again")
                 
             }
         } else {
@@ -210,24 +207,15 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 SwiftSpinner.hide()
                 }, subtitle: "Tap to dismiss")
             
-            self.displayDebugMessage("Please try logging in again")
 
         }
     }
+
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         
-        displayDebugMessage("Logged out of Facebook")
         
-    }
-    
-    /* Async update helper functions */
-    func displayDebugMessage(debugString: String) {
-        dispatch_async(dispatch_get_main_queue(), {
-            
-            self.debugLabel.text = debugString
-            
-        })
+        
     }
     
     
@@ -269,31 +257,30 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     /* setup colors of main login buttons */
     func setUpColorScheme(){
         /* Set colors of buttons */
-//        let colorScheme = appDelegate.colorScheme
+        let colorScheme = appDelegate.colorScheme
         
-        let colorScheme = NSArray(ofColorsFromImage: imageView.image, withFlatScheme: true)
         view.backgroundColor = colorScheme[1] as? UIColor
         
-        usernameTextField.backgroundColor = colorScheme[1] as? UIColor
+        usernameTextField.backgroundColor = colorScheme[2] as? UIColor
         
-        passwordTextField.backgroundColor = colorScheme[1] as? UIColor
+        passwordTextField.backgroundColor = colorScheme[2] as? UIColor
         
-        usernameTextField.foregroundColor = colorScheme[2] as? UIColor
+        usernameTextField.foregroundColor = colorScheme[1] as? UIColor
         
-        passwordTextField.foregroundColor = colorScheme[2] as? UIColor
+        passwordTextField.foregroundColor = colorScheme[1] as? UIColor
         
         
-        onePasswordContainer.backgroundColor = colorScheme[2] as? UIColor
+        onePasswordContainer.backgroundColor = colorScheme[1] as? UIColor
         
         loginButton.backgroundColor = colorScheme[3] as? UIColor
         signUpButton.backgroundColor = colorScheme[3] as? UIColor
         
-        loginLabel.textColor = colorScheme[3] as? UIColor
-        headerLabel.textColor = colorScheme[3] as? UIColor
+        loginLabel.textColor = colorScheme[2] as? UIColor
+        headerLabel.textColor = colorScheme[2] as? UIColor
         
         onepasswordButton.backgroundColor = UIColor.clearColor()
     }
-    
+
 }
 
 
@@ -303,3 +290,4 @@ struct FBReadPermissions {
     static let Email = "email"
     static let UserFriends = "user_friends"
 }
+

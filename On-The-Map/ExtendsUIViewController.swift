@@ -20,52 +20,7 @@ extension UIViewController {
         ParseClient.sharedInstance().studentData = nil
     }
     
-    func performLogoutSegue() {
-        dispatch_async(dispatch_get_main_queue(), {
-            self.performSegueWithIdentifier("logoutSegue", sender: self)
-        })
-    }
-    
-    func enterLocationData(){
-        
-    }
-    
-    /* Alert before logging out, then logout */
-    @IBAction func userWillLogout(sender: AnyObject) {
-        UdaciousClient.sharedInstance().logoutOfSession({success, error in
-            if success {
-                
-                if FBSDKAccessToken.currentAccessToken() != nil {
-                    let facebookLogin = FBSDKLoginManager()
-                    facebookLogin.logOut()
-                    
-                }
-                
-                let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
-                
-                let logoutAction = UIAlertAction(title: "Logout", style: .Destructive) {Void in
-                    
-                    self.logoutOfSession()
-                    return
-                }
-                
-                self.alertUserWithWithActions("Logout?", message: "Are you sure you want to logout?", actions: [cancelAction, logoutAction])
-                
-            } else {
-                
-                let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
-                self.alertUserWithWithActions("Failed to logout", message: "Sorry, but we were unable to log you out.", actions: [action])
-            }
-        })
-    }
-    
-    func logoutOfSession(){
-        
-        self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController")
 
-    }
-    
-    
     /* Helper function to show alerts to user */
     func alertUserWithWithActions(title: String, message: String, actions: [UIAlertAction]) {
         
@@ -137,4 +92,35 @@ extension UIViewController {
         return keyboardSize.CGRectValue().height
     }
 
+    
+    @IBAction func didTapLogoutUpInside(sender: AnyObject) {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        UdaciousClient.sharedInstance().logoutOfSession({success, error in
+            if success {
+                
+                if FBSDKAccessToken.currentAccessToken() != nil {
+                    let facebookLogin = FBSDKLoginManager()
+                    facebookLogin.logOut()
+                    
+                }
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+                
+                let logoutAction = UIAlertAction(title: "Logout", style: .Destructive) {Void in
+                    
+                    self.performSegueWithIdentifier("logoutSegue", sender: self)
+                    return
+                }
+                
+                self.alertUserWithWithActions("Logout?", message: "Are you sure you want to logout?", actions: [cancelAction, logoutAction])
+                
+            } else {
+                
+                let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                self.alertUserWithWithActions("Failed to logout", message: "Sorry, but we were unable to log you out.", actions: [action])
+            }
+        })
+        appDelegate.userAuthenticated = false
+    }
 }

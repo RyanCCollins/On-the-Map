@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var colorScheme: NSArray!
-    
+    var userAuthenticated: Bool!
 
     //--------------------------------------
     // MARK: - UIApplicationDelegate
@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let color = UIColor.flatNavyBlueColorDark()
        let secondary = UIColor.flatBlueColorDark()
 
-
+        
         colorScheme = NSArray(ofColorsWithColorScheme: .Analogous, usingColor: color, withFlatScheme: true)
 
 
