@@ -54,10 +54,15 @@ class ListTableViewController: UITableViewController {
         /* Show progress while submitting data */
         ParseClient.sharedInstance().studentData = nil
         
+//        if refreshControl?.refreshing == false {
+//            
+//        }
+        
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.labelText = "Reloading..."
         refreshDataFromParse({
             MBProgressHUD.hideHUDForView(self.view, animated: true)
+            self.refreshControl?.endRefreshing()
         })
         
     }
