@@ -22,7 +22,6 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
     
     let coordinateSpan = MKCoordinateSpan()
     let regionRadius: CLLocationDistance = 1000
-    let hud = MBProgressHUD()
     
     var isSubmittingURL = false
     var locationString: String? = nil
@@ -33,9 +32,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
         
         linkTextField.delegate = self
         locationTextField.delegate = self
-        
-        hud.labelText = "Loading..."
-        
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -50,13 +47,14 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func didTapCancelButtonTouchUpInside(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: {
-            /* ToDo refresh view */
-        })
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     /* If user is submitting a valid location, show on the map */
     @IBAction func userDidTapSubmitLocationUpInside(sender: AnyObject) {
+        
+        let hud = MBProgressHUD()
+        hud.labelText = "Locating..."
         
         if isSubmittingURL == false {
             
@@ -67,8 +65,11 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
                 
             }
             
-            verifyLocation(locationTextField.text!)
-            
+            /* Show progress while verifying location */
+            hud.showAnimated(true, whileExecutingBlock: {
+                self.verifyLocation(self.locationTextField.text!)
+            })
+
         } else {
             
             if let mediaURL = linkTextField.text {
@@ -80,11 +81,13 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
                     
                 }
                 
-                hud.show(true)
-                    
-                queryParseAndUpdateOrSubmitNew(mediaURL, mapString: self.locationString!)
                 
-                hud.hide(true)
+                /* Show progress while submitting data */
+                hud.showAnimated(true, whileExecutingBlock: {
+                    
+                    self.updateOrAddNewDataToParse(mediaURL, mapString: self.locationString!)
+                    
+                })
 
                 
             } else {
@@ -97,44 +100,32 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func queryParseAndUpdateOrSubmitNew(mediaURL: String, mapString: String) {
-        ParseClient.sharedInstance().queryParseDataForObjectId({success, objectId, error in
+    func updateOrAddNewDataToParse(mediaURL: String, mapString: String) {
+        
+        let JSONBody = ParseClient.sharedInstance().makeDictionaryForPostLocation(mediaURL, mapString: self.locationString!)
+        ParseClient.sharedInstance().postDataToParse(JSONBody, completionHandler: {success, error in
             
-            if error != nil {
-                
-                print(error)
-                
+            if success {
+                    
+                ParseClient.sharedInstance().studentData = nil
+                self.dismissViewControllerAnimated(true, completion: nil)
+                    
             } else {
-                
-                let JSONBody = ParseClient.sharedInstance().makeDictionaryForPostLocation(mediaURL, mapString: self.locationString!)
-                
-                ParseClient.sharedInstance().updateLocationForObjectId(objectId!, JSONBody: JSONBody, completionHandler: {success, updated, error in
                     
-                    if success {
-                        
-                        ParseClient.sharedInstance().studentData = nil
-                        self.dismissViewControllerAnimated(true, completion: nil)
-                        
-                    } else {
+                let tryAgain = UIAlertAction(title: "Try again", style: .Default, handler: {Void in
                     
-                        let tryAgain = UIAlertAction(title: "Try again", style: .Default, handler: {Void in
-                            
-                            self.queryParseAndUpdateOrSubmitNew(mediaURL, mapString: self.locationString!)
-                            
-                        })
-                        
-                        let dismissAction = UIAlertAction(title: "Leave", style: .Destructive, handler: {Void in
-                            self.dismissViewControllerAnimated(true, completion: nil)
-                        })
-                        
-                        self.alertUserWithWithActions("Something went wrong", message: "An error occured while updating your location.  Submit as new or get out of here?", actions: [tryAgain, dismissAction])
-                        
-                    }
+                    self.updateOrAddNewDataToParse(mediaURL, mapString: self.locationString!)
                     
                 })
                 
+                let dismissAction = UIAlertAction(title: "Leave", style: .Destructive, handler: {Void in
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                })
+                
+                self.alertUserWithWithActions("Something went wrong", message: "An error occured while updating your location.  Submit as new or get out of here?", actions: [tryAgain, dismissAction])
+                
             }
-            
+
         })
     }
     

@@ -36,6 +36,44 @@ extension ParseClient {
     
     func postDataToParse(locationParameters: [String : AnyObject], completionHandler: (success: Bool, error: NSError?) -> Void) {
         
+        
+        ParseClient.sharedInstance().queryParseDataForObjectId({ success, objectId, error in
+            
+            if success && objectId != nil {
+                
+                ParseClient.sharedInstance().updateLocationForObjectId(objectId!, JSONBody: locationParameters, completionHandler: {success, error in
+                    
+                    if error != nil {
+                        
+                        completionHandler(success: false, error: error)
+                        
+                    } else {
+                        
+                        completionHandler(success: true, error: nil)
+                    }
+                    
+                })
+                
+            } else {
+                
+                ParseClient.sharedInstance().taskForPOSTMethod(ParseClient.Methods.StudentLocations, JSONBody: locationParameters, completionHandler: {success, error in
+                    
+                    if error != nil {
+                        
+                        completionHandler(success: false, error: error)
+                    
+                    } else {
+                        
+                        completionHandler(success: true, error: nil)
+                        
+                    }
+                    
+                })
+                
+            }
+            
+        })
+        
         taskForPOSTMethod(Methods.StudentLocations, JSONBody: locationParameters) { result, error in
             
             if let error = error {
@@ -94,29 +132,18 @@ extension ParseClient {
     }
     
     
-    func updateLocationForObjectId(objectId: String, JSONBody: [String : AnyObject], completionHandler: (success: Bool, updated: Bool, error: NSError?) -> Void) {
+    func updateLocationForObjectId(objectId: String, JSONBody: [String : AnyObject], completionHandler: (success: Bool, error: NSError?) -> Void) {
         
         taskForPUTMethod(ParseClient.Methods.StudentLocations, objectId: objectId, JSONBody: JSONBody, completionHandler: {success, error in
             
             if error != nil {
-                
-                self.postDataToParse(JSONBody, completionHandler: {success, error in
-                    
-                    if error != nil {
-                        
-                        completionHandler(success: false, updated: false, error: error)
-                        
-                    } else {
-                        
-                        completionHandler(success: true, updated: false, error: nil)
-                        
-                    }
-                    
-                })
+
+                completionHandler(success: false, error: error)
+
                 
             } else {
                 
-                completionHandler(success: true, updated: true, error: nil)
+                completionHandler(success: true, error: nil)
                 
             }
             
