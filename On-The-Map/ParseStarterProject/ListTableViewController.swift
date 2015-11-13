@@ -15,30 +15,24 @@ class ListTableViewController: UITableViewController {
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let session = NSURLSession.sharedSession()
     var locations = [StudentLocationData]()
-    let hud = MBProgressHUD()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.refreshControl?.addTarget(self, action: "refreshDataFromParse:", forControlEvents: .ValueChanged)
+        self.refreshControl?.addTarget(self, action: "didTapRefresh", forControlEvents: .ValueChanged)
         
-        /* Show hud when reloading */
-        
-        hud.labelText = "Loading..."
-        
-        hud.showWhileExecuting("refreshDataFromParse:", onTarget: self, withObject: hud, animated: true)
         
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        if let locations = ParseClient.sharedInstance().studentData {
+        if ParseClient.sharedInstance().studentData != nil {
             
             tableView.reloadData()
             
         } else {
             
-            refreshDataFromParse(self)
+            didTapRefresh(self)
             
         }
     }
@@ -52,12 +46,23 @@ class ListTableViewController: UITableViewController {
         return locations.count
     }
     
+    @IBAction func didTapRefresh(sender: AnyObject) {
+        
+        /* Show progress while submitting data */
+        ParseClient.sharedInstance().studentData = nil
+        
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.labelText = "Reloading..."
+        refreshDataFromParse({
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
+        })
+        
+    }
+    
     /* reload table view data */
-    @IBAction func refreshDataFromParse(sender: AnyObject) {
+    func refreshDataFromParse(completionCallback: (()-> Void)?) {
         
         ParseClient.sharedInstance().getDataFromParse({ success, results, error in
-            
-            self.hud.hide(true)
             
             if success {
                 
@@ -71,7 +76,7 @@ class ListTableViewController: UITableViewController {
                 dispatch_async(dispatch_get_main_queue(), {
                     
                     let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: {Void in
-                        self.refreshDataFromParse(self)
+                        self.refreshDataFromParse(nil)
                     })
                     
                     let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
@@ -84,6 +89,7 @@ class ListTableViewController: UITableViewController {
             
         })
         
+        completionCallback!()
         
     }
 
