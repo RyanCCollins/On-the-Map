@@ -94,18 +94,29 @@ extension ParseClient {
     }
     
     
-    func updateLocationForObjectId(objectId: String, JSONBody: [String : AnyObject], completionHandler: (success: Bool, error: NSError?) -> Void) {
+    func updateLocationForObjectId(objectId: String, JSONBody: [String : AnyObject], completionHandler: (success: Bool, updated: Bool, error: NSError?) -> Void) {
         
         taskForPUTMethod(ParseClient.Methods.StudentLocations, objectId: objectId, JSONBody: JSONBody, completionHandler: {success, error in
             
             if error != nil {
                 
-                print(error)
-                completionHandler(success: false, error: error)
+                self.postDataToParse(JSONBody, completionHandler: {success, error in
+                    
+                    if error != nil {
+                        
+                        completionHandler(success: false, updated: false, error: error)
+                        
+                    } else {
+                        
+                        completionHandler(success: true, updated: false, error: nil)
+                        
+                    }
+                    
+                })
                 
             } else {
                 
-                completionHandler(success: true, error: nil)
+                completionHandler(success: true, updated: true, error: nil)
                 
             }
             

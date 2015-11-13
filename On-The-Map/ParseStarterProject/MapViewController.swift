@@ -17,6 +17,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var studentLocationMapView: MKMapView!
     let initialLocation = CLLocation(latitude: 37.399872, longitude: -122.108296)
     let regionRadius: CLLocationDistance = 1000
+    let hud = MBProgressHUD()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,77 +26,83 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         ParseClient.sharedInstance()
         
         studentLocationMapView.delegate = self
+        hud.labelText = "Loading..."
+        
+        hud.showWhileExecuting("refreshDataFromParse:", onTarget: self, withObject: hud, animated: true)
+        
+        
     }
     
-    @IBAction func didTapRefreshUpInside(sender: AnyObject) {
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let locations = ParseClient.sharedInstance().studentData {
+            addPinsToMapForStudents(locations)
+        } else {
+            refreshDataFromParse(self)
+        }
+    }
+    
+    @IBAction func refreshDataFromParse(sender: AnyObject) {
+        
+        /* remove annotations and add new ones */
         studentLocationMapView.removeAnnotations(studentLocationMapView.annotations)
-        startMapRefreshWithHUD()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        /* Show progress indicator while loading */
         
-        startMapRefreshWithHUD()
         
-    }
-    
-    func startMapRefreshWithHUD() {
-        
-        let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
-        
-        hud.labelText = "Loading map"
-        
-            self.loadMapViewWithParseData({success, error in
+        self.loadMapViewWithParseData({success, error in
+            
+            if success {
                 
-                if success {
+                dispatch_async(dispatch_get_main_queue(), {
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
                     
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.addPinsToMapForStudents(ParseClient.sharedInstance().studentData)
+                    self.addPinsToMapForStudents(ParseClient.sharedInstance().studentData)
+                })
+                
+            } else {
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    
+                    let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: {Void in
+                        self.refreshDataFromParse(self)
                     })
                     
-                } else {
+                    let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
                     
-                    /* alert user */
-                    print("An error occured in viewWillAppear MapViewController")
+                    self.alertUserWithWithActions("Error loading", message: "Sorry, but there was an error loading the data from the network", actions: [retryAction, dismissAction])
                     
-                }
+                })
                 
-            })
-            dispatch_async(dispatch_get_main_queue(), {
-                MBProgressHUD.hideHUDForView(self.view, animated: true)
-            })
+            }
+            
+        })
 
     }
     
     /* add parse data to map if first time logging in, get the data, if not, get the shared instance of student data */
     func loadMapViewWithParseData(completionHandler: (success: Bool, error: NSError?)-> Void) {
         
-        if let locations = ParseClient.sharedInstance().studentData {
-            
-            addPinsToMapForStudents(locations)
-
-        } else {
-            
-            ParseClient.sharedInstance().getDataFromParse({success, results, error in
-                
-                if success {
-                    
-                    completionHandler(success: true, error: nil)
-                    
-                    
-                } else {
-                    
-                    completionHandler(success: false, error: self.errorFromString("Failed to load data in: loadMapWithParseData"))
-                    SwiftSpinner.show("Sorry, but something went wrong while trying to reload the network data.").addTapHandler({
-                        
-                        SwiftSpinner.hide()
-                        
-                    }, subtitle: "Tap to dismiss")
-                }
-                
-            })
-        }
+//        if let locations = ParseClient.sharedInstance().studentData {
+//            
+//            addPinsToMapForStudents(locations)
+//
+//        } else {
         
+        ParseClient.sharedInstance().getDataFromParse({success, results, error in
+            
+            if success {
+                
+                completionHandler(success: true, error: nil)
+                
+                
+            } else {
+                
+                completionHandler(success: false, error: self.errorFromString("Failed to load data in: loadMapWithParseData"))
+            }
+        })
+    
     }
     
     func addPinsToMapForStudents(studentLocations: [StudentLocationData]?) {

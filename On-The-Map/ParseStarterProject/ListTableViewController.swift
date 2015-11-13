@@ -8,33 +8,43 @@
 
 import UIKit
 import Parse
+import MBProgressHUD
+
 class ListTableViewController: UITableViewController {
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let session = NSURLSession.sharedSession()
     var locations = [StudentLocationData]()
+    let hud = MBProgressHUD()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.refreshControl?.addTarget(self, action: "refreshViewForDataUpdate", forControlEvents: .ValueChanged)
+        self.refreshControl?.addTarget(self, action: "refreshDataFromParse:", forControlEvents: .ValueChanged)
         
-        loadWithParseData({success, error in
-            if let error = error {
-                print(error)
-            }
-        })
+        /* Show hud when reloading */
+        
+        hud.labelText = "Loading..."
+        
+        hud.showWhileExecuting("refreshDataFromParse:", onTarget: self, withObject: hud, animated: true)
         
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.tableView.reloadData()
+        if let locations = ParseClient.sharedInstance().studentData {
+            
+            tableView.reloadData()
+            
+        } else {
+            
+            refreshDataFromParse(self)
+            
+        }
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+        
         return 1
     }
 
@@ -43,82 +53,38 @@ class ListTableViewController: UITableViewController {
     }
     
     /* reload table view data */
-    @IBAction func didTapLoadUpInside(sender: AnyObject) {
-        loadWithParseData({success, error in
-            if let error = error {
-                print(error)
-            }
-        })
-    }
-
-    
-    /* add parse data to list if first time logging in, get the data, if not, get the shared instance of student data */
-    func loadWithParseData(completionHandler: (success: Bool, error: NSError?)-> Void) {
+    @IBAction func refreshDataFromParse(sender: AnyObject) {
         
-            /* reload data if refreshing */
-            if let locations = ParseClient.sharedInstance().studentData {
-                self.locations = locations
+        ParseClient.sharedInstance().getDataFromParse({ success, results, error in
+            
+            self.hud.hide(true)
+            
+            if success {
+                
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableView.reloadData()
-                })
-
-                completionHandler(success: true, error: nil)
-                
-            /* Otherwise, fetch the data */
-            } else {
-                
-                ParseClient.sharedInstance().getDataFromParse({success, results, error in
                     
-                    if success {
-                        
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.tableView.reloadData()
-                        })
-                        completionHandler(success: true, error: nil)
-                        
-                    } else {
-                        
-                        completionHandler(success: false, error: self.errorFromString("Failed to load map with parsed data in loadMapWithParsedData"))
-                    
-                    }
-                    
-                })
-            }
-            
-            
-            completionHandler(success: true, error: nil)
-        
-    }
-    
-    /* refresh the view for data update/retrieval - call asynchronously*/
-    func refreshViewForDataUpdate() {
-        
-        
-        loadWithParseData({ success, error in
-            if success {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.refreshControl?.endRefreshing()
                 })
                 
             } else {
                 
-                let logoutAction = UIAlertAction(title: "Logout", style: .Destructive, handler: { Void in
-                    self.didTapLoadUpInside(self)
-                })
-                let retryAction = UIAlertAction(title: "Ok", style: .Default, handler: { Void in
-
-                    self.refreshControl?.endRefreshing()
-                })
-                
                 dispatch_async(dispatch_get_main_queue(), {
                     
-                    self.alertUserWithWithActions("Failed to refresh data", message: "Something went wrong while refreshing the data.  Please retry or logout", actions: [logoutAction, retryAction])
+                    let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: {Void in
+                        self.refreshDataFromParse(self)
+                    })
+                    
+                    let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+                    
+                    self.alertUserWithWithActions("Error loading", message: "Sorry, but there was an error loading the data from the network", actions: [retryAction, dismissAction])
                     
                 })
                 
             }
             
         })
+        
+        
     }
 
     
@@ -146,14 +112,16 @@ class ListTableViewController: UITableViewController {
         
         cell.mainTextLabel.text = "\(data.First) \(data.Last)"
         cell.urlTextLabel.text = "\(data.MediaUrl)"
-        cell.geoTextLabel.text = "Posted from: \(data.GEODescriptor)"
+        cell.geoTextLabel.text = "From: \(data.GEODescriptor) at: \(data.UpdateTime)"
         
         if let userImage = data.userImageURL as? NSData {
             cell.mainImageView.image = UIImage(data: userImage)
         } else {
             cell.mainImageView.image = UIImage(named: "identicon")
         }
-
+        
+        cell.accessoryView = UIImageView(image: UIImage(named: "safari-icon"))
+        
         return cell
     }
 
