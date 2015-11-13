@@ -45,7 +45,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         hud.labelText = "Loading map"
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), {
             self.loadMapViewWithParseData({success, error in
                 
                 if success {
@@ -65,8 +64,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             dispatch_async(dispatch_get_main_queue(), {
                 MBProgressHUD.hideHUDForView(self.view, animated: true)
             })
-            
-        })
+
     }
     
     /* add parse data to map if first time logging in, get the data, if not, get the shared instance of student data */

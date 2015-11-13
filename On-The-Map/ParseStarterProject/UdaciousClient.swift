@@ -26,23 +26,27 @@ class UdaciousClient: NSObject {
         session = NSURLSession.sharedSession()
         super.init()
     }
+    
+    /* Task for GETting data from Udacity */
     func taskForGETMethod(method: String, parameters: [String : AnyObject]?, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         /* Build the URL, using parameters if there are any */
         var urlString = Constants.BaseURLSecure + method
+        
         if let parameters = parameters {
+            
             urlString += UdaciousClient.stringByEscapingParameters(parameters)
+            
         }
         
         let url = NSURL(string: urlString)
         
-        /* 3. Make the request */
+        /* Make the request */
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = UdaciousClient.HTTPRequest.GET
 
         let session = NSURLSession.sharedSession()
         
-        /* Make the request */
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
             /* Guard for an error */
@@ -67,31 +71,38 @@ class UdaciousClient: NSObject {
             /* Make sure the data is parsed before returning it */
 
             let usableData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
-            print("usableData: \(usableData)")
+
             if let parsedData = (try? NSJSONSerialization.JSONObjectWithData(usableData, options: .AllowFragments)) as? [ String : AnyObject]{
+                
                 completionHandler(result: parsedData, error: nil)
+                
             } else {
-                print("Failed to parse data to JSON in taskForGETMethod")
+                
                 completionHandler(result: nil, error: UdaciousClient.errorFromString("Failed to parse data to JSON in taskForGETMethod"))
+                
             }
+            
             completionHandler(result: data, error: nil)
+            
         }
         task.resume()
         return task
     }
     
+    /* Task for POSTing data */
     func taskForPOSTMethod(method: String, parameters: [String : AnyObject]?, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         /* Build the URL */
         let urlString = Constants.BaseURLSecure + method
         let url = NSURL(string: urlString)
         
-        /* Make the request */
+        /* Construct the request */
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
+        /* Try to run the request with error catching */
         do {
             request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(parameters!, options: .PrettyPrinted)
         } catch let error as NSError {
@@ -138,7 +149,6 @@ class UdaciousClient: NSObject {
                 
             } else {
                 
-                print("Failed to parse data to JSON in taskForPostMethod")
                 
                 completionHandler(result: nil, error: UdaciousClient.errorFromString("Failed to parse data to JSON in taskForPostMethod"))
             }
@@ -213,9 +223,11 @@ class UdaciousClient: NSObject {
             /* Parse JSON into a Foundation data object */
             let usableData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
             if let parsedData = (try? NSJSONSerialization.JSONObjectWithData(usableData, options: .AllowFragments)) {
+                
                 completionHandler(result: parsedData, error: nil)
+                
             } else {
-                print("Failed to parse data to JSON in taskForPostMethod")
+
                 completionHandler(result: nil, error: UdaciousClient.errorFromString("Failed to parse data to JSON in taskForPostMethod"))
             }
 
@@ -235,6 +247,9 @@ class UdaciousClient: NSObject {
     
     /* Helper function: construct an NSLocalizedError from an error string */
     class func errorFromString(string: String) -> NSError? {
+        
+        print(string)
+        
         return NSError(domain: "UdaciousClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(string)"])
     }
 

@@ -48,7 +48,6 @@
 		1F787D241BF0564300BC80F6 /* ParseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D231BF0564300BC80F6 /* ParseConstants.swift */; };
 		1F787D271BF0598800BC80F6 /* StudentLocationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D261BF0598800BC80F6 /* StudentLocationData.swift */; };
 		1F787D6A1BF1299500BC80F6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F787D691BF1299500BC80F6 /* MapKit.framework */; };
-		1FCE53E21BF4188F00BEF266 /* FlatUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCE53E11BF4188F00BEF266 /* FlatUIButton.swift */; };
 		814C3ACA1B69877600E307BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 814C3AC61B69877600E307BB /* Main.storyboard */; };
 		814C3ACB1B69877600E307BB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 814C3AC81B69877600E307BB /* Images.xcassets */; };
 		81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BA814A1A49DA1800E65899 /* AppDelegate.swift */; };
@@ -104,7 +103,6 @@
 		1F787D231BF0564300BC80F6 /* ParseConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConstants.swift; sourceTree = "<group>"; };
 		1F787D261BF0598800BC80F6 /* StudentLocationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationData.swift; sourceTree = "<group>"; };
 		1F787D691BF1299500BC80F6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		1FCE53E11BF4188F00BEF266 /* FlatUIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatUIButton.swift; sourceTree = "<group>"; };
 		495889A71B8DDB6C375A9A59 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		814C3AC71B69877600E307BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		814C3AC81B69877600E307BB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -223,7 +221,6 @@
 		1F787D1E1BF0550000BC80F6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1FCE53E11BF4188F00BEF266 /* FlatUIButton.swift */,
 				1F24A7251BF2AEFE00BC2796 /* LocationTableViewCell.swift */,
 			);
 			name = View;
@@ -490,7 +487,6 @@
 				1F787D071BEFB02900BC80F6 /* UdaciousClient.swift in Sources */,
 				1F787D201BF0562800BC80F6 /* ParseClient.swift in Sources */,
 				1F24A7021BF2593B00BC2796 /* MadokaTextField.swift in Sources */,
-				1FCE53E21BF4188F00BEF266 /* FlatUIButton.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
 				1F24A7011BF2593B00BC2796 /* KaedeTextField.swift in Sources */,
 				1F24A6FD1BF2593B00BC2796 /* HoshiTextField.swift in Sources */,

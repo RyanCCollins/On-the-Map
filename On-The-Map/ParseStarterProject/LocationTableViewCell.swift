@@ -13,11 +13,12 @@ class LocationTableViewCell: UITableViewCell {
     @IBOutlet weak var mainTextLabel: UILabel!
     @IBOutlet weak var urlTextLabel: UILabel!
     @IBOutlet weak var geoTextLabel: UILabel!
+    
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.accessoryView?.backgroundColor = superview?.backgroundColor
+        self.accessoryView? = UIColor.clearColor()
         self.accessoryView?.tintColor = UIColor.flatMintColor()
         
     }

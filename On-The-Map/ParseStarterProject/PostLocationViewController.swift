@@ -74,38 +74,80 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
                     return
                     
                 }
-                
-            let parameters = ParseClient.sharedInstance().makeDictionaryForPostLocation(mediaURL, mapString: locationString!)
-                
-                ParseClient.sharedInstance().postDataToParse(parameters, completionHandler: {success, error in
+            
+                ParseClient.sharedInstance().queryParseDataForObjectId({success, objectId, error in
                     
                     if error != nil {
                         
-                        let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: nil)
-                        let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: {Void in
-                            self.dismissViewControllerAnimated(true, completion: nil)
-                        })
-                        
-                        self.alertUserWithWithActions("Something went wrong", message: "An error occured while submitting your location, please retry or go back to the Map.", actions: [retryAction, dismissAction])
+                        print(error)
                         
                     } else {
                         
-                        /* refresh and present mapViewController */
-                        self.dismissViewControllerAnimated(true, completion: nil)
+                        let JSONBody = ParseClient.sharedInstance().makeDictionaryForPostLocation(mediaURL, mapString: self.locationString!)
+                        
+                        ParseClient.sharedInstance().updateLocationForObjectId(objectId!, JSONBody: JSONBody, completionHandler: {success, error in
+                            
+                            if error != nil {
+                                
+                                let newAction = UIAlertAction(title: "Post as New", style: .Default, handler: {Void in
+                                    
+                                    self.postNewLocationToParse(self.mediaURL!, locationString: self.locationString!)
+                                
+                                })
+                                
+                                let dismissAction = UIAlertAction(title: "Leave", style: .Destructive, handler: {Void in
+                                    self.dismissViewControllerAnimated(true, completion: nil)
+                                })
+                                
+                                self.alertUserWithWithActions("Something went wrong", message: "An error occured while updating your location.  Submit as new or get out of here?", actions: [newAction, dismissAction])
+                                
+                            } else {
+                                
+                                /* refresh and present mapViewController */
+                                self.dismissViewControllerAnimated(true, completion: nil)
+                                
+                            }
+                            
+                        })
                         
                     }
                     
                 })
                 
             } else {
+                
                 let okAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
                 alertUserWithWithActions("Something's missing", message: "Please enter a valid string when submitting the URL", actions: [okAction])
+                
             }
             
         }
     }
     
-    func compareSubmissionToParse () {
+    func postNewLocationToParse(mediaURL: String, locationString: String) {
+        
+        let parameters = ParseClient.sharedInstance().makeDictionaryForPostLocation(mediaURL, mapString: locationString)
+        
+        ParseClient.sharedInstance().postDataToParse(parameters, completionHandler: {success, error in
+            
+            if error != nil {
+                
+                let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: nil)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive, handler: {Void in
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                })
+                
+                self.alertUserWithWithActions("Something went wrong", message: "An error occured while submitting your location, please retry or cancel submission.", actions: [retryAction, cancelAction])
+                
+            } else {
+                
+                /* refresh and present mapViewController */
+                self.dismissViewControllerAnimated(true, completion: nil)
+                
+            }
+            
+        })
+        
         
     }
     

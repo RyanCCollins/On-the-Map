@@ -66,6 +66,7 @@ class ListTableViewController: UITableViewController {
                 
             /* Otherwise, fetch the data */
             } else {
+                
                 ParseClient.sharedInstance().getDataFromParse({success, results, error in
                     
                     if success {

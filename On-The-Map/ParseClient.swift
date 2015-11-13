@@ -13,8 +13,16 @@ class ParseClient: NSObject {
     var studentData: [StudentLocationData]?
     
     /* Task returned for GETting data from the Parse server */
-    func taskForGETMethod (method: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
-        let urlString = Constants.baseURLSecure + method
+    func taskForGETMethod (method: String, parameters: [String : AnyObject]?, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+        
+        var urlString = Constants.baseURLSecure + method
+        
+        /* If our request includes parameters, such is the case in a query, add those parameters to our URL */
+        if parameters != nil {
+            urlString += ParseClient.stringByEscapingParameters(parameters!)
+        }
+        
+        
         let request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
         
         request.HTTPMethod = HTTPRequest.GET
@@ -134,6 +142,76 @@ class ParseClient: NSObject {
         return task
     }
     
+    
+    /* Update a user's location */
+    func taskForPUTMethod(method: String, objectId: String, JSONBody : [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+        
+        let urlString = ParseClient.Constants.baseURLSecure + method + "/" + objectId
+        print(urlString)
+        let request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+        
+        request.HTTPMethod = HTTPRequest.PUT
+        request.addValue(Constants.app_id, forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue(Constants.api_key, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        do {
+            
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(JSONBody, options: .PrettyPrinted)
+            
+        } catch {
+            
+            print("failed to create a request body in taskForPUTMethod of ParseClient")
+            request.HTTPBody = nil
+            
+        }
+        
+        /*Create a session and then a task.  Parse results if no error. */
+        let session = NSURLSession.sharedSession()
+        
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            
+            if let error = error {
+                
+                completionHandler(result: nil, error: error)
+                
+            } else {
+                
+                /* GUARD: Did we get a successful response code of 2XX? */
+                guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
+                    var statusError = "taskForPUTMethod request returned an invalid response!"
+                    if let response = response as? NSHTTPURLResponse {
+                        statusError += " Status code: \(response.statusCode)!"
+                    } else if let response = response {
+                        statusError += " Response: \(response)!"
+                    }
+                    completionHandler(result: nil, error: UdaciousClient.errorFromString(statusError))
+                    return
+                }
+                
+                /* Parse the results and return in the completion handler with an error if there is one. */
+                if let parsedResults = (try? NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)) as? [String : AnyObject] {
+                    
+                    if let errorResponse = parsedResults[ParseClient.JSONResponseKeys.Error] as? String {
+                        
+                        completionHandler(result: parsedResults, error: ParseClient.errorFromString(errorResponse))
+                        
+                    } else {
+                        
+                        completionHandler(result: parsedResults, error: nil)
+                        
+                    }
+                    
+                }
+                
+            }
+        }
+        task.resume()
+        return task
+
+    }
     
     /* Helper: Given a method, swap the key with the value: */
     class func substituteKeyInMethod(method: String, key: String, value: String) -> String? {
