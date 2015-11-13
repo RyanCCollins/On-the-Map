@@ -19,8 +19,11 @@ class ListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.refreshControl?.addTarget(self, action: "didTapRefresh", forControlEvents: .ValueChanged)
+        self.refreshControl?.addTarget(self, action: "didTapRefresh:", forControlEvents: .ValueChanged)
         
+        if let locations = ParseClient.sharedInstance().studentData {
+            self.locations = locations
+        }
         
     }
 
@@ -65,6 +68,10 @@ class ListTableViewController: UITableViewController {
         ParseClient.sharedInstance().getDataFromParse({ success, results, error in
             
             if success {
+                
+                if let locations = ParseClient.sharedInstance().studentData {
+                    self.locations = locations
+                }
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableView.reloadData()

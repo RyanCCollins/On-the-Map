@@ -26,11 +26,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         ParseClient.sharedInstance()
         
         studentLocationMapView.delegate = self
-        hud.labelText = "Loading..."
-        
-        hud.showWhileExecuting("refreshDataFromParse:", onTarget: self, withObject: hud, animated: true)
-        
-        
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -39,22 +35,36 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if let locations = ParseClient.sharedInstance().studentData {
             addPinsToMapForStudents(locations)
         } else {
-            refreshDataFromParse(self)
+
+            didTapRefresh(self)
         }
     }
     
-    @IBAction func refreshDataFromParse(sender: AnyObject) {
+    @IBAction func didTapRefresh(sender: AnyObject) {
+        
+        /* call HUD To show until callback */
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.labelText = "Reloading..."
         
         /* remove annotations and add new ones */
         studentLocationMapView.removeAnnotations(studentLocationMapView.annotations)
+        refreshDataFromParse({
+            
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            
+        })
         
         
+    }
+    
+    /* Refresh Parse data and callback when complete to hide progress */
+    func refreshDataFromParse(completionCallback: ()->Void) {
+
         self.loadMapViewWithParseData({success, error in
             
             if success {
                 
                 dispatch_async(dispatch_get_main_queue(), {
-                    MBProgressHUD.hideHUDForView(self.view, animated: true)
                     
                     self.addPinsToMapForStudents(ParseClient.sharedInstance().studentData)
                 })
@@ -63,10 +73,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     
-                    MBProgressHUD.hideHUDForView(self.view, animated: true)
-                    
                     let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: {Void in
-                        self.refreshDataFromParse(self)
+                        self.didTapRefresh(self)
                     })
                     
                     let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
@@ -78,17 +86,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
             
         })
+        
+        completionCallback()
 
     }
     
     /* add parse data to map if first time logging in, get the data, if not, get the shared instance of student data */
     func loadMapViewWithParseData(completionHandler: (success: Bool, error: NSError?)-> Void) {
-        
-//        if let locations = ParseClient.sharedInstance().studentData {
-//            
-//            addPinsToMapForStudents(locations)
-//
-//        } else {
         
         ParseClient.sharedInstance().getDataFromParse({success, results, error in
             
