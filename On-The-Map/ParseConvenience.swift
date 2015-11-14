@@ -40,7 +40,7 @@ extension ParseClient {
         ParseClient.sharedInstance().queryParseDataForObjectId({ success, objectId, error in
             
             if success && objectId != nil {
-                
+                print("Succesfully updated")
                 ParseClient.sharedInstance().updateLocationForObjectId(objectId!, JSONBody: locationParameters, completionHandler: {success, error in
                     
                     if error != nil {

@@ -80,14 +80,14 @@ extension UdaciousClient {
         }
 
         guard let method = UdaciousClient.substituteKeyInMethod(UdaciousClient.Methods.GetUserData, key: "id", value: IDKey) else {
-            print("failed")
+
             completionHandler(success: false, error: UdaciousClient.errorFromString("Failed to construct the method call in getUserData"))
             return
         }
         print(method)
         taskForGETMethod(method, parameters: [:]) {JSONResult, error in
             
-            if let error = error {
+            if error != nil {
                 
                 completionHandler(success: false, error: error)
                 
@@ -95,7 +95,7 @@ extension UdaciousClient {
                 
                 /* If user data found, parse the results */
                 if let result = JSONResult[UdaciousClient.JSONResponseKeys.User] {
-                    
+
                     if let firstName = result![UdaciousClient.JSONResponseKeys.FirstName] as? String {
                         self.firstName = firstName
 
@@ -103,16 +103,12 @@ extension UdaciousClient {
                             self.lastName = lastName
 
                             /* Return with completion handler */
-                            print("\(result)")
+                            print("made it")
                             completionHandler(success: true, error: nil)
                         }
                         
                     }
                     
-                } else {
-                    /* return failure if JSON data not properly parsed */
-                    completionHandler(success: false, error: UdaciousClient.errorFromString("Failed to parse JSON Data into User data in getUserData"))
-                
                 }
                 
             }

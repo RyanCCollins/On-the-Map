@@ -73,7 +73,7 @@ class UdaciousClient: NSObject {
             let usableData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
 
             if let parsedData = (try? NSJSONSerialization.JSONObjectWithData(usableData, options: .AllowFragments)) as? [ String : AnyObject]{
-                
+                print("Got it")
                 completionHandler(result: parsedData, error: nil)
                 
             } else {

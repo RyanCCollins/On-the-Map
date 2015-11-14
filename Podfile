@@ -3,13 +3,11 @@ use_frameworks!
 pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
 pod 'FBSDKShareKit'
-pod 'SSKeychain'
 pod 'ChameleonFramework/Swift'
 pod 'PKRevealController'
 pod "TextFieldEffects"
 pod "SwiftSpinner"
-pod "MBProgressHUD"
-pod 'FlatUIKit'
+pod "MBProgressHUD", :inhibit_warnings => true
 
 platform :ios, '9.0'
 
