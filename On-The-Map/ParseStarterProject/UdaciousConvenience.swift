@@ -43,7 +43,7 @@ extension UdaciousClient {
                 if let session = JSONResult.valueForKey(UdaciousClient.JSONResponseKeys.Session) {
 
                     if let sessionID = session.valueForKey(UdaciousClient.JSONResponseKeys.SessionID) as? String {
-                        print(JSONResult)
+                        
                         /* get the account and user from JSONResult */
                         if let account = JSONResult[UdaciousClient.JSONResponseKeys.Account]  {
 
@@ -84,7 +84,7 @@ extension UdaciousClient {
             completionHandler(success: false, error: UdaciousClient.errorFromString("Failed to construct the method call in getUserData"))
             return
         }
-        print(method)
+
         taskForGETMethod(method, parameters: [:]) {JSONResult, error in
             
             if error != nil {
@@ -98,13 +98,19 @@ extension UdaciousClient {
 
                     if let firstName = result![UdaciousClient.JSONResponseKeys.FirstName] as? String {
                         self.firstName = firstName
-
+                        
                         if let lastName = result![UdaciousClient.JSONResponseKeys.LastName] as? String{
                             self.lastName = lastName
-
+                            
+                            if let imageURL = result![UdaciousClient.JSONResponseKeys.ImageURL] as? String {
+                                
+                                self.imageURL = imageURL
+                            
                             /* Return with completion handler */
-                            print("made it")
-                            completionHandler(success: true, error: nil)
+                                print("made it")
+                                completionHandler(success: true, error: nil)
+                            
+                            }
                         }
                         
                     }

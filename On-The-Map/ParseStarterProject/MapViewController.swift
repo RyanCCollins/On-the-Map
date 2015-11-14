@@ -195,13 +195,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         let pin = "pin"
         
-        var pinAnnotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(pin) as? MKPinAnnotationView
+        var pinAnnotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(pin)
         if pinAnnotationView  == nil {
-        pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: pin)
+        pinAnnotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: pin)
         pinAnnotationView?.canShowCallout = true
-        pinAnnotationView?.pinTintColor = UIColor.flatMintColor()
+//        pinAnnotationView?.pinTintColor = UIColor.flatMintColor()
         pinAnnotationView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
-        
+        pinAnnotationView?.image = UIImage(named: "Udacity_Logo")
         } else {
             pinAnnotationView?.annotation = annotation
         }

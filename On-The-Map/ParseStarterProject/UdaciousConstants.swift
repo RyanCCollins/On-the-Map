@@ -46,6 +46,7 @@ extension UdaciousClient {
         static let FirstName = "nickname"
         static let LastName = "last_name"
         static let IDKey = "key"
+        static let ImageURL = "_image_url"
     }
     
     enum HTTPRequest {

@@ -75,8 +75,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
     
     @IBAction func didTapLoginTouchUpInside(sender: AnyObject) {
         
-        /* run data update on background thread */
-        
             /* if you cannot verify the users credentials, show an error message. */
             guard self.verifyUserCredentials(self.usernameTextField.text, password: self.passwordTextField.text) else {
                 
@@ -110,7 +108,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
                     
                     SwiftSpinner.show("Sorry, but we could not authenticate your Udacity account.").addTapHandler ({
                         SwiftSpinner.hide()
-                    }, subtitle: "Please try again.")
+                    }, subtitle: "Tap to dismiss and try again.")
                     
                 }
             }

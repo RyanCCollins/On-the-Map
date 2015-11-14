@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 struct StudentLocationData {
     
@@ -21,8 +22,7 @@ struct StudentLocationData {
     var ObjectID: String!
     var UniqueKey: String!
     var UpdateTime: String!
-    
-    var userImageURL: String?
+    var ImageURL: NSURL?
     
     init(studentLocationDictionary: [String : AnyObject]) {
         /* Initialize data from studentLocationDictionary */
@@ -33,12 +33,31 @@ struct StudentLocationData {
         GEODescriptor = studentLocationDictionary[ParseClient.JSONResponseKeys.GEODescriptor] as! String
         ObjectID = studentLocationDictionary[ParseClient.JSONResponseKeys.ObjectID] as! String
         UniqueKey = studentLocationDictionary[ParseClient.JSONResponseKeys.UniqueKey] as! String
-        UpdateTime = studentLocationDictionary[ParseClient.JSONResponseKeys.UpdateTime] as! String
         MediaUrl = studentLocationDictionary[ParseClient.JSONResponseKeys.MediaURL] as! String
         
-        if let userImageURL = studentLocationDictionary[ParseClient.JSONResponseKeys.UserImageURL] as? String {
-            self.userImageURL = userImageURL
+        
+        if let ImageURL =  NSURL(string: "https:" + "\(UdaciousClient.sharedInstance().imageURL!)") {
+            self.ImageURL = ImageURL
         }
+        
+        UpdateTime = studentLocationDictionary[ParseClient.JSONResponseKeys.UpdateTime] as! String
+//        if let UpdateTime = formatDateString(studentLocationDictionary[ParseClient.JSONResponseKeys.UpdateTime] as! String) {
+//            print(UpdateTime)
+//            self.UpdateTime = UpdateTime
+//        }
+    }
+    
+    /* Handle date/time formatting, when applicable */
+    func formatDateString(dateString: String) -> NSDate? {
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = NSDateFormatter.dateFormatFromTemplate("MM-dd-yyyy h:mm", options: 0, locale: NSLocale(localeIdentifier: "en-US"))
+        
+        if let formattedDate = dateFormatter.dateFromString(dateString) {
+            return formattedDate
+        }
+        return nil
+        
     }
     
     /* Create an array of student location data from results returned by ParseClient */

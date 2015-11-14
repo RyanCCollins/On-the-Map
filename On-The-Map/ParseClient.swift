@@ -147,7 +147,7 @@ class ParseClient: NSObject {
     func taskForPUTMethod(method: String, objectId: String, JSONBody : [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         let urlString = ParseClient.Constants.baseURLSecure + method + "/" + objectId
-        print(urlString)
+
         let request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
         
         request.HTTPMethod = HTTPRequest.PUT

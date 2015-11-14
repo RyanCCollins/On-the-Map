@@ -11,7 +11,7 @@ import MapKit
 import MBProgressHUD
 import Foundation
 
-class PostLocationViewController: UIViewController, UITextFieldDelegate {
+class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate {
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var locationTextField: KaedeTextField!
     @IBOutlet weak var helpLabel: UILabel!
@@ -33,7 +33,8 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
         
         linkTextField.delegate = self
         locationTextField.delegate = self
-
+        
+        mapView.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -76,8 +77,10 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
 
         } else {
             
-            if let mediaURL = linkTextField.text {
-                guard let _ = NSURL(string: mediaURL) else {
+            if linkTextField.text != nil {
+                mediaURL = linkTextField.text
+                
+                guard let _ = NSURL(string: mediaURL!) else {
                     let okAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
                     
                     alertUserWithWithActions("Not a valid URL", message: "Sorry, but the url you provided is not valid.  Please share a new link.", actions: [okAction])
@@ -90,7 +93,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
                 hud.labelText = "Posting..."
                 
 
-                self.updateOrAddNewDataToParse(mediaURL, mapString: self.locationString!, completionCallback: {
+                self.updateOrAddNewDataToParse(mediaURL!, mapString: self.locationString!, completionCallback: {
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
                 })
 
@@ -149,21 +152,34 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
                     
                     self.locationString = locationString
                     
-                    let placemark = placemarks![0]
+                    var selectedPlacemark: CLPlacemark?
+                    
+                    if placemarks!.count > 1 {
+                        print("More than one")
+                        self.callAlertControllerForMultiplePlacemarks(placemarks!, completionClosure: { placemark in
+                            selectedPlacemark = placemark
+                        })
+                        
+                    } else {
+                        
+                        selectedPlacemark = placemarks![0]
+                        
+                    }
+
                     
                     self.isSubmittingURL = true
                     self.configureDisplay(false)
                     
-                    UdaciousClient.sharedInstance().latitude = CLLocationDegrees(placemark.location!.coordinate.latitude)
-                    UdaciousClient.sharedInstance().longitude = CLLocationDegrees(placemark.location!.coordinate.longitude)
+                    UdaciousClient.sharedInstance().latitude = CLLocationDegrees(selectedPlacemark!.location!.coordinate.latitude)
+                    UdaciousClient.sharedInstance().longitude = CLLocationDegrees(selectedPlacemark!.location!.coordinate.longitude)
                     
                     
                     
                     let annotation = MKPointAnnotation()
-                    annotation.coordinate = CLLocationCoordinate2D(latitude: placemark.location!.coordinate.latitude, longitude: placemark.location!.coordinate.longitude)
+                    annotation.coordinate = CLLocationCoordinate2D(latitude: selectedPlacemark!.location!.coordinate.latitude, longitude: selectedPlacemark!.location!.coordinate.longitude)
                     
                     
-                   let coordinateRegion = MKCoordinateRegionMakeWithDistance(placemark.location!.coordinate, self.regionRadius * 2.0, self.regionRadius * 2.0)
+                   let coordinateRegion = MKCoordinateRegionMakeWithDistance(selectedPlacemark!.location!.coordinate, self.regionRadius * 2.0, self.regionRadius * 2.0)
                     
                     self.mapView.setRegion(coordinateRegion, animated: true)
                     
@@ -185,6 +201,34 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    
+    /* Present the user with several options to select a placemark if there are more than one options (fancy closures, eh :D ) */
+    func callAlertControllerForMultiplePlacemarks(placemarks: [CLPlacemark], completionClosure: (placemark: CLPlacemark) -> ()){
+        
+        let ac = UIAlertController(title: "Multiple Matches", message: "More than one location was found.  Please select the one you are looking for or be more specific", preferredStyle: .ActionSheet)
+        
+        var selectedIndex: Int?
+        
+        let closure = { (index: Int) in
+            { (action: UIAlertAction) -> Void in
+                selectedIndex = index
+            }
+        }
+        
+        for placemark in placemarks.enumerate() {
+            
+            if placemark.index < 3 {
+                let action = UIAlertAction(title: placemark.1.description, style: .Default, handler: closure(placemark.index))
+                ac.addAction(action)
+                
+            }
+        }
+        
+        ac.presentViewController(ac, animated: true, completion: {
+            completionClosure(placemark: placemarks[selectedIndex!])
+        })
+    }
+    
     /* configure display for reset */
     func configureDisplay(reset: Bool) {
         
@@ -200,6 +244,33 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate {
         if !reset {
             topViewContainer.backgroundColor = UIColor.flatBlueColor()
         }
+    }
+    
+    /* MARK: Mapkit delegate method: */
+    
+    /* create a mapView indicator */
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        
+        if (annotation is MKUserLocation) {
+            
+            return nil
+        }
+        
+        
+        let pin = "pin"
+        
+        var pinAnnotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(pin) as? MKPinAnnotationView
+        if pinAnnotationView  == nil {
+            pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: pin)
+            pinAnnotationView?.pinTintColor = UIColor.flatMintColor()
+            
+        } else {
+            pinAnnotationView?.annotation = annotation
+        }
+        
+        return pinAnnotationView
+        
     }
     
 }

@@ -16,10 +16,5 @@ class LocationTableViewCell: UITableViewCell {
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
- 
-        
-    }
 
 }

@@ -19,6 +19,7 @@ class UdaciousClient: NSObject {
     var longitude: Double? = nil
     var mapString: String? = nil
     var mediaURL: String? = nil
+    var imageURL: String? = nil
 
     
     /* Use the shared NSURlSession: */
@@ -73,7 +74,7 @@ class UdaciousClient: NSObject {
             let usableData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
 
             if let parsedData = (try? NSJSONSerialization.JSONObjectWithData(usableData, options: .AllowFragments)) as? [ String : AnyObject]{
-                print("Got it")
+
                 completionHandler(result: parsedData, error: nil)
                 
             } else {
@@ -107,7 +108,7 @@ class UdaciousClient: NSObject {
             request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(parameters!, options: .PrettyPrinted)
         } catch let error as NSError {
             request.HTTPBody = nil
-            print(error)
+
             completionHandler(result: nil, error: error)
         }
         

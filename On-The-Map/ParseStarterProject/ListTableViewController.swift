@@ -54,10 +54,6 @@ class ListTableViewController: UITableViewController {
         /* Show progress while submitting data */
         ParseClient.sharedInstance().studentData = nil
         
-//        if refreshControl?.refreshing == false {
-//            
-//        }
-        
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.labelText = "Reloading..."
         refreshDataFromParse({
@@ -132,11 +128,15 @@ class ListTableViewController: UITableViewController {
         cell.urlTextLabel.text = "\(data.MediaUrl)"
         cell.geoTextLabel.text = "From: \(data.GEODescriptor) at: \(data.UpdateTime)"
         
-        if let userImage = data.userImageURL as? NSData {
-            cell.mainImageView.image = UIImage(data: userImage)
+        if locations[indexPath.row].ImageURL != nil {
+            if let userImage = NSData(contentsOfURL: locations[indexPath.row].ImageURL!) {
+                print(userImage)
+                cell.mainImageView.image = UIImage(data: userImage)
+            }
         } else {
             cell.mainImageView.image = UIImage(named: "identicon")
         }
+
         
         cell.accessoryView = UIImageView(image: UIImage(named: "safari-icon"))
         

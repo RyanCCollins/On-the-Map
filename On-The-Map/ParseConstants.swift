@@ -43,7 +43,6 @@ extension ParseClient {
         static let Latitude = "latitude"
         static let Longitude = "longitude"
         static let ACL = "ACL" /* Permissions (Access Command List) */
-        static let UserImageURL = "userImageURL"
     }
     
     enum HTTPRequest {
