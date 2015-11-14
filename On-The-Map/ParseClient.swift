@@ -19,7 +19,9 @@ class ParseClient: NSObject {
         
         /* If our request includes parameters, such is the case in a query, add those parameters to our URL */
         if parameters != nil {
-            urlString += ParseClient.stringByEscapingParameters(parameters!)
+            let IDKey = UdaciousClient.sharedInstance().IDKey as String!
+            urlString += "?where=%7B%22uniqueKey%22%3A%22\(IDKey)%22%7D"
+            print("method: \(urlString)")
         }
         
         
@@ -187,7 +189,7 @@ class ParseClient: NSObject {
                     } else if let response = response {
                         statusError += " Response: \(response)!"
                     }
-                    completionHandler(result: nil, error: UdaciousClient.errorFromString(statusError))
+                    completionHandler(result: nil, error: ParseClient.errorFromString(statusError))
                     return
                 }
                 
@@ -211,20 +213,6 @@ class ParseClient: NSObject {
         task.resume()
         return task
 
-    }
-    
-    /* Helper: Given a method, swap the key with the value: */
-    class func substituteKeyInMethod(method: String, key: String, value: String) -> String? {
-        
-        if method.rangeOfString("{\(key)}") != nil {
-            
-            return method.stringByReplacingOccurrencesOfString("{\(key)}", withString: value)
-            
-        } else {
-            
-            return nil
-            
-        }
     }
     
     /* Helper function: construct an NSLocalizedError from an error string */
@@ -251,7 +239,7 @@ class ParseClient: NSObject {
     
     /* Helper Function: Given a dictionary of parameters, convert to a string for a url */
     class func stringByEscapingParameters(parameters: [String : AnyObject]) -> String {
-        
+        print(parameters)
         var urlVarArray = [String]()
         
         for (key, value) in parameters {
@@ -263,7 +251,7 @@ class ParseClient: NSObject {
             let escapedValue = stringValue.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
             
             urlVarArray += [key + "=" + "\(escapedValue!)"]
-            
+            print(urlVarArray.joinWithSeparator("&"))
         }
         
         /* As long as the array is not empty, construct a string to return */

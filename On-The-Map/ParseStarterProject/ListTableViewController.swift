@@ -128,20 +128,18 @@ class ListTableViewController: UITableViewController {
         cell.urlTextLabel.text = "\(data.MediaUrl)"
         cell.geoTextLabel.text = "From: \(data.GEODescriptor) at: \(data.UpdateTime)"
         
-        if locations[indexPath.row].ImageURL != nil {
-            if let userImage = NSData(contentsOfURL: locations[indexPath.row].ImageURL!) {
-                print(userImage)
-                cell.mainImageView.image = UIImage(data: userImage)
-            }
-        } else {
-            cell.mainImageView.image = UIImage(named: "identicon")
-        }
+
+        cell.mainImageView.image = UIImage(named: "map")
 
         
         cell.accessoryView = UIImageView(image: UIImage(named: "safari-icon"))
+        let tapRecognizer = UIGestureRecognizer(target: cell.accessoryView, action: "didTapAccessoryUpInside(tableView, cellForRowAtIndexPath: indexPath)")
+        cell.accessoryView?.addGestureRecognizer(tapRecognizer)
         
         return cell
     }
 
-
+    func didTapAccessoryUpInside(tableView: UITableView, cellForRowAtIndexPath: NSIndexPath) {
+        print("Cool")
+    }
 }

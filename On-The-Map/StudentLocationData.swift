@@ -22,7 +22,6 @@ struct StudentLocationData {
     var ObjectID: String!
     var UniqueKey: String!
     var UpdateTime: String!
-    var ImageURL: NSURL?
     
     init(studentLocationDictionary: [String : AnyObject]) {
         /* Initialize data from studentLocationDictionary */
@@ -34,12 +33,7 @@ struct StudentLocationData {
         ObjectID = studentLocationDictionary[ParseClient.JSONResponseKeys.ObjectID] as! String
         UniqueKey = studentLocationDictionary[ParseClient.JSONResponseKeys.UniqueKey] as! String
         MediaUrl = studentLocationDictionary[ParseClient.JSONResponseKeys.MediaURL] as! String
-        
-        
-        if let ImageURL =  NSURL(string: "https:" + "\(UdaciousClient.sharedInstance().imageURL!)") {
-            self.ImageURL = ImageURL
-        }
-        
+
         UpdateTime = studentLocationDictionary[ParseClient.JSONResponseKeys.UpdateTime] as! String
 //        if let UpdateTime = formatDateString(studentLocationDictionary[ParseClient.JSONResponseKeys.UpdateTime] as! String) {
 //            print(UpdateTime)

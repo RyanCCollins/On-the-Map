@@ -101,16 +101,11 @@ extension UdaciousClient {
                         
                         if let lastName = result![UdaciousClient.JSONResponseKeys.LastName] as? String{
                             self.lastName = lastName
-                            
-                            if let imageURL = result![UdaciousClient.JSONResponseKeys.ImageURL] as? String {
-                                
-                                self.imageURL = imageURL
-                            
+
                             /* Return with completion handler */
                                 print("made it")
                                 completionHandler(success: true, error: nil)
-                            
-                            }
+
                         }
                         
                     }

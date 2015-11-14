@@ -39,7 +39,7 @@ extension ParseClient {
         
         ParseClient.sharedInstance().queryParseDataForObjectId({ success, objectId, error in
             
-            if success && objectId != nil {
+            if success == true && objectId != nil {
                 print("Succesfully updated")
                 ParseClient.sharedInstance().updateLocationForObjectId(objectId!, JSONBody: locationParameters, completionHandler: {success, error in
                     
@@ -55,7 +55,7 @@ extension ParseClient {
                 })
                 
             } else {
-                
+                print("New")
                 ParseClient.sharedInstance().taskForPOSTMethod(ParseClient.Methods.StudentLocations, JSONBody: locationParameters, completionHandler: {success, error in
                     
                     if error != nil {
@@ -101,8 +101,9 @@ extension ParseClient {
     func queryParseDataForObjectId(completionHandler: (success: Bool, objectId: String?, error: NSError?) -> Void) {
         
         /* get data from Parse */
-        taskForGETMethod(ParseClient.Methods.StudentLocations, parameters: [ ParseClient.JSONResponseKeys.UniqueKey : UdaciousClient.sharedInstance().IDKey!], completionHandler: {results, error in
-            
+        
+        taskForGETMethod(ParseClient.Methods.StudentLocations, parameters: [ParseClient.JSONResponseKeys.UniqueKey: UdaciousClient.sharedInstance().IDKey!], completionHandler: {results, error in
+
             /* If there was an error parsing, return an error */
             if error != nil {
                 
@@ -113,11 +114,11 @@ extension ParseClient {
                 
                 /* if results were returned, drill into the most recent objectId and return it */
                 if let results = results[ParseClient.JSONResponseKeys.Results] as? [[String : AnyObject]] {
-                
+                    print(results)
                     let studentDataArray = StudentLocationData.generateLocationDataFromResults(results)
                     
                     let objectId = studentDataArray[0].ObjectID
-                
+                    print(objectId)
                         completionHandler(success: true, objectId: objectId, error: nil)
                     
                 } else {
