@@ -199,9 +199,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if pinAnnotationView  == nil {
         pinAnnotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: pin)
         pinAnnotationView?.canShowCallout = true
-//        pinAnnotationView?.pinTintColor = UIColor.flatMintColor()
+
         pinAnnotationView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
-        pinAnnotationView?.image = UIImage(named: "Udacity_Logo")
+        pinAnnotationView?.image = UIImage(named: "udacity-logo-pin")
         } else {
             pinAnnotationView?.annotation = annotation
         }

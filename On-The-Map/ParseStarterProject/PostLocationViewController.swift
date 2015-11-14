@@ -272,5 +272,5 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
         return pinAnnotationView
         
     }
-    
+
 }
