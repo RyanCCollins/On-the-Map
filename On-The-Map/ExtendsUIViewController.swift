@@ -20,28 +20,6 @@ extension UIViewController {
         ParseClient.sharedInstance().studentData = nil
     }
     
-
-    /* Helper function to show alerts to user */
-    func alertUserWithWithActions(title: String, message: String, actions: [UIAlertAction]) {
-        
-        dispatch_async(dispatch_get_main_queue(), {
-            
-            let ac = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-            
-            for action in actions {
-                ac.addAction(action)
-                
-            }
-            
-            self.presentViewController(ac, animated: true, completion: nil)
-            
-        })
-    }
-    
-    func createActionsForAlert(withTitle title: String, withStyle style: UIAlertActionStyle = .Default, completionHandler: ((UIAlertAction) -> Void)?) -> UIAlertAction {
-        return UIAlertAction(title: title, style: style, handler: completionHandler)
-    }
-//
     /* Create an alert controller with an array of callback handlers   */
     func alertController(withTitles titles: [String], message: String, callbackHandler: [((UIAlertAction)->Void)?]) {
         
@@ -138,22 +116,25 @@ extension UIViewController {
                     
                 }
                 
-                let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
-                
-                let logoutAction = UIAlertAction(title: "Logout", style: .Destructive) {Void in
+                dispatch_async(GlobalMainQueue, {
                     
-                    self.performSegueWithIdentifier("logoutSegue", sender: self)
-                    return
-                }
-                
-                self.alertUserWithWithActions("Logout?", message: "Are you sure you want to logout?", actions: [cancelAction, logoutAction])
+                    self.alertController(withTitles: ["Cancel", "Logout"], message: "Are you sure that you want to logout?", callbackHandler: [nil, {Void in
+                            appDelegate.userAuthenticated = false
+                            self.performSegueWithIdentifier("logoutSegue", sender: self)
+                    }])
+                    
+                })
                 
             } else {
                 
-                let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
-                self.alertUserWithWithActions("Failed to logout", message: "Sorry, but we were unable to log you out.", actions: [action])
+                dispatch_async(GlobalMainQueue, {
+                    
+                    self.alertController(withTitles: ["OK", "Try Again"], message: GlobalErrors.LogOut.localizedDescription, callbackHandler: [nil, {Void in
+                            self.didTapLogoutUpInside(self)
+                    }])
+                    
+                })
             }
         })
-        appDelegate.userAuthenticated = false
     }
 }

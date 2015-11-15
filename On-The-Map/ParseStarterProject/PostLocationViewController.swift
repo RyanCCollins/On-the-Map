@@ -180,7 +180,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
     func verifyLocation(locationString: String, completionCallback: (success: Bool, error: NSError?)-> Void){
         let geocoder = CLGeocoder()
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), {
+        dispatch_async(GlobalUtilityQueue, {
 
             geocoder.geocodeAddressString(locationString, completionHandler: { placemarks, error in
                 

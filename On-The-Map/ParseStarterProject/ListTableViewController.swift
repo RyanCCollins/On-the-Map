@@ -16,6 +16,7 @@ class ListTableViewController: UITableViewController {
     let session = NSURLSession.sharedSession()
     var locations = [StudentLocationData]()
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -74,22 +75,20 @@ class ListTableViewController: UITableViewController {
                     self.locations = locations
                 }
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                dispatch_async(GlobalMainQueue, {
                     self.tableView.reloadData()
-                    
                 })
                 
             } else {
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                dispatch_async(GlobalMainQueue, {
                     
-                    let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: {Void in
-                        self.refreshDataFromParse(nil)
-                    })
-                    
-                    let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
-                    
-                    self.alertUserWithWithActions("Error loading", message: "Sorry, but there was an error loading the data from the network", actions: [retryAction, dismissAction])
+                    self.alertController(withTitles: ["OK", "Retry"], message: (error?.localizedDescription)!, callbackHandler: [nil, {Void in
+                        self.refreshDataFromParse({
+                            MBProgressHUD.hideHUDForView(self.view, animated: true)
+                            self.refreshControl?.endRefreshing()
+                        })
+                    }])
                     
                 })
                 
@@ -100,23 +99,25 @@ class ListTableViewController: UITableViewController {
         completionCallback!()
         
     }
-
+    
+    
     
     /* Open media url when detail indicator selected */
     override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-        
         let sharedApplication = UIApplication.sharedApplication()
-        
+
         if let URLString = locations[indexPath.row].MediaUrl {
-            
+
             sharedApplication.openURL(NSURL(string: URLString)!)
-            
+
         } else {
-            
-            let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-            alertUserWithWithActions("Failed to open link", message: "Sorry, but we couldn't open that link.", actions: [okAction])
+
+            dispatch_async(GlobalMainQueue, {
+                self.alertController(withTitles: ["Ok"], message: GlobalErrors.InvalidURL.localizedDescription, callbackHandler: [nil])
+            })
             
         }
+
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -130,11 +131,16 @@ class ListTableViewController: UITableViewController {
         
 
         cell.mainImageView.image = UIImage(named: "map")
-
+        
         
         cell.accessoryView = UIImageView(image: UIImage(named: "safari-icon"))
-        let tapRecognizer = UIGestureRecognizer(target: cell.accessoryView, action: "didTapAccessoryUpInside(tableView, cellForRowAtIndexPath: indexPath)")
+        let tapRecognizer = UIGestureRecognizer(target: cell.accessoryView, action: "tableView(tableView, accessoryButtonTappedForRowWithIndexPath: indexPath)")
         cell.accessoryView?.addGestureRecognizer(tapRecognizer)
+        
+//        /* If button selected to open URL, open it */
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "openURLForRow")
+//        tapRecognizer.numberOfTouches() = 1
+//        cell.detailDisclosureButton.addGestureRecognizer(tapRecognizer)
         
         return cell
     }

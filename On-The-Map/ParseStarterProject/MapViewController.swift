@@ -43,49 +43,44 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBAction func didTapRefresh(sender: AnyObject) {
         
         /* call HUD To show until callback */
-        dispatch_async(GlobalUserInteractiveQueue, {
-            let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-            hud.labelText = "Loading Data..."
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.labelText = "Loading Data..."
+        
+        /* remove annotations and add new ones */
+        self.studentLocationMapView.removeAnnotations(self.studentLocationMapView.annotations)
+        
+        dispatch_async(GlobalUtilityQueue, {
             
-            /* remove annotations and add new ones */
-            self.studentLocationMapView.removeAnnotations(self.studentLocationMapView.annotations)
-            
-            dispatch_async(GlobalUtilityQueue, {
+            ParseClient.sharedInstance().getDataFromParse({success, results, error in
                 
-                ParseClient.sharedInstance().getDataFromParse({success, results, error in
+                if success {
                     
-                    if success {
+                    dispatch_async(GlobalMainQueue, {
                         
-                        dispatch_async(GlobalMainQueue, {
-                            
-                            MBProgressHUD.hideHUDForView(self.view, animated: true)
-                            self.addPinsToMapForStudents(ParseClient.sharedInstance().studentData)
-                            
-                        })
+                        MBProgressHUD.hideHUDForView(self.view, animated: true)
+                        self.addPinsToMapForStudents(ParseClient.sharedInstance().studentData)
                         
-                    } else if (error != nil) {
-                        
-                        dispatch_async(GlobalMainQueue, {
-                            
-                            MBProgressHUD.hideHUDForView(self.view, animated: true)
-                            
-                            self.alertController(withTitles: ["Ok, Retry"], message: (error?.localizedDescription)!, callbackHandler: [nil, {Void in
-                                    self.didTapRefresh(self)
-                            }])
-                            
-                        })
-                        
-                    }
+                    })
                     
-                })
-
+                } else if (error != nil) {
+                    
+                    dispatch_async(GlobalMainQueue, {
+                        
+                        MBProgressHUD.hideHUDForView(self.view, animated: true)
+                        
+                        self.alertController(withTitles: ["Ok, Retry"], message: (error?.localizedDescription)!, callbackHandler: [nil, {Void in
+                                self.didTapRefresh(self)
+                        }])
+                        
+                    })
+                    
+                }
                 
             })
-            
+
             
         })
-
-        
+ 
     }
     
 //    /* Refresh Parse data and callback when complete to hide progress */
