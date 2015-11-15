@@ -44,7 +44,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         /* call HUD To show until callback */
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        hud.labelText = "Reloading..."
+        hud.labelText = "Loading Data..."
         
         /* remove annotations and add new ones */
         studentLocationMapView.removeAnnotations(studentLocationMapView.annotations)
@@ -59,14 +59,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     /* Refresh Parse data and callback when complete to hide progress */
     func refreshDataFromParse(completionCallback: ()->Void) {
-
-        self.loadMapViewWithParseData({success, error in
+        
+        ParseClient.sharedInstance().getDataFromParse({success, results, error in
             
             if success {
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     
                     self.addPinsToMapForStudents(ParseClient.sharedInstance().studentData)
+                    completionCallback()
                 })
                 
             } else {
@@ -75,39 +76,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     
                     let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: {Void in
                         self.didTapRefresh(self)
+                        completionCallback()
                     })
                     
                     let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
                     
                     self.alertUserWithWithActions("Error loading", message: "Sorry, but there was an error loading the data from the network", actions: [retryAction, dismissAction])
-                    
+                    completionCallback()
                 })
                 
             }
             
         })
-        
-        completionCallback()
 
     }
     
-    /* add parse data to map if first time logging in, get the data, if not, get the shared instance of student data */
-    func loadMapViewWithParseData(completionHandler: (success: Bool, error: NSError?)-> Void) {
-        
-        ParseClient.sharedInstance().getDataFromParse({success, results, error in
-            
-            if success {
-                
-                completionHandler(success: true, error: nil)
-                
-                
-            } else {
-                
-                completionHandler(success: false, error: self.errorFromString("Failed to load data in: loadMapWithParseData"))
-            }
-        })
-    
-    }
     
     func addPinsToMapForStudents(studentLocations: [StudentLocationData]?) {
         
@@ -120,7 +103,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 /* initialize objects for map */
                 let firstName = location.First
                 let lastName = location.Last
-                let GEODescriptor = location.GEODescriptor
                 let mediaURL = location.MediaUrl
                 
                 let latitude = CLLocationDegrees(location.Latitude)

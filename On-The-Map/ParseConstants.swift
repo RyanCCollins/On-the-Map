@@ -52,4 +52,11 @@ extension ParseClient {
         static let PUT = "PUT"
         static let DELETE = "DELETE"
     }
+    
+    struct Errors {
+        static let ParseError = "Failed to Parse Data"
+        static let PostError = "Failed to Post Data"
+        static let GetError = "Failed to"
+        
+    }
 }

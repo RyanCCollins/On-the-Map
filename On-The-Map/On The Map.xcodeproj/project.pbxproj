@@ -27,7 +27,6 @@
 		1F24A7201BF28A9F00BC2796 /* Modeka.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F24A71F1BF28A9C00BC2796 /* Modeka.otf */; };
 		1F24A7221BF28BA800BC2796 /* BIG JOHN.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F24A7211BF28BA800BC2796 /* BIG JOHN.otf */; };
 		1F24A7261BF2AEFE00BC2796 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A7251BF2AEFE00BC2796 /* LocationTableViewCell.swift */; };
-		1F44325E1BF517580069B185 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F44325D1BF517580069B185 /* CustomButton.swift */; };
 		1F787CFC1BEF969900BC80F6 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CF91BEF969900BC80F6 /* Roboto-Medium.ttf */; };
 		1F787CFD1BEF969900BC80F6 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CFA1BEF969900BC80F6 /* Roboto-Regular.ttf */; };
 		1F787CFE1BEF969900BC80F6 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CFB1BEF969900BC80F6 /* Roboto-Thin.ttf */; };
@@ -80,7 +79,6 @@
 		1F24A71F1BF28A9C00BC2796 /* Modeka.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Modeka.otf; sourceTree = "<group>"; };
 		1F24A7211BF28BA800BC2796 /* BIG JOHN.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BIG JOHN.otf"; sourceTree = "<group>"; };
 		1F24A7251BF2AEFE00BC2796 /* LocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationTableViewCell.swift; path = ParseStarterProject/LocationTableViewCell.swift; sourceTree = "<group>"; };
-		1F44325D1BF517580069B185 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		1F787CF61BEF8E1E00BC80F6 /* On-The-Map-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "On-The-Map-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F787CF91BEF969900BC80F6 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		1F787CFA1BEF969900BC80F6 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
@@ -287,7 +285,6 @@
 			children = (
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
-				1F44325D1BF517580069B185 /* CustomButton.swift */,
 				1F787D0D1BEFB05500BC80F6 /* Model */,
 				1F787D1E1BF0550000BC80F6 /* View */,
 				1F787D0E1BEFB06F00BC80F6 /* Controller */,
@@ -480,7 +477,6 @@
 			files = (
 				1F787D011BEFAEE000BC80F6 /* LoginViewController.swift in Sources */,
 				1F24A7031BF2593B00BC2796 /* MinoruTextField.swift in Sources */,
-				1F44325E1BF517580069B185 /* CustomButton.swift in Sources */,
 				1F787D091BEFB03600BC80F6 /* UdaciousConstants.swift in Sources */,
 				1F787D1D1BF054F700BC80F6 /* ExtendsUIViewController.swift in Sources */,
 				1F787D0B1BEFB04200BC80F6 /* UdaciousConvenience.swift in Sources */,

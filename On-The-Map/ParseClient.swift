@@ -55,22 +55,7 @@ class ParseClient: NSObject {
                 
                 
                 /* Parse the results and return in the completion handler with an error if there is one. */
-                if let parsedResults = (try? NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)) as? [String : AnyObject] {
-                    
-                    /* if response has a status and an error message, return it in completion handler */
-                    if let status = parsedResults[ParseClient.JSONResponseKeys.Status] as? String {
-                        
-                        let errorResponse = parsedResults[ParseClient.JSONResponseKeys.Error] as! String
-                        
-                        completionHandler(result: parsedResults, error: ParseClient.errorFromString("\(status) \(errorResponse)"))
-
-                    } else {
-                    
-                        completionHandler(result: parsedResults, error: nil)
-    
-                    }
-                    
-                }
+                ParseClient.parseJSONDataWithCompletionHandler(data!, completionHandler: completionHandler)
                 
             }
         }
@@ -124,19 +109,7 @@ class ParseClient: NSObject {
                 }
                 
                 /* Parse the results and return in the completion handler with an error if there is one. */
-                if let parsedResults = (try? NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)) as? [String : AnyObject] {
-                    
-                    if let errorResponse = parsedResults[ParseClient.JSONResponseKeys.Error] as? String {
-                        
-                        completionHandler(result: parsedResults, error: ParseClient.errorFromString(errorResponse))
-                        
-                    } else {
-                        
-                        completionHandler(result: parsedResults, error: nil)
-                        
-                    }
-                    
-                }
+                ParseClient.parseJSONDataWithCompletionHandler(data!, completionHandler: completionHandler)
                 
             }
         }
@@ -165,7 +138,6 @@ class ParseClient: NSObject {
             
         } catch {
             
-            print("failed to create a request body in taskForPUTMethod of ParseClient")
             request.HTTPBody = nil
             
         }
@@ -194,19 +166,7 @@ class ParseClient: NSObject {
                 }
                 
                 /* Parse the results and return in the completion handler with an error if there is one. */
-                if let parsedResults = (try? NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)) as? [String : AnyObject] {
-                    
-                    if let errorResponse = parsedResults[ParseClient.JSONResponseKeys.Error] as? String {
-                        
-                        completionHandler(result: parsedResults, error: ParseClient.errorFromString(errorResponse))
-                        
-                    } else {
-                        
-                        completionHandler(result: parsedResults, error: nil)
-                        
-                    }
-                    
-                }
+                ParseClient.parseJSONDataWithCompletionHandler(data!, completionHandler: completionHandler)
                 
             }
         }
@@ -238,7 +198,7 @@ class ParseClient: NSObject {
     }
     
     /* Helper Function: Given a dictionary of parameters, convert to a string for a url */
-    class func stringByEscapingParameters(parameters: [String : AnyObject]) -> String {
+    class func stringByEscapingParameters(method: String, parameters: [String : AnyObject]) -> String {
         print(parameters)
         var urlVarArray = [String]()
         
@@ -246,7 +206,7 @@ class ParseClient: NSObject {
             
             /* Make sure that we have a string for safety */
             let stringValue = "\(value)"
-            
+
             /* Escape the parameters and then append it to the urlVarArray object */
             let escapedValue = stringValue.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
             

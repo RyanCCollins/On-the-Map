@@ -53,4 +53,18 @@ extension UdaciousClient {
         static let POST = "POST"
         static let DELETE = "DELETE"
     }
+    
+    internal enum Error : ErrorType {
+        case NetworkError
+        case StatusCode(statusCode: Int?)
+        case ParseError
+        case AuthError
+        
+    }
+    
+    struct Alerts {
+        let okAlert = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+        
+    }
+    
 }

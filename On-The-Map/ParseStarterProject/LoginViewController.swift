@@ -79,9 +79,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
             guard self.verifyUserCredentials(self.usernameTextField.text, password: self.passwordTextField.text) else {
                 
                 /* Show alert */
-                SwiftSpinner.show("Please enter a valid email address and password").addTapHandler ({
-                    SwiftSpinner.hide()
-                    }, subtitle: "Tap to dismiss")
+                
                 
                 return
             }
@@ -89,6 +87,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
         /* show log in message */
         dispatch_async(dispatch_get_main_queue(), {
             SwiftSpinner.show("Logging in")
+            SwiftSpinner.showWithDelay(2.0, title: "It's taking longer than expected")
         })
         
         /* aunthenticate then get user information  in didLoginSuccessfully */
@@ -105,10 +104,15 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
                     self.didLoginSuccessfully()
                     
                 } else {
-                    
-                    SwiftSpinner.show("Sorry, but we could not authenticate your Udacity account.").addTapHandler ({
-                        SwiftSpinner.hide()
-                    }, subtitle: "Tap to dismiss and try again.")
+                    print(error?.description)
+                    SwiftSpinner.hide({
+                        let okAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+                        let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: {Void in
+                            self.didTapLoginTouchUpInside(self)
+                        })
+                        
+                        self.alertUserWithWithActions("Could not login", message: (error?.description)!, actions: [okAction, retryAction])
+                    })
                     
                 }
             }

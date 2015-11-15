@@ -83,7 +83,7 @@ extension ParseClient {
             } else {
                 
                 /* If we receive a response with an object ID, then we return true */
-                if let objectID = result[JSONResponseKeys.ObjectID] as? String {
+                if let _ = result[JSONResponseKeys.ObjectID] as? String {
 
                     completionHandler(success: true, error: nil)
                     

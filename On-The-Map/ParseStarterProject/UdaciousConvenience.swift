@@ -22,7 +22,7 @@ extension UdaciousClient {
                 
                 completionHandler(success: true, error: nil)
             } else {
-                
+                print(error?.description)
                 completionHandler(success: false, error: error)
             }
         }
@@ -38,6 +38,7 @@ extension UdaciousClient {
             if let error = error {
                 
                 completionHandler(success: false, sessionID: nil, userKey: nil, error: error)
+                
             } else {
                 /* Attempt to get the session ID */
                 if let session = JSONResult.valueForKey(UdaciousClient.JSONResponseKeys.Session) {

@@ -29,7 +29,7 @@ class UdaciousClient: NSObject {
     }
     
     /* Task for GETting data from Udacity */
-    func taskForGETMethod(method: String, parameters: [String : AnyObject]?, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func taskForGETMethod(method: String, parameters: [String : AnyObject]?, completionHandler: (result: AnyObject!, error: Error?) -> Void) -> NSURLSessionDataTask {
         
         /* Build the URL, using parameters if there are any */
         var urlString = Constants.BaseURLSecure + method
@@ -52,7 +52,7 @@ class UdaciousClient: NSObject {
             
             /* Guard for an error */
             guard error == nil else {
-                completionHandler(result: nil, error: error)
+                completionHandler(result: nil, error: Error.NetworkError)
                 return
             }
             
@@ -61,11 +61,11 @@ class UdaciousClient: NSObject {
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
                 var statusError = "taskForGETMethod request returned an invalid response!"
                 if let response = response as? NSHTTPURLResponse {
-                    statusError += " Status code: \(response.statusCode)!"
+                    completionHandler(result: nil, error: Error.StatusCode(statusCode: response.statusCode))
                 } else if let response = response {
                     statusError += " Response: \(response)!"
                 }
-                completionHandler(result: nil, error: UdaciousClient.errorFromString(statusError))
+                completionHandler(result: nil, error: Error.StatusCode(statusCode: <#T##Int#>))
                 return
             }
             
@@ -73,15 +73,7 @@ class UdaciousClient: NSObject {
 
             let usableData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
 
-            if let parsedData = (try? NSJSONSerialization.JSONObjectWithData(usableData, options: .AllowFragments)) as? [ String : AnyObject]{
-
-                completionHandler(result: parsedData, error: nil)
-                
-            } else {
-                
-                completionHandler(result: nil, error: UdaciousClient.errorFromString("Failed to parse data to JSON in taskForGETMethod"))
-                
-            }
+            UdaciousClient.parseJSONDataWithCompletionHandler(usableData, completionHandler: completionHandler)
             
             completionHandler(result: data, error: nil)
             
@@ -144,15 +136,7 @@ class UdaciousClient: NSObject {
 
             let usableData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
             
-            if let parsedData = (try? NSJSONSerialization.JSONObjectWithData(usableData, options: .AllowFragments)) {
-                
-            completionHandler(result: parsedData, error: nil)
-                
-            } else {
-                
-                
-                completionHandler(result: nil, error: UdaciousClient.errorFromString("Failed to parse data to JSON in taskForPostMethod"))
-            }
+           UdaciousClient.parseJSONDataWithCompletionHandler(usableData, completionHandler: completionHandler)
         }
         
         task.resume()
@@ -223,14 +207,7 @@ class UdaciousClient: NSObject {
             
             /* Parse JSON into a Foundation data object */
             let usableData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
-            if let parsedData = (try? NSJSONSerialization.JSONObjectWithData(usableData, options: .AllowFragments)) {
-                
-                completionHandler(result: parsedData, error: nil)
-                
-            } else {
-
-                completionHandler(result: nil, error: UdaciousClient.errorFromString("Failed to parse data to JSON in taskForPostMethod"))
-            }
+            UdaciousClient.parseJSONDataWithCompletionHandler(usableData, completionHandler: completionHandler)
 
         }
         task.resume()
