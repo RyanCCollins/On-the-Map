@@ -27,7 +27,8 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
     var isSubmittingURL = false
     var locationString: String? = nil
     var mediaURL: String? = nil
-
+    var ObjectId: String? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,17 +36,61 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
         locationTextField.delegate = self
         
         mapView.delegate = self
+        
+        
+        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         configureDisplay(true)
+        queryParseForResults()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
+    }
+    
+    /* Run query in utility thread to find results for user.  If found, alert to found results in global queue and ask if they would like to update thir location.  If not, carry on. */
+    func queryParseForResults() {
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.labelText = "Loading..."
+        
+        dispatch_async(GlobalUserInteractiveQueue, {
+            hud.show(true)
+        })
+        
+
+            
+        ParseClient.sharedInstance().queryParseDataForObjectId({success, results, error in
+            
+            if success {
+                
+                dispatch_async(GlobalMainQueue, {
+                    self.alertController(withTitles: ["OK", "Cancel"], message: "You have already submitted your location.  Press OK to update it, or Cancel to go back.", callbackHandler: [nil, {Void in
+                            self.didTapCancelButtonTouchUpInside(self)
+                        }])
+                    self.locationString = results!.GEODescriptor
+                    self.mediaURL = results!.MediaUrl
+                    self.ObjectId = results!.ObjectID
+                    
+                    hud.hide(true)
+                })
+                
+                
+            } else {
+                dispatch_async(GlobalMainQueue, {
+                    
+                    hud.hide(true)
+                })
+                
+            }
+            
+        
+        })
+    
+
     }
     
     @IBAction func didTapCancelButtonTouchUpInside(sender: AnyObject) {
@@ -59,9 +104,8 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
             
             
             guard locationTextField.text != nil else {
-    
+                alertController(withTitles: ["OK"], message: GlobalErrors.MissingData.localizedDescription, callbackHandler: [{Void in return}])
                 return
-                
             }
             
             /* Show progress while verifying location */
@@ -70,43 +114,63 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
             hud.labelText = "Locating..."
             
             self.verifyLocation(self.locationTextField.text!, completionCallback: {success, error in
-                dispatch_async(dispatch_get_main_queue(), {
+                dispatch_async(GlobalMainQueue, {
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
                 })
                 if error != nil {
-                    let tryAgain = UIAlertAction(title: "Try again", style: .Default, handler: nil)
-                    
-                    self.alertUserWithWithActions("Could not verify location", message: "Sorry, but we could not verify your location. Please try again", actions: [tryAgain])
+            
+                    self.alertController(withTitles: ["Ok"], message: error!.localizedDescription, callbackHandler: [nil])
+
                 }
             })
 
         } else {
             
             guard linkTextField.text != nil else {
-                let okAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-                alertUserWithWithActions("Something's missing", message: "Please enter a valid string when submitting the URL", actions: [okAction])
+                alertController(withTitles: ["OK"], message: GlobalErrors.MissingData.localizedDescription, callbackHandler: [nil])
                 return
             }
             mediaURL = linkTextField.text
             
             guard let _ = NSURL(string: mediaURL!) else {
-                let okAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-                
-                alertUserWithWithActions("Not a valid URL", message: "Sorry, but the url you provided is not valid.  Please share a new link.", actions: [okAction])
+                alertController(withTitles: ["Try Again"], message: GlobalErrors.InvalidURL.localizedDescription, callbackHandler: [{Void in
+                        self.mediaURL = nil
+                        self.isSubmittingURL = true
+                    }])
                 return
                 
             }
             
-            /* Show progress while submitting data */
-            let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
             hud.labelText = "Posting..."
             
-
-            self.updateOrAddNewDataToParse(mediaURL!, mapString: self.locationString!, completionCallback: {
-                MBProgressHUD.hideHUDForView(self.view, animated: true)
+            /* Show progress while submitting data */
+            dispatch_async(GlobalUserInitiatedQueue, {
+                
+                hud.show(true)
             })
             
+        /* Add or update data to parse in background while hud is shown in user initiated queue */
+
+            self.updateOrAddNewDataToParse(self.mediaURL!, mapString: self.locationString!, completionCallback: {success, error in
+                
+                if error != nil {
+                    
+                    self.alertController(withTitles: ["Cancel", "Try Again"], message: (error?.localizedDescription)!, callbackHandler: [{Void in
+                            self.dismissViewControllerAnimated(true, completion: nil)
+                        }, nil])
+                    
+                } else {
+                    
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    ParseClient.sharedInstance().studentData  = nil
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                    
+                }
+
+            })
             
+
         }
     }
     
@@ -124,34 +188,22 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
                     
                     self.locationString = locationString
                     
-                    var selectedPlacemark: CLPlacemark?
-                    
-                    if placemarks!.count > 1 {
-                        print("More than one")
-                        self.callAlertControllerForMultiplePlacemarks(placemarks!, completionClosure: { placemark in
-                            selectedPlacemark = placemark
-                        })
-                        
-                    } else {
-                        
-                        selectedPlacemark = placemarks![0]
-                        
-                    }
 
-                    
+                    let selectedPlacemark = placemarks![0]
+
                     self.isSubmittingURL = true
                     self.configureDisplay(false)
                     
-                    UdaciousClient.sharedInstance().latitude = CLLocationDegrees(selectedPlacemark!.location!.coordinate.latitude)
-                    UdaciousClient.sharedInstance().longitude = CLLocationDegrees(selectedPlacemark!.location!.coordinate.longitude)
+                    UdaciousClient.sharedInstance().latitude = CLLocationDegrees(selectedPlacemark.location!.coordinate.latitude)
+                    UdaciousClient.sharedInstance().longitude = CLLocationDegrees(selectedPlacemark.location!.coordinate.longitude)
                     
                     
                     
                     let annotation = MKPointAnnotation()
-                    annotation.coordinate = CLLocationCoordinate2D(latitude: selectedPlacemark!.location!.coordinate.latitude, longitude: selectedPlacemark!.location!.coordinate.longitude)
+                    annotation.coordinate = CLLocationCoordinate2D(latitude: selectedPlacemark.location!.coordinate.latitude, longitude: selectedPlacemark.location!.coordinate.longitude)
                     
                     
-                   let coordinateRegion = MKCoordinateRegionMakeWithDistance(selectedPlacemark!.location!.coordinate, self.regionRadius * 2.0, self.regionRadius * 2.0)
+                   let coordinateRegion = MKCoordinateRegionMakeWithDistance(selectedPlacemark.location!.coordinate, self.regionRadius * 2.0, self.regionRadius * 2.0)
                     
                     self.mapView.setRegion(coordinateRegion, animated: true)
                     
@@ -161,7 +213,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
                     
                 } else {
                     
-                    completionCallback(success: false, error: self.errorFromString("Could not find a location in verifyLocation"))
+                    completionCallback(success: false, error: GlobalErrors.GEOCode)
                 
                 }
                 
@@ -171,58 +223,46 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
         
     }
     
-    func updateOrAddNewDataToParse(mediaURL: String, mapString: String, completionCallback: (()-> Void)) {
+    func updateOrAddNewDataToParse(mediaURL: String, mapString: String, completionCallback: ((success: Bool, error: NSError?)-> Void)) {
         
         let JSONBody = ParseClient.sharedInstance().makeDictionaryForPostLocation(mediaURL, mapString: self.locationString!)
-        ParseClient.sharedInstance().postDataToParse(JSONBody, completionHandler: {success, error in
-            print(JSONBody)
-            if success {
+        
+        if ObjectId != nil {
                 
-                ParseClient.sharedInstance().studentData = nil
-                self.dismissViewControllerAnimated(true, completion: nil)
+            ParseClient.sharedInstance().updateLocationForObjectId(self.ObjectId!, JSONBody: JSONBody, completionHandler: {success, error in
                 
-            } else {
+                if error != nil {
+                    
+                    completionCallback(success: false, error: error)
+
+                } else {
+                    
+                    completionCallback(success: true, error: nil)
+                    
+                }
                 
-                let dismissAction = UIAlertAction(title: "Dismiss", style: .Destructive, handler: {Void in
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                })
-                
-                self.alertUserWithWithActions("Something went wrong", message: "An error occured while updating your location.  Please try again.", actions: [dismissAction])
-                
-            }
+            })
+
+        } else {
             
-            completionCallback()
+            ParseClient.sharedInstance().postDataToParse(JSONBody, completionHandler: {success, error in
+                
+                if error != nil {
+                    
+                    completionCallback(success: false, error: error)
+                    
+                } else {
+                    
+                    completionCallback(success: true, error: nil)
+                    
+                }
+                
+            })
             
-        })
-    }
-    
-    
-    /* Present the user with several options to select a placemark if there are more than one options (fancy closures, eh :D ) */
-    func callAlertControllerForMultiplePlacemarks(placemarks: [CLPlacemark], completionClosure: (placemark: CLPlacemark) -> ()){
-        
-        let ac = UIAlertController(title: "Multiple Matches", message: "More than one location was found.  Please select the one you are looking for or be more specific", preferredStyle: .ActionSheet)
-        
-        var selectedIndex: Int?
-        
-        let closure = { (index: Int) in
-            { (action: UIAlertAction) -> Void in
-                selectedIndex = index
-            }
         }
-        
-        for placemark in placemarks.enumerate() {
-            
-            if placemark.index < 3 {
-                let action = UIAlertAction(title: placemark.1.description, style: .Default, handler: closure(placemark.index))
-                ac.addAction(action)
-                
-            }
-        }
-        
-        ac.presentViewController(ac, animated: true, completion: {
-            completionClosure(placemark: placemarks[selectedIndex!])
-        })
+
     }
+
     
     /* configure display for reset */
     func configureDisplay(reset: Bool) {

@@ -52,16 +52,4 @@ extension ParseClient {
         static let PUT = "PUT"
         static let DELETE = "DELETE"
     }
-    
-    struct Errors : ErrorType {
-
-        static let JSONSerialization =  NSError(domain: "UdaciousClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "An error occured when sending data to the network."])
-        static let Parse =  NSError(domain: "ParseClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "An error occured while getting data from the network."])
-        
-        struct Status {
-            static let Auth401 =  NSError(domain: "ParseClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "The network returned an invalid response due to invalid credentials.  Please try again."])
-            static let InvalidResponse = NSError(domain: "ParseClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "Unable to log you in due to an invalid response from the server.  Please try again."])
-            static let Network = NSError(domain: "ParseClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "Could not connect to the network.  Please try again."])
-        }
-    }
 }

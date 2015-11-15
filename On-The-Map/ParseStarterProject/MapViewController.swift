@@ -43,48 +43,57 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBAction func didTapRefresh(sender: AnyObject) {
         
         /* call HUD To show until callback */
-        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        hud.labelText = "Loading Data..."
-        
-        /* remove annotations and add new ones */
-        studentLocationMapView.removeAnnotations(studentLocationMapView.annotations)
-        refreshDataFromParse({
+        dispatch_async(GlobalUserInteractiveQueue, {
+            let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            hud.labelText = "Loading Data..."
             
-            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            /* remove annotations and add new ones */
+            self.studentLocationMapView.removeAnnotations(self.studentLocationMapView.annotations)
+            
+            dispatch_async(GlobalUtilityQueue, {
+                
+                ParseClient.sharedInstance().getDataFromParse({success, results, error in
+                    
+                    if success {
+                        
+                        dispatch_async(GlobalMainQueue, {
+                            
+                            MBProgressHUD.hideHUDForView(self.view, animated: true)
+                            self.addPinsToMapForStudents(ParseClient.sharedInstance().studentData)
+                            
+                        })
+                        
+                    } else if (error != nil) {
+                        
+                        dispatch_async(GlobalMainQueue, {
+                            
+                            MBProgressHUD.hideHUDForView(self.view, animated: true)
+                            
+                            self.alertController(withTitles: ["Ok, Retry"], message: (error?.localizedDescription)!, callbackHandler: [nil, {Void in
+                                    self.didTapRefresh(self)
+                            }])
+                            
+                        })
+                        
+                    }
+                    
+                })
+
+                
+            })
+            
             
         })
-        
+
         
     }
     
-    /* Refresh Parse data and callback when complete to hide progress */
-    func refreshDataFromParse(completionCallback: ()->Void) {
-        
-        ParseClient.sharedInstance().getDataFromParse({success, results, error in
-            
-            if success {
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    
-                    self.addPinsToMapForStudents(ParseClient.sharedInstance().studentData)
-                    completionCallback()
-                })
-                
-            } else {
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    
-                    self.alertController(withTitles: ["Ok, Retry"], message: "Sorry but there was an issue loading data from the network.", callbackHandler: [nil, {Void in
-                            completionCallback()
-                    }])
-
-                })
-                
-            }
-            
-        })
-
-    }
+//    /* Refresh Parse data and callback when complete to hide progress */
+//    func refreshDataFromParse(completionCallback: ()->Void) {
+//        
+//        
+//
+//    }
     
     
     func addPinsToMapForStudents(studentLocations: [StudentLocationData]?) {

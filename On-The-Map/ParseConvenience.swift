@@ -37,23 +37,23 @@ extension ParseClient {
     func postDataToParse(locationParameters: [String : AnyObject], completionHandler: (success: Bool, error: NSError?) -> Void) {
         
         
-        ParseClient.sharedInstance().queryParseDataForObjectId({ success, objectId, error in
-            
-            if success == true && objectId != nil {
-
-                ParseClient.sharedInstance().updateLocationForObjectId(objectId!, JSONBody: locationParameters, completionHandler: {success, error in
+        ParseClient.sharedInstance().queryParseDataForObjectId({ success, results, error in
+    
+            if success == true {
+                if let objectId = results?.ObjectID {
+                ParseClient.sharedInstance().updateLocationForObjectId(objectId, JSONBody: locationParameters, completionHandler: {success, error in
                     
-                    if error != nil {
+                        if error != nil {
                         
-                        completionHandler(success: false, error: error)
+                            completionHandler(success: false, error: error)
                         
-                    } else {
+                        } else {
                         
-                        completionHandler(success: true, error: nil)
-                    }
+                            completionHandler(success: true, error: nil)
+                        }
                     
-                })
-                
+                    })
+                }
             } else {
                 print("New")
                 ParseClient.sharedInstance().taskForPOSTMethod(ParseClient.Methods.StudentLocations, JSONBody: locationParameters, completionHandler: {success, error in
@@ -98,7 +98,7 @@ extension ParseClient {
         }
     }
     
-    func queryParseDataForObjectId(completionHandler: (success: Bool, objectId: String?, error: NSError?) -> Void) {
+    func queryParseDataForObjectId(completionHandler: (success: Bool, results: StudentLocationData?, error: NSError?) -> Void) {
         
         /* get data from Parse */
         
@@ -107,22 +107,22 @@ extension ParseClient {
             /* If there was an error parsing, return an error */
             if error != nil {
 
-                completionHandler(success: false, objectId: nil, error: error)
+                completionHandler(success: false, results: nil, error: error)
                 
             } else {
                 
                 /* if results were returned, drill into the most recent objectId and return it */
                 if let results = results[ParseClient.JSONResponseKeys.Results] as? [[String : AnyObject]] {
-                    print(results)
+
                     let studentDataArray = StudentLocationData.generateLocationDataFromResults(results)
                     
-                    let objectId = studentDataArray[0].ObjectID
-                    print(objectId)
-                        completionHandler(success: true, objectId: objectId, error: nil)
+                    let results = studentDataArray[0]
+
+                        completionHandler(success: true, results: results, error: nil)
                     
                 } else {
                     
-                    completionHandler(success: false, objectId: nil, error: ParseClient.errorFromString("Failed to get object ID in queryDataForObjectID"))
+                    completionHandler(success: false, results: nil, error: ParseErrors.Parse)
                     
                 }
             }

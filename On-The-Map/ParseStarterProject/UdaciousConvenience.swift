@@ -57,7 +57,7 @@ extension UdaciousClient {
                     }
                 }
             }
-            completionHandler(success: false, sessionID: nil, userKey: nil, error: Errors.Parse)
+            completionHandler(success: false, sessionID: nil, userKey: nil, error: UdaciousErrors.Parse)
         }
         
     }
@@ -69,7 +69,7 @@ extension UdaciousClient {
         
         guard let IDKey = IDKey else {
             
-            completionHandler(success: false, error: UdaciousClient.errorFromString("Failed to get IDKey in getUserData"))
+            completionHandler(success: false, error: GlobalErrors.GenericError)
             return
         }
 
@@ -102,7 +102,7 @@ extension UdaciousClient {
                 }
                 
             }
-            completionHandler(success: false, error: Errors.Parse)
+            completionHandler(success: false, error: UdaciousErrors.Parse)
             
         }
     }
@@ -115,7 +115,7 @@ extension UdaciousClient {
             
             if let error = error {
                 
-                completionHandler(success: false, error: UdaciousClient.errorFromString("Error returned for logoutOfSession. Error: \(error)"))
+                completionHandler(success: false, error: GlobalErrors.LogoutError)
             
             } else {
                 

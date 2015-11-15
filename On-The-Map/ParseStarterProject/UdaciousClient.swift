@@ -52,25 +52,25 @@ class UdaciousClient: NSObject {
             
             /* Guard for an error connecting to network */
             guard error == nil else {
-                completionHandler(result: nil, error: Errors.Status.Network)
+                completionHandler(result: nil, error: UdaciousErrors.Status.Network)
                 return
             }
             
             
             /* GUARD: Did we get a successful response code of 2XX? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                
                 var statusError: NSError?
+                
                 if let response = response as? NSHTTPURLResponse {
                     if response.statusCode == 401 {
-                        statusError = Errors.Status.Auth401
+                        statusError = ParseErrors.Status.Auth401
                     } else {
-                        statusError = Errors.Status.InvalidResponse
+                        statusError = ParseErrors.Status.InvalidResponse
                     }
                 } else {
-                    statusError = Errors.Status.Network
+                    statusError = ParseErrors.Status.Network
+                    print(response)
                 }
-
                 completionHandler(result: nil, error: statusError)
                 return
             }
@@ -107,7 +107,7 @@ class UdaciousClient: NSObject {
         } catch {
             request.HTTPBody = nil
 
-            completionHandler(result: nil, error: Errors.JSONSerialization)
+            completionHandler(result: nil, error: UdaciousErrors.JSONSerialization)
         }
         
         let session = NSURLSession.sharedSession()
@@ -115,25 +115,24 @@ class UdaciousClient: NSObject {
             
             /* GUARD: was there an error? */
             guard error == nil else {
-                completionHandler(result: nil, error: Errors.Status.Network)
+                completionHandler(result: nil, error: UdaciousErrors.Status.Network)
                 return
             }
             
             
             /* GUARD: Did we get a successful response code of 2XX? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                
                 var statusError: NSError?
+                
                 if let response = response as? NSHTTPURLResponse {
                     if response.statusCode == 401 {
-                        statusError = Errors.Status.Auth401
+                        statusError = ParseErrors.Status.Auth401
                     } else {
-                        statusError = Errors.Status.InvalidResponse
+                        statusError = ParseErrors.Status.InvalidResponse
                     }
                 } else {
-                    statusError = Errors.Status.Network
+                    statusError = ParseErrors.Status.Network
                 }
-                
                 completionHandler(result: nil, error: statusError)
                 return
             }
@@ -185,25 +184,24 @@ class UdaciousClient: NSObject {
             /* GUARD: was there an error? */
             guard error == nil else {
                 
-                completionHandler(result: nil, error: Errors.Status.Network)
+                completionHandler(result: nil, error: UdaciousErrors.Status.Network)
                 return
             }
             
             
             /* GUARD: Did we get a successful response code of 2XX? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                
                 var statusError: NSError?
+                
                 if let response = response as? NSHTTPURLResponse {
                     if response.statusCode == 401 {
-                        statusError = Errors.Status.Auth401
+                        statusError = ParseErrors.Status.Auth401
                     } else {
-                        statusError = Errors.Status.InvalidResponse
+                        statusError = ParseErrors.Status.InvalidResponse
                     }
                 } else {
-                    statusError = Errors.Status.Network
+                    statusError = ParseErrors.Status.Network
                 }
-                
                 completionHandler(result: nil, error: statusError)
                 return
             }
@@ -244,7 +242,7 @@ class UdaciousClient: NSObject {
             parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
             
         } catch {
-            completionHandler(result: nil, error: Errors.Parse)
+            completionHandler(result: nil, error: UdaciousErrors.Parse)
         }
         
         completionHandler(result: parsedResult, error: nil)

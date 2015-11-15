@@ -79,21 +79,19 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
             guard self.verifyUserCredentials(self.usernameTextField.text, password: self.passwordTextField.text) else {
                 
                 /* Show alert */
-                alertController(withTitles: ["Ok"], message: "We were unable to verify your credentials.  Please try again,", callbackHandler: [nil])
+                alertController(withTitles: ["Ok"], message: GlobalErrors.BadCredentials.localizedDescription, callbackHandler: [nil])
                 
                 return
             }
         
         /* show log in message */
-        dispatch_async(dispatch_get_main_queue(), {
+        dispatch_async(GlobalMainQueue, {
             SwiftSpinner.show("Logging in")
-            SwiftSpinner.showWithDelay(4.0, title: "Just a moment")
-            SwiftSpinner.showWithDelay(8.0, title: "Taking longer than expected")
-            SwiftSpinner.showWithDelay(12.0, title: "Still loggin in")
+            SwiftSpinner.showWithDelay(12.0, title: "Taking longer than expected.  Just a moment.")
         })
         
         /* aunthenticate then get user information  in didLoginSuccessfully */
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), {
+        dispatch_async(GlobalUtilityQueue, {
             
             let parameters = [UdaciousClient.ParameterKeys.Udacity :
                 [UdaciousClient.ParameterKeys.Username : self.usernameTextField.text!,
@@ -102,16 +100,25 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
             
             UdaciousClient.sharedInstance().authenticateWithViewController(parameters) { success, error in
                 if success {
-                    SwiftSpinner.show("Authenticated")
-                    self.didLoginSuccessfully()
                     
-                } else {
-                    SwiftSpinner.hide({
-                        self.alertController(withTitles: ["Ok", "Retry"], message: (error?.localizedDescription)!, callbackHandler: [nil, { Void in
-                                self.didTapLoginTouchUpInside(self)
-                        }])
-                            
+                    dispatch_async(GlobalMainQueue, {
+                        
+                        SwiftSpinner.show("Authenticated")
+                        self.didLoginSuccessfully()
                     })
+
+                } else {
+                    
+                    dispatch_async(GlobalMainQueue, {
+                        SwiftSpinner.hide({
+                            self.alertController(withTitles: ["Ok", "Retry"], message: (error?.localizedDescription)!, callbackHandler: [nil, { Void in
+                                self.didTapLoginTouchUpInside(self)
+                            }])
+                            
+                        })
+                        
+                    })
+                    
                 }
             }
         })
@@ -119,28 +126,34 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
     
     /* If logged in successfully, get the user's data */
     func didLoginSuccessfully() {
-    
+        
         UdaciousClient.sharedInstance().getUserData() {success, error in
             if success {
                 
                 /* Set user as authenticate */
                 self.appDelegate.userAuthenticated = true
                 
-                dispatch_async(dispatch_get_main_queue(), {
-                    
+                dispatch_async(GlobalMainQueue, {
                     let tabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
                     self.presentViewController(tabBarController, animated: true, completion: {
                         
                         /* Hide activity Indicator*/
                         SwiftSpinner.hide()
-                        
+                        print("Got data")
                     })
+                    
                 })
+                
+                
             } else {
-                /* Present an alert controller with an appropriate message */
-                self.alertController(withTitles: ["Ok", "Retry"], message: (error?.localizedDescription)!, callbackHandler: [nil, {Void in
+                dispatch_async(GlobalMainQueue, {
+                    /* Present an alert controller with an appropriate message */
+                    self.alertController(withTitles: ["Ok", "Retry"], message: (error?.localizedDescription)!, callbackHandler: [nil, {Void in
                         self.didTapLoginTouchUpInside(self)
                     }])
+                    
+                })
+                
                 
             }
             

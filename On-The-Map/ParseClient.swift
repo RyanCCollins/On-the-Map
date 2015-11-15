@@ -37,7 +37,7 @@ class ParseClient: NSObject {
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil {
                 
-              completionHandler(result: nil, error: Errors.Status.Network)
+              completionHandler(result: nil, error: ParseErrors.Status.Network)
                 
             } else {
                 
@@ -47,12 +47,12 @@ class ParseClient: NSObject {
                     
                     if let response = response as? NSHTTPURLResponse {
                         if response.statusCode == 401 {
-                            statusError = Errors.Status.Auth401
+                            statusError = ParseErrors.Status.Auth401
                         } else {
-                            statusError = Errors.Status.InvalidResponse
+                            statusError = ParseErrors.Status.InvalidResponse
                         }
                     } else {
-                        statusError = Errors.Status.Network
+                        statusError = ParseErrors.Status.Network
                     }
                     completionHandler(result: nil, error: statusError)
                     return
@@ -86,7 +86,7 @@ class ParseClient: NSObject {
         } catch {
             
             request.HTTPBody = nil
-            completionHandler(result: nil, error: Errors.JSONSerialization)
+            completionHandler(result: nil, error: ParseErrors.JSONSerialization)
             
         }
         
@@ -97,7 +97,7 @@ class ParseClient: NSObject {
             
             if error != nil {
                 
-                completionHandler(result: nil, error: Errors.Status.Network)
+                completionHandler(result: nil, error: ParseErrors.Status.Network)
                 
             } else {
                 
@@ -107,12 +107,12 @@ class ParseClient: NSObject {
                     
                     if let response = response as? NSHTTPURLResponse {
                         if response.statusCode == 401 {
-                            statusError = Errors.Status.Auth401
+                            statusError = ParseErrors.Status.Auth401
                         } else {
-                            statusError = Errors.Status.InvalidResponse
+                            statusError = ParseErrors.Status.InvalidResponse
                         }
                     } else {
-                        statusError = Errors.Status.Network
+                        statusError = ParseErrors.Status.Network
                     }
                     completionHandler(result: nil, error: statusError)
                     return
@@ -148,7 +148,7 @@ class ParseClient: NSObject {
             
         } catch {
             request.HTTPBody = nil
-            completionHandler(result: nil, error: Errors.JSONSerialization)
+            completionHandler(result: nil, error: ParseErrors.JSONSerialization)
             
         }
         
@@ -159,7 +159,7 @@ class ParseClient: NSObject {
             
             if error != nil {
                 
-                completionHandler(result: nil, error: Errors.Status.Network)
+                completionHandler(result: nil, error: ParseErrors.Status.Network)
                 
             } else {
                 
@@ -169,12 +169,12 @@ class ParseClient: NSObject {
                     
                     if let response = response as? NSHTTPURLResponse {
                         if response.statusCode == 401 {
-                            statusError = Errors.Status.Auth401
+                            statusError = ParseErrors.Status.Auth401
                         } else {
-                            statusError = Errors.Status.InvalidResponse
+                            statusError = ParseErrors.Status.InvalidResponse
                         }
                     } else {
-                        statusError = Errors.Status.Network
+                        statusError = ParseErrors.Status.Network
                     }
                     completionHandler(result: nil, error: statusError)
                     return
@@ -205,7 +205,7 @@ class ParseClient: NSObject {
         do {
             parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
         } catch {
-            completionHandler(result: nil, error: Errors.Parse)
+            completionHandler(result: nil, error: ParseErrors.Parse)
         }
         
         completionHandler(result: parsedResult, error: nil)

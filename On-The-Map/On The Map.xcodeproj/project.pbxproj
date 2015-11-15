@@ -210,7 +210,6 @@
 			isa = PBXGroup;
 			children = (
 				1F787D001BEFAEE000BC80F6 /* LoginViewController.swift */,
-				1F346D291BF82ECC00063D48 /* OnTheMapConstants.swift */,
 				1F787D1C1BF054F700BC80F6 /* ExtendsUIViewController.swift */,
 				1F787D021BEFAF1000BC80F6 /* MapViewController.swift */,
 				1F24A7151BF271D700BC2796 /* PostLocationViewController.swift */,
@@ -288,6 +287,7 @@
 			children = (
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
+				1F346D291BF82ECC00063D48 /* OnTheMapConstants.swift */,
 				1F787D0D1BEFB05500BC80F6 /* Model */,
 				1F787D1E1BF0550000BC80F6 /* View */,
 				1F787D0E1BEFB06F00BC80F6 /* Controller */,
