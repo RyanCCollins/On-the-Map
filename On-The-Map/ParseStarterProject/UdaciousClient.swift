@@ -29,7 +29,7 @@ class UdaciousClient: NSObject {
     }
     
     /* Task for GETting data from Udacity */
-    func taskForGETMethod(method: String, parameters: [String : AnyObject]?, completionHandler: (result: AnyObject!, error: Error?) -> Void) -> NSURLSessionDataTask {
+    func taskForGETMethod(method: String, parameters: [String : AnyObject]?, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         /* Build the URL, using parameters if there are any */
         var urlString = Constants.BaseURLSecure + method
@@ -50,9 +50,9 @@ class UdaciousClient: NSObject {
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
-            /* Guard for an error */
+            /* Guard for an error connecting to network */
             guard error == nil else {
-                completionHandler(result: nil, error: Error.NetworkError)
+                completionHandler(result: nil, error: Errors.Network)
                 return
             }
             
@@ -61,11 +61,12 @@ class UdaciousClient: NSObject {
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
                 var statusError = "taskForGETMethod request returned an invalid response!"
                 if let response = response as? NSHTTPURLResponse {
-                    completionHandler(result: nil, error: Error.StatusCode(statusCode: response.statusCode))
+                    statusError += "\(response.statusCode)"
                 } else if let response = response {
                     statusError += " Response: \(response)!"
                 }
-                completionHandler(result: nil, error: Error.StatusCode(statusCode: <#T##Int#>))
+                print(statusError)
+                completionHandler(result: nil, error: Errors.Status)
                 return
             }
             
@@ -98,10 +99,10 @@ class UdaciousClient: NSObject {
         /* Try to run the request with error catching */
         do {
             request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(parameters!, options: .PrettyPrinted)
-        } catch let error as NSError {
+        } catch {
             request.HTTPBody = nil
 
-            completionHandler(result: nil, error: error)
+            completionHandler(result: nil, error: Errors.JSONSerialization)
         }
         
         let session = NSURLSession.sharedSession()
@@ -109,7 +110,7 @@ class UdaciousClient: NSObject {
             
             /* GUARD: was there an error? */
             guard error == nil else {
-                completionHandler(result: nil, error: UdaciousClient.errorFromString("An error occured while initializing the task in taskForPOSTMethod in UdaciousClient"))
+                completionHandler(result: nil, error: Errors.Network)
                 return
             }
             
@@ -128,8 +129,8 @@ class UdaciousClient: NSObject {
                     statusError += " Response: \(response)!"
                 
                 }
-                
-                completionHandler(result: nil, error: UdaciousClient.errorFromString(statusError))
+                print(statusError)
+                completionHandler(result: nil, error: Errors.Status)
                 return
             }
 
@@ -180,7 +181,7 @@ class UdaciousClient: NSObject {
             /* GUARD: was there an error? */
             guard error == nil else {
                 
-                completionHandler(result: nil, error: UdaciousClient.errorFromString("An error occured while initializing the task in taskForDELETEMethod in UdaciousClient"))
+                completionHandler(result: nil, error: Errors.Network)
                 
                 return
             }
@@ -200,8 +201,8 @@ class UdaciousClient: NSObject {
                     statusError += " Response: \(response)!"
                 
                 }
-                
-                completionHandler(result: nil, error: UdaciousClient.errorFromString(statusError))
+                print(statusError)
+                completionHandler(result: nil, error: Errors.Status)
                 return
             }
             
@@ -241,8 +242,7 @@ class UdaciousClient: NSObject {
             parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
             
         } catch {
-            let userInfo = [NSLocalizedDescriptionKey : "Failed to parse data as JSON: '\(data)'"]
-            completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 0, userInfo: userInfo))
+            completionHandler(result: nil, error: Errors.Parse)
         }
         
         completionHandler(result: parsedResult, error: nil)

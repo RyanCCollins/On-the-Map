@@ -79,7 +79,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
             guard self.verifyUserCredentials(self.usernameTextField.text, password: self.passwordTextField.text) else {
                 
                 /* Show alert */
-                
+                alertController(withTitles: ["OK"], message: AlertActions.VerificationMessage, callbackHandler: {Void in
+                        print("tapped")
+                    })
                 
                 return
             }
@@ -162,9 +164,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
          
         }
         
-        SwiftSpinner.show("Please enter a valid username and password").addTapHandler ({
-            SwiftSpinner.hide()
-            }, subtitle: "Tap to dismiss")
         return false
     }
     

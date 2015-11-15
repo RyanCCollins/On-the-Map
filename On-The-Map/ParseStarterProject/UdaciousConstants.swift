@@ -54,14 +54,13 @@ extension UdaciousClient {
         static let DELETE = "DELETE"
     }
     
-    internal enum Error : ErrorType {
-        case NetworkError
-        case StatusCode(statusCode: Int?)
-        case ParseError
-        case AuthError
-        
+    struct Errors : ErrorType {
+        static let Network = NSError(domain: "UdaciousClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "An error occured while connecting to the network."])
+        static let JSONSerialization =  NSError(domain: "UdaciousClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "An error occured when sending data to the network."])
+        static let Status =  NSError(domain: "UdaciousClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "An status error occured while connecting to the network."])
+        static let Parse =  NSError(domain: "UdaciousClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "An error occured while getting data from the network."])
+        static let Auth =  NSError(domain: "UdaciousClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "Unable to log you in due to authentication.  Make sure your credentials are correct."])
     }
-    
     struct Alerts {
         let okAlert = UIAlertAction(title: "Ok", style: .Default, handler: nil)
         

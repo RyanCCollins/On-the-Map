@@ -22,7 +22,7 @@ extension UdaciousClient {
                 
                 completionHandler(success: true, error: nil)
             } else {
-                print(error?.description)
+                
                 completionHandler(success: false, error: error)
             }
         }

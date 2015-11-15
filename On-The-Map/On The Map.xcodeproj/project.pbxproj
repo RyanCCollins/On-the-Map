@@ -27,6 +27,7 @@
 		1F24A7201BF28A9F00BC2796 /* Modeka.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F24A71F1BF28A9C00BC2796 /* Modeka.otf */; };
 		1F24A7221BF28BA800BC2796 /* BIG JOHN.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F24A7211BF28BA800BC2796 /* BIG JOHN.otf */; };
 		1F24A7261BF2AEFE00BC2796 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A7251BF2AEFE00BC2796 /* LocationTableViewCell.swift */; };
+		1F346D2A1BF82ECC00063D48 /* OnTheMapConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F346D291BF82ECC00063D48 /* OnTheMapConstants.swift */; };
 		1F787CFC1BEF969900BC80F6 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CF91BEF969900BC80F6 /* Roboto-Medium.ttf */; };
 		1F787CFD1BEF969900BC80F6 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CFA1BEF969900BC80F6 /* Roboto-Regular.ttf */; };
 		1F787CFE1BEF969900BC80F6 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CFB1BEF969900BC80F6 /* Roboto-Thin.ttf */; };
@@ -79,6 +80,7 @@
 		1F24A71F1BF28A9C00BC2796 /* Modeka.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Modeka.otf; sourceTree = "<group>"; };
 		1F24A7211BF28BA800BC2796 /* BIG JOHN.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BIG JOHN.otf"; sourceTree = "<group>"; };
 		1F24A7251BF2AEFE00BC2796 /* LocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationTableViewCell.swift; path = ParseStarterProject/LocationTableViewCell.swift; sourceTree = "<group>"; };
+		1F346D291BF82ECC00063D48 /* OnTheMapConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnTheMapConstants.swift; sourceTree = "<group>"; };
 		1F787CF61BEF8E1E00BC80F6 /* On-The-Map-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "On-The-Map-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F787CF91BEF969900BC80F6 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		1F787CFA1BEF969900BC80F6 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				1F787D001BEFAEE000BC80F6 /* LoginViewController.swift */,
+				1F346D291BF82ECC00063D48 /* OnTheMapConstants.swift */,
 				1F787D1C1BF054F700BC80F6 /* ExtendsUIViewController.swift */,
 				1F787D021BEFAF1000BC80F6 /* MapViewController.swift */,
 				1F24A7151BF271D700BC2796 /* PostLocationViewController.swift */,
@@ -494,6 +497,7 @@
 				1F787D221BF0563300BC80F6 /* ParseConvenience.swift in Sources */,
 				1F24A6FF1BF2593B00BC2796 /* IsaoTextField.swift in Sources */,
 				1F787D191BF0194E00BC80F6 /* OnePasswordExtension.m in Sources */,
+				1F346D2A1BF82ECC00063D48 /* OnTheMapConstants.swift in Sources */,
 				1F24A7261BF2AEFE00BC2796 /* LocationTableViewCell.swift in Sources */,
 				1F787D031BEFAF1000BC80F6 /* MapViewController.swift in Sources */,
 				1F24A7051BF2593B00BC2796 /* YokoTextField.swift in Sources */,

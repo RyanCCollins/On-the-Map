@@ -38,6 +38,29 @@ extension UIViewController {
         })
     }
     
+    /* Create alert actions from alert messages and use callback function to handle any blocks */
+    func alertController(withTitles titles: [String], message: String, callbackHandler: ((UIAlertAction)->Void)? ) -> UIAlertController {
+        
+        let alertController = UIAlertController(title: "Alert", message: message, preferredStyle: .ActionSheet)
+        
+        for title in titles.enumerate() {
+            
+            if let callbackHandler = callbackHandler {
+                let action = UIAlertAction(title: title.element, style: .Default, handler: callbackHandler)
+                alertController.addAction(action)
+            } else {
+                let action = UIAlertAction(title: title.element, style: .Default, handler: nil)
+                alertController.addAction(action)
+            }
+            
+            
+            
+        }
+        
+        return alertController
+        
+    }
+    
     /* Helper function: construct an NSLocalizedError from an error string */
     func errorFromString(string: String) -> NSError? {
         
