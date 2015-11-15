@@ -38,26 +38,36 @@ extension UIViewController {
         })
     }
     
-    /* Create alert actions from alert messages and use callback function to handle any blocks */
-    func alertController(withTitles titles: [String], message: String, callbackHandler: ((UIAlertAction)->Void)? ) -> UIAlertController {
+    func createActionsForAlert(withTitle title: String, withStyle style: UIAlertActionStyle = .Default, completionHandler: ((UIAlertAction) -> Void)?) -> UIAlertAction {
+        return UIAlertAction(title: title, style: style, handler: completionHandler)
+    }
+//
+    /* Create an alert controller with an array of callback handlers   */
+    func alertController(withTitles titles: [String], message: String, callbackHandler: [((UIAlertAction)->Void)?]) {
         
         let alertController = UIAlertController(title: "Alert", message: message, preferredStyle: .ActionSheet)
         
         for title in titles.enumerate() {
             
-            if let callbackHandler = callbackHandler {
+            if let callbackHandler = callbackHandler[title.index] {
+            
                 let action = UIAlertAction(title: title.element, style: .Default, handler: callbackHandler)
+                
                 alertController.addAction(action)
+            
             } else {
+                
                 let action = UIAlertAction(title: title.element, style: .Default, handler: nil)
+                
                 alertController.addAction(action)
+                
             }
             
             
             
         }
         
-        return alertController
+        self.presentViewController(alertController, animated: true, completion: nil)
         
     }
     

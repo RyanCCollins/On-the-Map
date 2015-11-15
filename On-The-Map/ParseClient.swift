@@ -35,21 +35,26 @@ class ParseClient: NSObject {
         /*Create a session and then a task */
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
-            if let error = error {
+            if error != nil {
                 
-              completionHandler(result: nil, error: error)
+              completionHandler(result: nil, error: Errors.Status.Network)
                 
             } else {
                 
                 /* GUARD: Did we get a successful response code of 2XX? */
                 guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                    var statusError = "taskForGETMethod request returned an invalid response!"
+                    var statusError: NSError?
+                    
                     if let response = response as? NSHTTPURLResponse {
-                        statusError += " Status code: \(response.statusCode)!"
-                    } else if let response = response {
-                        statusError += " Response: \(response)!"
+                        if response.statusCode == 401 {
+                            statusError = Errors.Status.Auth401
+                        } else {
+                            statusError = Errors.Status.InvalidResponse
+                        }
+                    } else {
+                        statusError = Errors.Status.Network
                     }
-                    completionHandler(result: nil, error: UdaciousClient.errorFromString(statusError))
+                    completionHandler(result: nil, error: statusError)
                     return
                 }
                 
@@ -80,8 +85,8 @@ class ParseClient: NSObject {
             request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(JSONBody, options: .PrettyPrinted)
         } catch {
             
-            print("failed to create a request body in taskForPOSTMethod of ParseClient")
             request.HTTPBody = nil
+            completionHandler(result: nil, error: Errors.JSONSerialization)
             
         }
         
@@ -90,21 +95,26 @@ class ParseClient: NSObject {
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
-            if let error = error {
+            if error != nil {
                 
-                completionHandler(result: nil, error: error)
+                completionHandler(result: nil, error: Errors.Status.Network)
                 
             } else {
                 
                 /* GUARD: Did we get a successful response code of 2XX? */
                 guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                    var statusError = "taskForPOSTMethod request returned an invalid response!"
+                    var statusError: NSError?
+                    
                     if let response = response as? NSHTTPURLResponse {
-                        statusError += " Status code: \(response.statusCode)!"
-                    } else if let response = response {
-                        statusError += " Response: \(response)!"
+                        if response.statusCode == 401 {
+                            statusError = Errors.Status.Auth401
+                        } else {
+                            statusError = Errors.Status.InvalidResponse
+                        }
+                    } else {
+                        statusError = Errors.Status.Network
                     }
-                    completionHandler(result: nil, error: UdaciousClient.errorFromString(statusError))
+                    completionHandler(result: nil, error: statusError)
                     return
                 }
                 
@@ -137,8 +147,8 @@ class ParseClient: NSObject {
             request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(JSONBody, options: .PrettyPrinted)
             
         } catch {
-            
             request.HTTPBody = nil
+            completionHandler(result: nil, error: Errors.JSONSerialization)
             
         }
         
@@ -147,21 +157,26 @@ class ParseClient: NSObject {
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
-            if let error = error {
+            if error != nil {
                 
-                completionHandler(result: nil, error: error)
+                completionHandler(result: nil, error: Errors.Status.Network)
                 
             } else {
                 
                 /* GUARD: Did we get a successful response code of 2XX? */
                 guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                    var statusError = "taskForPUTMethod request returned an invalid response!"
+                    var statusError: NSError?
+                    
                     if let response = response as? NSHTTPURLResponse {
-                        statusError += " Status code: \(response.statusCode)!"
-                    } else if let response = response {
-                        statusError += " Response: \(response)!"
+                        if response.statusCode == 401 {
+                            statusError = Errors.Status.Auth401
+                        } else {
+                            statusError = Errors.Status.InvalidResponse
+                        }
+                    } else {
+                        statusError = Errors.Status.Network
                     }
-                    completionHandler(result: nil, error: ParseClient.errorFromString(statusError))
+                    completionHandler(result: nil, error: statusError)
                     return
                 }
                 
@@ -190,8 +205,7 @@ class ParseClient: NSObject {
         do {
             parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
         } catch {
-            let userInfo = [NSLocalizedDescriptionKey : "Failed to parse data as JSON: '\(data)'"]
-            completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 0, userInfo: userInfo))
+            completionHandler(result: nil, error: Errors.Parse)
         }
         
         completionHandler(result: parsedResult, error: nil)

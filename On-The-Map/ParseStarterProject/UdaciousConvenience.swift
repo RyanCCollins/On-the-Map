@@ -52,24 +52,17 @@ extension UdaciousClient {
 
                             completionHandler(success: true, sessionID: sessionID, userKey: IDKey, error: nil)
                                 
-                            } else {
-                                completionHandler(success: false, sessionID: sessionID, userKey: nil, error: UdaciousClient.errorFromString("Failed to parse the key data in  getSession"))
                             }
-  
-                        } else {
-                            completionHandler(success: false, sessionID: nil, userKey: nil, error: UdaciousClient.errorFromString("Failed to parse the data in getSession.  No Account returned"))
                         }
-                    } else {
-                        completionHandler(success: false, sessionID: nil, userKey: nil, error: UdaciousClient.errorFromString("Failed to parse the data in getSession.  No session returned"))
                     }
                 }
             }
+            completionHandler(success: false, sessionID: nil, userKey: nil, error: Errors.Parse)
         }
         
-        
     }
-    /* 2. Get the user's data */
     
+    /* 2. Get the user's data */
     func getUserData(completionHandler: (success: Bool, error: NSError?) -> Void) {
         /* Make request and check for success */
 
@@ -80,13 +73,9 @@ extension UdaciousClient {
             return
         }
 
-        guard let method = UdaciousClient.substituteKeyInMethod(UdaciousClient.Methods.GetUserData, key: "id", value: IDKey) else {
+        let method = UdaciousClient.substituteKeyInMethod(UdaciousClient.Methods.GetUserData, key: "id", value: IDKey)
 
-            completionHandler(success: false, error: UdaciousClient.errorFromString("Failed to construct the method call in getUserData"))
-            return
-        }
-
-        taskForGETMethod(method, parameters: [:]) {JSONResult, error in
+        taskForGETMethod(method!, parameters: [:]) {JSONResult, error in
             
             if error != nil {
                 
@@ -104,8 +93,7 @@ extension UdaciousClient {
                             self.lastName = lastName
 
                             /* Return with completion handler */
-                                print("made it")
-                                completionHandler(success: true, error: nil)
+                            completionHandler(success: true, error: nil)
 
                         }
                         
@@ -114,6 +102,7 @@ extension UdaciousClient {
                 }
                 
             }
+            completionHandler(success: false, error: Errors.Parse)
             
         }
     }

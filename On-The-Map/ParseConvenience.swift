@@ -40,7 +40,7 @@ extension ParseClient {
         ParseClient.sharedInstance().queryParseDataForObjectId({ success, objectId, error in
             
             if success == true && objectId != nil {
-                print("Succesfully updated")
+
                 ParseClient.sharedInstance().updateLocationForObjectId(objectId!, JSONBody: locationParameters, completionHandler: {success, error in
                     
                     if error != nil {
@@ -106,8 +106,7 @@ extension ParseClient {
 
             /* If there was an error parsing, return an error */
             if error != nil {
-                
-                ParseClient.errorFromString("Could not query data in query parse data method!")
+
                 completionHandler(success: false, objectId: nil, error: error)
                 
             } else {

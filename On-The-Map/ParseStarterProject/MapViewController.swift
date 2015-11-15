@@ -74,15 +74,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     
-                    let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: {Void in
-                        self.didTapRefresh(self)
-                        completionCallback()
-                    })
-                    
-                    let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
-                    
-                    self.alertUserWithWithActions("Error loading", message: "Sorry, but there was an error loading the data from the network", actions: [retryAction, dismissAction])
-                    completionCallback()
+                    self.alertController(withTitles: ["Ok, Retry"], message: "Sorry but there was an issue loading data from the network.", callbackHandler: [nil, {Void in
+                            completionCallback()
+                    }])
+
                 })
                 
             }
@@ -154,8 +149,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     
                 } else {
                     
-                    let okAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-                    alertUserWithWithActions("Not a valid URL", message: "Sorry, but the URL you selected is not valid.", actions: [okAction])
+                    alertController(withTitles: ["Ok"], message: "Sorry, but the URL you selected is not valid.", callbackHandler: [nil])
                     
                 }
                 

@@ -79,9 +79,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
             guard self.verifyUserCredentials(self.usernameTextField.text, password: self.passwordTextField.text) else {
                 
                 /* Show alert */
-                alertController(withTitles: ["OK"], message: AlertActions.VerificationMessage, callbackHandler: {Void in
-                        print("tapped")
-                    })
+                alertController(withTitles: ["Ok"], message: "We were unable to verify your credentials.  Please try again,", callbackHandler: [nil])
                 
                 return
             }
@@ -89,7 +87,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
         /* show log in message */
         dispatch_async(dispatch_get_main_queue(), {
             SwiftSpinner.show("Logging in")
-            SwiftSpinner.showWithDelay(2.0, title: "It's taking longer than expected")
+            SwiftSpinner.showWithDelay(4.0, title: "Just a moment")
+            SwiftSpinner.showWithDelay(8.0, title: "Taking longer than expected")
+            SwiftSpinner.showWithDelay(12.0, title: "Still loggin in")
         })
         
         /* aunthenticate then get user information  in didLoginSuccessfully */
@@ -102,28 +102,24 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
             
             UdaciousClient.sharedInstance().authenticateWithViewController(parameters) { success, error in
                 if success {
-                    
+                    SwiftSpinner.show("Authenticated")
                     self.didLoginSuccessfully()
                     
                 } else {
-                    print(error?.description)
                     SwiftSpinner.hide({
-                        let okAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-                        let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: {Void in
-                            self.didTapLoginTouchUpInside(self)
-                        })
-                        
-                        self.alertUserWithWithActions("Could not login", message: (error?.description)!, actions: [okAction, retryAction])
+                        self.alertController(withTitles: ["Ok", "Retry"], message: (error?.localizedDescription)!, callbackHandler: [nil, { Void in
+                                self.didTapLoginTouchUpInside(self)
+                        }])
+                            
                     })
-                    
                 }
             }
         })
     }
     
+    /* If logged in successfully, get the user's data */
     func didLoginSuccessfully() {
-        
-        /* To do - clean up view */
+    
         UdaciousClient.sharedInstance().getUserData() {success, error in
             if success {
                 
@@ -131,8 +127,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
                 self.appDelegate.userAuthenticated = true
                 
                 dispatch_async(dispatch_get_main_queue(), {
-                    
-                    
                     
                     let tabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
                     self.presentViewController(tabBarController, animated: true, completion: {
@@ -143,14 +137,12 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
                     })
                 })
             } else {
-                
-                SwiftSpinner.show("Sorry, but we were unable to obtain your user information from Udacity.").addTapHandler({
-                    SwiftSpinner.hide()
-                    }, subtitle: "Tap to dismiss")
+                /* Present an alert controller with an appropriate message */
+                self.alertController(withTitles: ["Ok", "Retry"], message: (error?.localizedDescription)!, callbackHandler: [nil, {Void in
+                        self.didTapLoginTouchUpInside(self)
+                    }])
                 
             }
-            
-            
             
         }
     }
@@ -188,27 +180,14 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
                     
                     } else {
                         
-                        SwiftSpinner.show("Could not log you in using facebook").addTapHandler({
-                                SwiftSpinner.hide()
-                            }, subtitle: "Tap to dismiss")
+                        SwiftSpinner.hide({
+                            self.alertController(withTitles: ["Ok"], message: (error?.localizedDescription)!, callbackHandler: [nil])
+                        
+                        })
                         
                     }
                 }
-            } else {
-                
-                SwiftSpinner.show("Could not log you in using facebook").addTapHandler({
-                    SwiftSpinner.hide()
-                    }, subtitle: "Tap to dismiss")
-                
-                
             }
-        } else {
-
-            SwiftSpinner.show("Could not log you in using facebook").addTapHandler({
-                SwiftSpinner.hide()
-                }, subtitle: "Tap to dismiss")
-            
-
         }
     }
 

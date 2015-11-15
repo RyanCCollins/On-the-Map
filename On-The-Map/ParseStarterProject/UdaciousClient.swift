@@ -52,21 +52,26 @@ class UdaciousClient: NSObject {
             
             /* Guard for an error connecting to network */
             guard error == nil else {
-                completionHandler(result: nil, error: Errors.Network)
+                completionHandler(result: nil, error: Errors.Status.Network)
                 return
             }
             
             
             /* GUARD: Did we get a successful response code of 2XX? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                var statusError = "taskForGETMethod request returned an invalid response!"
+                
+                var statusError: NSError?
                 if let response = response as? NSHTTPURLResponse {
-                    statusError += "\(response.statusCode)"
-                } else if let response = response {
-                    statusError += " Response: \(response)!"
+                    if response.statusCode == 401 {
+                        statusError = Errors.Status.Auth401
+                    } else {
+                        statusError = Errors.Status.InvalidResponse
+                    }
+                } else {
+                    statusError = Errors.Status.Network
                 }
-                print(statusError)
-                completionHandler(result: nil, error: Errors.Status)
+
+                completionHandler(result: nil, error: statusError)
                 return
             }
             
@@ -110,7 +115,7 @@ class UdaciousClient: NSObject {
             
             /* GUARD: was there an error? */
             guard error == nil else {
-                completionHandler(result: nil, error: Errors.Network)
+                completionHandler(result: nil, error: Errors.Status.Network)
                 return
             }
             
@@ -118,19 +123,18 @@ class UdaciousClient: NSObject {
             /* GUARD: Did we get a successful response code of 2XX? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
                 
-                var statusError = "taskForPOSTMethod request returned an invalid response!"
-                
+                var statusError: NSError?
                 if let response = response as? NSHTTPURLResponse {
-                    
-                    statusError += " Status code: \(response.statusCode)!"
-                
-                } else if let response = response {
-                    
-                    statusError += " Response: \(response)!"
-                
+                    if response.statusCode == 401 {
+                        statusError = Errors.Status.Auth401
+                    } else {
+                        statusError = Errors.Status.InvalidResponse
+                    }
+                } else {
+                    statusError = Errors.Status.Network
                 }
-                print(statusError)
-                completionHandler(result: nil, error: Errors.Status)
+                
+                completionHandler(result: nil, error: statusError)
                 return
             }
 
@@ -181,8 +185,7 @@ class UdaciousClient: NSObject {
             /* GUARD: was there an error? */
             guard error == nil else {
                 
-                completionHandler(result: nil, error: Errors.Network)
-                
+                completionHandler(result: nil, error: Errors.Status.Network)
                 return
             }
             
@@ -190,19 +193,18 @@ class UdaciousClient: NSObject {
             /* GUARD: Did we get a successful response code of 2XX? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
                 
-                var statusError = "taskForDELETEMethod request returned an invalid response!"
-                
+                var statusError: NSError?
                 if let response = response as? NSHTTPURLResponse {
-                    
-                    statusError += " Status code: \(response.statusCode)!"
-                
-                } else if let response = response {
-                    
-                    statusError += " Response: \(response)!"
-                
+                    if response.statusCode == 401 {
+                        statusError = Errors.Status.Auth401
+                    } else {
+                        statusError = Errors.Status.InvalidResponse
+                    }
+                } else {
+                    statusError = Errors.Status.Network
                 }
-                print(statusError)
-                completionHandler(result: nil, error: Errors.Status)
+                
+                completionHandler(result: nil, error: statusError)
                 return
             }
             
