@@ -199,14 +199,15 @@
                             <constraint firstItem="uld-8z-8od" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="7gx-Id-aks"/>
                             <constraint firstItem="X6u-3L-6m1" firstAttribute="top" secondItem="fmi-xP-rRU" secondAttribute="bottom" constant="-170" id="7pm-tB-7Fe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="UKS-pC-Sfg" secondAttribute="trailing" id="98P-9z-OKJ"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="X6u-3L-6m1" secondAttribute="bottom" id="9Ye-ZB-muk"/>
                             <constraint firstItem="fmi-xP-rRU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="BI4-Ls-aLC"/>
                             <constraint firstItem="i3F-Rz-XKj" firstAttribute="top" secondItem="Bqm-75-0Gx" secondAttribute="bottom" constant="20" id="E7R-aV-rmJ"/>
                             <constraint firstItem="i3F-Rz-XKj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EaV-l5-Szv"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="eGs-tV-i8c" secondAttribute="bottom" constant="20" id="EbE-PL-Hfd"/>
                             <constraint firstItem="Bqm-75-0Gx" firstAttribute="top" secondItem="uld-8z-8od" secondAttribute="bottom" constant="8" id="KFc-Q4-DvC"/>
                             <constraint firstItem="eGs-tV-i8c" firstAttribute="width" secondItem="Nhj-sJ-kBt" secondAttribute="width" id="O13-qZ-rCT"/>
                             <constraint firstItem="aQM-Cz-Z9Q" firstAttribute="leading" secondItem="uld-8z-8od" secondAttribute="leading" id="Pas-h5-Jr2"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="X6u-3L-6m1" secondAttribute="bottom" id="QjA-jM-tFW"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="X6u-3L-6m1" secondAttribute="bottom" id="QnV-5H-2Qh"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="eGs-tV-i8c" secondAttribute="bottom" constant="20" id="Rlx-Qr-T9p"/>
                             <constraint firstItem="Bqm-75-0Gx" firstAttribute="height" secondItem="uld-8z-8od" secondAttribute="height" id="SAv-ks-34q"/>
                             <constraint firstItem="fmi-xP-rRU" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Tw9-PM-IJp"/>
                             <constraint firstItem="eGs-tV-i8c" firstAttribute="top" secondItem="Nhj-sJ-kBt" secondAttribute="bottom" constant="36" id="alp-s9-AYZ"/>
@@ -219,7 +220,6 @@
                             <constraint firstItem="fmi-xP-rRU" firstAttribute="leading" secondItem="X6u-3L-6m1" secondAttribute="trailing" constant="-503" id="qRs-uB-9vt"/>
                             <constraint firstItem="UKS-pC-Sfg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="t4o-NO-h4Q"/>
                             <constraint firstItem="X6u-3L-6m1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="w1S-QI-rNE"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="X6u-3L-6m1" secondAttribute="bottom" id="wG0-lR-bLH"/>
                             <constraint firstItem="aQM-Cz-Z9Q" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fmi-xP-rRU" secondAttribute="bottom" constant="55" id="wV5-cN-eQt"/>
                             <constraint firstItem="eGs-tV-i8c" firstAttribute="centerX" secondItem="X6u-3L-6m1" secondAttribute="centerX" id="yNB-Ny-Bt9"/>
                         </constraints>
@@ -664,7 +664,7 @@
         <image name="udacityWhite" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cjt-74-M8U"/>
-        <segue reference="b6d-hR-amo"/>
+        <segue reference="AdG-OA-Axq"/>
+        <segue reference="wxY-Om-6gC"/>
     </inferredMetricsTieBreakers>
 </document>

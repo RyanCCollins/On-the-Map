@@ -22,7 +22,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /* Get shared session */
+        /* Get shared session to be uses later */
         ParseClient.sharedInstance()
         
         studentLocationMapView.delegate = self
@@ -40,11 +40,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    /* Refresh the view by getting data from parse */
     @IBAction func didTapRefresh(sender: AnyObject) {
         
-        /* call HUD To show until callback */
+        /* Call Progress indicator to show until callback */
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.labelText = "Loading Data..."
+        view.alpha = 0.4
         
         /* remove annotations and add new ones */
         self.studentLocationMapView.removeAnnotations(self.studentLocationMapView.annotations)
@@ -52,22 +54,23 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         dispatch_async(GlobalUtilityQueue, {
             
             ParseClient.sharedInstance().getDataFromParse({success, results, error in
-                
+
                 if success {
                     
+                    /* Add pins to map for students  */
                     dispatch_async(GlobalMainQueue, {
-                        
                         MBProgressHUD.hideHUDForView(self.view, animated: true)
+                        self.view.alpha = 1.0
                         self.addPinsToMapForStudents(ParseClient.sharedInstance().studentData)
                         
                     })
                     
+                  /* Alert to error */
                 } else if (error != nil) {
                     
                     dispatch_async(GlobalMainQueue, {
-                        
                         MBProgressHUD.hideHUDForView(self.view, animated: true)
-                        
+                        self.view.alpha = 1.0
                         self.alertController(withTitles: ["Ok, Retry"], message: (error?.localizedDescription)!, callbackHandler: [nil, {Void in
                                 self.didTapRefresh(self)
                         }])
@@ -83,15 +86,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
  
     }
     
-//    /* Refresh Parse data and callback when complete to hide progress */
-//    func refreshDataFromParse(completionCallback: ()->Void) {
-//        
-//        
-//
-//    }
     
-    
-    func addPinsToMapForStudents(studentLocations: [StudentLocationData]?) {
+    func addPinsToMapForStudents(studentLocations: [StudentInformation]?) {
         
         var annotations = [MKPointAnnotation]()
         
@@ -120,24 +116,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
         
     }
+    
+    /* Zoom in on Udacity headquarters */
+    @IBAction func didTapUdacityTouchUpInsided(sender: AnyObject) {
+        dispatch_async(dispatch_get_main_queue(), {
+            
+            self.centerMapOnLocation(self.initialLocation)
+            
+        })
+    }
 
-    
-    /* Center on location of map */
-    func centerMapOnLocation(location: CLLocation) {
-        
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
-        studentLocationMapView.setRegion(coordinateRegion, animated: true)
-        
-    }
-    
+}
+
+extension MapViewController {
     /* MARK: Map view delegate methods */
-    
-    /* Find current location and zoom in */
-    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
-        let center = CLLocationCoordinate2D(latitude: (userLocation.location?.coordinate.latitude)!, longitude: (userLocation.location?.coordinate.longitude)!)
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpanMake(0.01, 0.01))
-        mapView.setRegion(region, animated: true)
-    }
     
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
@@ -166,7 +158,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     /* create a mapView indicator */
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
-
+        
         if (annotation is MKUserLocation) {
             
             return nil
@@ -177,26 +169,32 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         var pinAnnotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(pin)
         if pinAnnotationView  == nil {
-        pinAnnotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: pin)
-        pinAnnotationView?.canShowCallout = true
-
-        pinAnnotationView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
-        pinAnnotationView?.image = UIImage(named: "udacity-logo-pin")
+            pinAnnotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: pin)
+            pinAnnotationView?.canShowCallout = true
+            
+            pinAnnotationView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+            pinAnnotationView?.image = UIImage(named: "udacity-logo-pin")
         } else {
             pinAnnotationView?.annotation = annotation
         }
-    
+        
         return pinAnnotationView
         
     }
-
-    /* Zoom in on Udacity headquarters */
-    @IBAction func didTapUdacityTouchUpInsided(sender: AnyObject) {
-        dispatch_async(dispatch_get_main_queue(), {
-            
-            self.centerMapOnLocation(self.initialLocation)
-            
-        })
+    
+    /* Center on location (Udacity headquarters) on the map */
+    func centerMapOnLocation(location: CLLocation) {
+        
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 4.0, regionRadius * 4.0)
+        studentLocationMapView.setRegion(coordinateRegion, animated: true)
+        
     }
-
+    
+    
+    /* Find current location and zoom in */
+    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+        let center = CLLocationCoordinate2D(latitude: (userLocation.location?.coordinate.latitude)!, longitude: (userLocation.location?.coordinate.longitude)!)
+        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpanMake(0.01, 0.01))
+        mapView.setRegion(region, animated: true)
+    }
 }

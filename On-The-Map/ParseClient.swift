@@ -10,7 +10,7 @@ import UIKit
 
 class ParseClient: NSObject {
     var session: NSURLSession?
-    var studentData: [StudentLocationData]?
+    var studentData: [StudentInformation]?
     
     /* Task returned for GETting data from the Parse server */
     func taskForGETMethod (method: String, parameters: [String : AnyObject]?, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {

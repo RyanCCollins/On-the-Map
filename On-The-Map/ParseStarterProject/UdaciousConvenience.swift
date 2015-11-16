@@ -19,7 +19,7 @@ extension UdaciousClient {
                 
                 self.sessionID = sessionID
                 self.IDKey = IDKey
-                
+                print(IDKey)
                 completionHandler(success: true, error: nil)
             } else {
                 
@@ -29,7 +29,7 @@ extension UdaciousClient {
 
     }
     
-    /* 1. Get the Session ID for the user */
+    /* Get the Session ID for the user */
     func getSession(parameters: [String : AnyObject]?, completionHandler: (success: Bool, sessionID: String?, userKey: String?, error: NSError?) -> Void) {
         /* Check for success */
         
@@ -61,7 +61,7 @@ extension UdaciousClient {
         
     }
     
-    /* 2. Get the user's data */
+    /* Get the user's data */
     func getUserData(completionHandler: (success: Bool, error: NSError?) -> Void) {
         /* Make request and check for success */
 
@@ -77,7 +77,7 @@ extension UdaciousClient {
         taskForGETMethod(method!, parameters: [:]) {JSONResult, error in
             
             if error != nil {
-                
+                print("taskForGetMethod: \(error)")
                 completionHandler(success: false, error: error)
                 
             } else {

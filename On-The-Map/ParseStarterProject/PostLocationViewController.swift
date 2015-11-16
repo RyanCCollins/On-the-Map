@@ -54,28 +54,35 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
     
     /* Run query in utility thread to find results for user.  If found, alert to found results in global queue and ask if they would like to update thir location.  If not, carry on. */
     func queryParseForResults() {
+        
+        /* Show activity while loading */
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        hud.labelText = "Loading..."
-        
         dispatch_async(GlobalUserInteractiveQueue, {
+            
+            hud.labelText = "Loading..."
             hud.show(true)
-        })
-        
 
+        })
+
+        /* query parse for a match of most recent submission */
         ParseClient.sharedInstance().queryParseDataForObjectId({success, results, error in
             
             if success {
                 
                 dispatch_async(GlobalMainQueue, {
+                    hud.hide(true)
+                    /* Show alert controller showing that you're about to overwrite the recently submitted location */
                     self.alertController(withTitles: ["OK", "Cancel"], message: "You have already submitted your location.  Press OK to update it, or Cancel to go back.", callbackHandler: [nil, {Void in
-                            self.didTapCancelButtonTouchUpInside(self)
+                        self.didTapCancelButtonTouchUpInside(self)
                         }])
+                    
+                    /* Update UI to show last submitted location */
                     self.locationString = results!.GEODescriptor
                     self.mediaURL = results!.MediaUrl
                     self.ObjectId = results!.ObjectID
                     self.linkTextField.text = self.mediaURL
                     self.locationTextField.text = self.locationString
-                    hud.hide(true)
+                    
                 })
                 
                 
@@ -87,9 +94,8 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
                 
             }
             
-        
+            
         })
-    
 
     }
     
@@ -100,8 +106,8 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
     /* If user is submitting a valid location, show on the map */
     @IBAction func userDidTapSubmitLocationUpInside(sender: AnyObject) {
         
+        /* If user is submitting a location and it is not nil, verify the location */
         if isSubmittingURL == false {
-            
             
             guard locationTextField.text != nil else {
                 alertController(withTitles: ["OK"], message: GlobalErrors.MissingData.localizedDescription, callbackHandler: [{Void in return}])
@@ -109,23 +115,32 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
             }
             
             /* Show progress while verifying location */
+            dispatch_async(GlobalMainQueue, {
+                
+                let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                hud.labelText = "Locating..."
+                hud.show(true)
+                self.view.alpha = 0.4
+                
+            })
             
-            let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-            hud.labelText = "Locating..."
-            
+            /* Verify the location and get rid of activity indicator when complete */
             self.verifyLocation(self.locationTextField.text!, completionCallback: {success, error in
+                
                 dispatch_async(GlobalMainQueue, {
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    self.view.alpha = 1.0
                 })
                 if error != nil {
-            
+                    
+                    /* Alert if unable to geocode location */
                     self.alertController(withTitles: ["Ok"], message: error!.localizedDescription, callbackHandler: [nil])
-
+                    
                 }
             })
 
         } else {
-            
+            /* Once location is verified, go ahead and submit the location and URL as long as URL is valid */
             guard linkTextField.text != nil else {
                 alertController(withTitles: ["OK"], message: GlobalErrors.MissingData.localizedDescription, callbackHandler: [nil])
                 return
@@ -134,48 +149,69 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
             
             guard let _ = NSURL(string: mediaURL!) else {
                 alertController(withTitles: ["Try Again"], message: GlobalErrors.InvalidURL.localizedDescription, callbackHandler: [{Void in
-                        self.mediaURL = nil
-                        self.isSubmittingURL = true
+                    self.mediaURL = nil
+                    self.isSubmittingURL = true
                     }])
                 return
                 
             }
             
-            let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
-            hud.labelText = "Posting..."
-            
-            /* Show progress while submitting data */
-            dispatch_async(GlobalUserInitiatedQueue, {
-                
-                hud.show(true)
-            })
-            
-        /* Add or update data to parse in background while hud is shown in user initiated queue */
-
-            self.updateOrAddNewDataToParse(self.mediaURL!, mapString: self.locationString!, completionCallback: {success, error in
-                
-                if error != nil {
-                    
-                    self.alertController(withTitles: ["Cancel", "Try Again"], message: (error?.localizedDescription)!, callbackHandler: [{Void in
-                            self.dismissViewControllerAnimated(true, completion: nil)
-                        }, nil])
-                    
-                } else {
-                    
-                    MBProgressHUD.hideHUDForView(self.view, animated: true)
-                    ParseClient.sharedInstance().studentData  = nil
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                    
-                }
-
-            })
-            
-
+            submitLocationAndURL()
+        
         }
     }
     
-
     
+    
+    func submitLocationAndURL() {
+        
+        
+        
+        let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
+        hud.labelText = "Posting..."
+        
+        /* Show progress while submitting data */
+        dispatch_async(GlobalUserInitiatedQueue, {
+            hud.show(true)
+        })
+        
+        /* Add or update data to parse in background while hud is shown in user initiated queue */
+        self.updateOrAddNewDataToParse(self.mediaURL!, mapString: self.locationString!, completionCallback: {success, error in
+            
+            if success {
+                
+                /* If successful, hide progress and dismiss view */
+                dispatch_async(GlobalUserInteractiveQueue, {
+                    
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    
+                    ParseClient.sharedInstance().studentData  = nil
+                    
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                    
+                })
+                
+                
+            } else {
+                
+                /* Hide the activity indicator and show alert */
+                dispatch_async(GlobalUserInteractiveQueue, {
+                    
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    
+                    self.alertController(withTitles: ["Cancel", "Try Again"], message: (error?.localizedDescription)!, callbackHandler: [{Void in
+                        
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                        
+                        }, nil])
+                    
+                })
+                
+            }
+            
+        })
+        
+    }
     
     func verifyLocation(locationString: String, completionCallback: (success: Bool, error: NSError?)-> Void){
         let geocoder = CLGeocoder()

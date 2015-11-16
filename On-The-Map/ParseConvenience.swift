@@ -11,7 +11,7 @@ import UIKit
 extension ParseClient {
     
     
-    func getDataFromParse(completionHandler: (success: Bool, data: [StudentLocationData]?, error: NSError?)->Void) {
+    func getDataFromParse(completionHandler: (success: Bool, data: [StudentInformation]?, error: NSError?)->Void) {
         
         taskForGETMethod(Methods.StudentLocations, parameters: nil){ JSONResult, error in
             if let error = error {
@@ -23,7 +23,7 @@ extension ParseClient {
                 /* If results are returned and we are able to parse the data, return it as an array of studentData */
                 if let results = JSONResult.valueForKey(ParseClient.JSONResponseKeys.Results) as? [[String : AnyObject]] {
                     
-                    let studentData = StudentLocationData.generateLocationDataFromResults(results)
+                    let studentData = StudentInformation.generateLocationDataFromResults(results)
                         
                         self.studentData = studentData
                         
@@ -98,7 +98,7 @@ extension ParseClient {
         }
     }
     
-    func queryParseDataForObjectId(completionHandler: (success: Bool, results: StudentLocationData?, error: NSError?) -> Void) {
+    func queryParseDataForObjectId(completionHandler: (success: Bool, results: StudentInformation?, error: NSError?) -> Void) {
         
         /* get data from Parse */
         
@@ -114,7 +114,7 @@ extension ParseClient {
                 /* if results were returned, drill into the most recent objectId and return it */
                 if let results = results[ParseClient.JSONResponseKeys.Results] as? [[String : AnyObject]] {
 
-                    let studentDataArray = StudentLocationData.generateLocationDataFromResults(results)
+                    let studentDataArray = StudentInformation.generateLocationDataFromResults(results)
                     
                     let results = studentDataArray[0]
 

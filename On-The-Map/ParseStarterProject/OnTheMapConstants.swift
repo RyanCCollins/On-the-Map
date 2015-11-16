@@ -59,7 +59,7 @@ struct ErrorMessages {
     
 }
 
-
+/* Helper function to construct errors project wide */
 public struct Errors : ErrorType {
     public var userMessage : String
     public var httpStatusCode : Int?

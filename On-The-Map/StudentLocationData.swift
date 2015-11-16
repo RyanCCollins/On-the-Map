@@ -1,5 +1,5 @@
 //
-//  StudentLocationData
+//  StudentInformation
 //  On The Map
 //
 //  Created by Ryan Collins on 11/8/15.
@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-struct StudentLocationData {
+struct StudentInformation {
     
     var First: String!
     var Last: String!
@@ -35,10 +35,6 @@ struct StudentLocationData {
         MediaUrl = studentLocationDictionary[ParseClient.JSONResponseKeys.MediaURL] as! String
 
         UpdateTime = studentLocationDictionary[ParseClient.JSONResponseKeys.UpdateTime] as! String
-//        if let UpdateTime = formatDateString(studentLocationDictionary[ParseClient.JSONResponseKeys.UpdateTime] as! String) {
-//            print(UpdateTime)
-//            self.UpdateTime = UpdateTime
-//        }
     }
     
     /* Handle date/time formatting, when applicable */
@@ -55,12 +51,12 @@ struct StudentLocationData {
     }
     
     /* Create an array of student location data from results returned by ParseClient */
-    static func generateLocationDataFromResults(results: [[String : AnyObject]]) -> [StudentLocationData] {
-        var locationDataArray = [StudentLocationData]()
+    static func generateLocationDataFromResults(results: [[String : AnyObject]]) -> [StudentInformation] {
+        var locationDataArray = [StudentInformation]()
     
     for result in results {
     
-        locationDataArray.append(StudentLocationData(studentLocationDictionary: result))
+        locationDataArray.append(StudentInformation(studentLocationDictionary: result))
     
     }
         /* Sort location data to be most recent first */

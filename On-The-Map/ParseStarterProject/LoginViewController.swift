@@ -189,7 +189,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
         if error == nil {
             /* get a token from facebook */
             
-            SwiftSpinner.show("Logging you in through Facebook. Just a moment")
+            SwiftSpinner.show("Logging you in through Facebook. Just a moment.")
             
             if let token = result.token.tokenString {
                 
@@ -251,22 +251,17 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
         view.backgroundColor = colorScheme[1] as? UIColor
         
         usernameTextField.backgroundColor = colorScheme[2] as? UIColor
-        
         passwordTextField.backgroundColor = colorScheme[2] as? UIColor
-        
         usernameTextField.foregroundColor = colorScheme[1] as? UIColor
-        
         passwordTextField.foregroundColor = colorScheme[1] as? UIColor
         
         
         onePasswordContainer.backgroundColor = colorScheme[1] as? UIColor
-        
         loginButton.backgroundColor = colorScheme[3] as? UIColor
         signUpButton.backgroundColor = colorScheme[3] as? UIColor
         
         loginLabel.textColor = colorScheme[2] as? UIColor
         headerLabel.textColor = colorScheme[2] as? UIColor
-        
         onepasswordButton.backgroundColor = UIColor.clearColor()
     }
 

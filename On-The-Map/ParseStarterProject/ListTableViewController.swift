@@ -14,12 +14,13 @@ class ListTableViewController: UITableViewController {
 
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let session = NSURLSession.sharedSession()
-    var locations = [StudentLocationData]()
+    var locations = [StudentInformation]()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /* Add refresh control, which is activated when pulling down on the tableview */
         self.refreshControl?.addTarget(self, action: "didTapRefresh:", forControlEvents: .ValueChanged)
         
         if let locations = ParseClient.sharedInstance().studentData {
@@ -40,15 +41,6 @@ class ListTableViewController: UITableViewController {
             
         }
     }
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        
-        return 1
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return locations.count
-    }
     
     @IBAction func didTapRefresh(sender: AnyObject) {
         
@@ -57,20 +49,23 @@ class ListTableViewController: UITableViewController {
         
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.labelText = "Reloading..."
+        view.alpha = 0.4
+        
         refreshDataFromParse({
             MBProgressHUD.hideHUDForView(self.view, animated: true)
+            self.view.alpha = 1.0
             self.refreshControl?.endRefreshing()
         })
         
     }
     
-    /* reload table view data */
+    /* Reload table view data from Parse with callback */
     func refreshDataFromParse(completionCallback: (()-> Void)?) {
         
         ParseClient.sharedInstance().getDataFromParse({ success, results, error in
             
             if success {
-                
+                /* Assign local locations to be up-to-date */
                 if let locations = ParseClient.sharedInstance().studentData {
                     self.locations = locations
                 }
@@ -100,15 +95,18 @@ class ListTableViewController: UITableViewController {
         
     }
     
+}
+
+/* Extends list table view controller with appropriate delegate methods for tableView */
+extension ListTableViewController {
     
-    
-    /* Open media url when detail indicator selected */
+    /* Open media url when detail indicator selected only if valid URL */
     override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
         let sharedApplication = UIApplication.sharedApplication()
 
-        if let URLString = locations[indexPath.row].MediaUrl {
-
-            sharedApplication.openURL(NSURL(string: URLString)!)
+        if let URL = NSURL(string: locations[indexPath.row].MediaUrl) {
+            
+            sharedApplication.openURL(URL)
 
         } else {
 
@@ -136,7 +134,12 @@ class ListTableViewController: UITableViewController {
         return cell
     }
 
-    func didTapAccessoryUpInside(tableView: UITableView, cellForRowAtIndexPath: NSIndexPath) {
-        print("Cool")
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        
+        return 1
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return locations.count
     }
 }
