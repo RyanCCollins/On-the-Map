@@ -34,19 +34,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         /* set Parse IDs */
 //        Parse.setApplicationId(ParseClient.Constants.api_key, clientKey: ParseClient.Constants.app_id)
-        Parse.setApplicationId("YtYNWpjjNi24CxucN1EOocGIGdn1rVtRX8B9m5Hs", clientKey: "g61S9JHsFfXrSNyvXozmllmFEzK0L2dIki91HnAi")
+//        Parse.setApplicationId("YtYNWpjjNi24CxucN1EOocGIGdn1rVtRX8B9m5Hs", clientKey: "g61S9JHsFfXrSNyvXozmllmFEzK0L2dIki91HnAi")
         
         /* Configure color */
         let color = UIColor.flatNavyBlueColorDark()
-       let secondary = UIColor.flatBlueColorDark()
+        let secondary = UIColor.flatBlueColorDark()
 
-        
         colorScheme = NSArray(ofColorsWithColorScheme: .Analogous, usingColor: color, withFlatScheme: true)
-
-
         Chameleon.setGlobalThemeUsingPrimaryColor(secondary, withContentStyle: .Contrast)
         
-        
+        /* Set app and client IDs for Parse Push notifications */
         Parse.setApplicationId("QsRf7t1UHL1PaFVPVk6lCV70dGao4Lqvre5zXKDL",
             clientKey: "o383Qm9g9ejRTSMjHcfiFhHdIVTmSC9rPkHnF9vf")
         

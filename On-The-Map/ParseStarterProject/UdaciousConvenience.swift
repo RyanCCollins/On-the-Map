@@ -6,7 +6,7 @@
 //  Copyright © 2015 Tech Rapport. All rights reserved.
 //
 
-import UIKit
+import FBSDKLoginKit
 
 extension UdaciousClient {
     
@@ -105,18 +105,22 @@ extension UdaciousClient {
         }
     }
     
-    /* 3. Logout (DELETE) the session */
+    /* Logout of the session and zero out facebook login manager */
     func logoutOfSession(completionHandler: (success: Bool, error: NSError?) -> Void) {
         
         /* call task for delete method to log user out */
         taskForDELETEMethod(Methods.Session) { result, error in
             
-            if let error = error {
+            if error != nil {
                 
                 completionHandler(success: false, error: GlobalErrors.LogoutError)
             
             } else {
                 
+                if FBSDKAccessToken.currentAccessToken() != nil {
+                    let loginManager = FBSDKLoginManager()
+                    loginManager.logOut()
+                }
                 completionHandler(success: true, error: nil)
                 
             }

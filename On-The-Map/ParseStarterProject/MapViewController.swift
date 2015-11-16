@@ -18,7 +18,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     let initialLocation = CLLocation(latitude: 37.399872, longitude: -122.108296)
     let regionRadius: CLLocationDistance = 1000
     let hud = MBProgressHUD()
-
+    
+    /* MARK -: Lifecycle methods */
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,7 +44,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     /* Refresh the view by getting data from parse */
     @IBAction func didTapRefresh(sender: AnyObject) {
         
-        /* Call Progress indicator to show until callback */
+        /* Call progress indicator to show until callback */
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.labelText = "Loading Data..."
         view.alpha = 0.4
@@ -65,7 +66,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                         
                     })
                     
-                  /* Alert to error */
+                  /* Alert to error if network connection fails */
                 } else if (error != nil) {
                     
                     dispatch_async(GlobalMainQueue, {
@@ -86,7 +87,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
  
     }
     
-    
+    /* Using the StudentInformation Struct, load pins in the map for students */
     func addPinsToMapForStudents(studentLocations: [StudentInformation]?) {
         
         var annotations = [MKPointAnnotation]()
@@ -128,10 +129,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
 }
 
+/* MARK: Map view delegate methods */
 extension MapViewController {
-    /* MARK: Map view delegate methods */
-    
-    
+
+    /* Handle taps on annotations */
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
             
@@ -143,6 +144,10 @@ extension MapViewController {
                     
                     appDelegate.openURL(url)
                     
+                /* If unable to load url, try adding http to it */
+                } else if let url = NSURL(string: "http://\(urlString)") {
+                    appDelegate.openURL(url)
+                
                 } else {
                     
                     alertController(withTitles: ["Ok"], message: "Sorry, but the URL you selected is not valid.", callbackHandler: [nil])
@@ -158,13 +163,6 @@ extension MapViewController {
     /* create a mapView indicator */
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
-        
-        if (annotation is MKUserLocation) {
-            
-            return nil
-        }
-        
-        
         let pin = "pin"
         
         var pinAnnotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(pin)
@@ -172,10 +170,14 @@ extension MapViewController {
             pinAnnotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: pin)
             pinAnnotationView?.canShowCallout = true
             
+            /* Create pin annotation with custom image */
             pinAnnotationView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
             pinAnnotationView?.image = UIImage(named: "udacity-logo-pin")
+            
         } else {
+            
             pinAnnotationView?.annotation = annotation
+            
         }
         
         return pinAnnotationView

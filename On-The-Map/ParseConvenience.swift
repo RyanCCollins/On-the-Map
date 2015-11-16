@@ -6,7 +6,8 @@
 //  Copyright © 2015 Tech Rapport. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import Parse
 
 extension ParseClient {
     
@@ -34,68 +35,48 @@ extension ParseClient {
         }
     }
     
-    func postDataToParse(locationParameters: [String : AnyObject], completionHandler: (success: Bool, error: NSError?) -> Void) {
+    /* Either update object of post new if no objectId returned when querying */
+    func postDataToParse(JSONBody: [String : AnyObject], objectId: String?, completionHandler: (success: Bool, error: NSError?) -> Void) {
         
         
-        ParseClient.sharedInstance().queryParseDataForObjectId({ success, results, error in
-    
-            if success == true {
-                if let objectId = results?.ObjectID {
-                ParseClient.sharedInstance().updateLocationForObjectId(objectId, JSONBody: locationParameters, completionHandler: {success, error in
-                    
-                        if error != nil {
-                        
-                            completionHandler(success: false, error: error)
-                        
-                        } else {
-                        
-                            completionHandler(success: true, error: nil)
-                        }
-                    
-                    })
-                }
-            } else {
-                print("New")
-                ParseClient.sharedInstance().taskForPOSTMethod(ParseClient.Methods.StudentLocations, JSONBody: locationParameters, completionHandler: {success, error in
+            if objectId != nil {
+                
+                taskForPUTMethod(ParseClient.Methods.StudentLocations, objectId: objectId!, JSONBody: JSONBody, completionHandler: {success, error in
                     
                     if error != nil {
                         
                         completionHandler(success: false, error: error)
-                    
+                        
+                        
                     } else {
                         
+                        /* Send a push notification showing updated */
+                        self.pushNotificationForPOST(JSONBody)
                         completionHandler(success: true, error: nil)
                         
                     }
                     
                 })
-                
-            }
-            
-        })
-        
-        taskForPOSTMethod(Methods.StudentLocations, JSONBody: locationParameters) { result, error in
-            
-            if let error = error {
-                
-                completionHandler(success: false, error: error)
-                
+
             } else {
                 
-                /* If we receive a response with an object ID, then we return true */
-                if let _ = result[JSONResponseKeys.ObjectID] as? String {
-
-                    completionHandler(success: true, error: nil)
+            ParseClient.sharedInstance().taskForPOSTMethod(ParseClient.Methods.StudentLocations, JSONBody: JSONBody, completionHandler: {success, error in
+                
+                if error != nil {
                     
+                    completionHandler(success: false, error: error)
+                
                 } else {
-                    
-                    completionHandler(success: false, error: Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Parse))
+                    /* Send a push notification showing updated */
+                    self.pushNotificationForPOST(JSONBody)
+                    completionHandler(success: true, error: nil)
                     
                 }
                 
-            }
+            })
             
         }
+    
     }
     
     func queryParseDataForObjectId(completionHandler: (success: Bool, results: StudentInformation?, error: NSError?) -> Void) {
@@ -130,27 +111,23 @@ extension ParseClient {
         })
         
     }
+
     
-    
-    func updateLocationForObjectId(objectId: String, JSONBody: [String : AnyObject], completionHandler: (success: Bool, error: NSError?) -> Void) {
+    /* Show a push notification after successfully posting a location */
+    func pushNotificationForPOST(JSONBody: [String : AnyObject]) {
+        let push = PFPush()
+        push.setChannel("global")
         
-        taskForPUTMethod(ParseClient.Methods.StudentLocations, objectId: objectId, JSONBody: JSONBody, completionHandler: {success, error in
-            
-            if error != nil {
-
-                completionHandler(success: false, error: error)
-
-                
-            } else {
-                
-                completionHandler(success: true, error: nil)
-                
+        
+        if let mapString = JSONBody[ParseClient.JSONResponseKeys.GEODescriptor] {
+            if let mediaString = JSONBody[ParseClient.JSONResponseKeys.MediaURL] {
+                push.setMessage("You posted the following link: \(mediaString) from \(mapString)!")
+                push.sendPushInBackground()
             }
             
-        })
-        
+        }
+
     }
-    
     
     /* Helper function, creates JSON Body for POSTing to Parse */
     func makeDictionaryForPostLocation(mediaURL: String, mapString: String) -> [String : AnyObject]{

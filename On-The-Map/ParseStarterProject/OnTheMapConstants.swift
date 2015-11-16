@@ -75,3 +75,10 @@ public struct Errors : ErrorType {
     }
     
 }
+
+/* Defines FB Read Permissions */
+struct FBReadPermissions {
+    static let PublicProfile = "public_profile"
+    static let Email = "email"
+    static let UserFriends = "user_friends"
+}

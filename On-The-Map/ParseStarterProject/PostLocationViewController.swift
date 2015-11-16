@@ -156,16 +156,14 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
                 
             }
             
-            submitLocationAndURL()
+            postLocationAndURLToParse()
         
         }
     }
     
     
-    
-    func submitLocationAndURL() {
-        
-        
+    /* Post location and URL to Parse */
+    func postLocationAndURLToParse() {
         
         let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
         hud.labelText = "Posting..."
@@ -176,7 +174,11 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
         })
         
         /* Add or update data to parse in background while hud is shown in user initiated queue */
-        self.updateOrAddNewDataToParse(self.mediaURL!, mapString: self.locationString!, completionCallback: {success, error in
+        
+        let JSONBody = ParseClient.sharedInstance().makeDictionaryForPostLocation(mediaURL!, mapString: self.locationString!)
+        
+        
+        ParseClient.sharedInstance().postDataToParse(JSONBody, objectId: ObjectId, completionHandler: {success, error in
             
             if success {
                 
@@ -213,6 +215,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
         
     }
     
+    /* Verify that the location is geocoded properly */
     func verifyLocation(locationString: String, completionCallback: (success: Bool, error: NSError?)-> Void){
         let geocoder = CLGeocoder()
         
@@ -257,46 +260,6 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
 
         })
         
-    }
-    
-    func updateOrAddNewDataToParse(mediaURL: String, mapString: String, completionCallback: ((success: Bool, error: NSError?)-> Void)) {
-        
-        let JSONBody = ParseClient.sharedInstance().makeDictionaryForPostLocation(mediaURL, mapString: self.locationString!)
-        
-        if ObjectId != nil {
-                
-            ParseClient.sharedInstance().updateLocationForObjectId(self.ObjectId!, JSONBody: JSONBody, completionHandler: {success, error in
-                
-                if error != nil {
-                    
-                    completionCallback(success: false, error: error)
-
-                } else {
-                    
-                    completionCallback(success: true, error: nil)
-                    
-                }
-                
-            })
-
-        } else {
-            
-            ParseClient.sharedInstance().postDataToParse(JSONBody, completionHandler: {success, error in
-                
-                if error != nil {
-                    
-                    completionCallback(success: false, error: error)
-                    
-                } else {
-                    
-                    completionCallback(success: true, error: nil)
-                    
-                }
-                
-            })
-            
-        }
-
     }
 
     

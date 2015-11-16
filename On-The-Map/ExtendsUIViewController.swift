@@ -103,23 +103,14 @@ extension UIViewController {
         return keyboardSize.CGRectValue().height
     }
 
-    
+    /* Perform logout segue, logout of Udacity or Facebook */
     @IBAction func didTapLogoutUpInside(sender: AnyObject) {
-    
-            
+        
         self.alertController(withTitles: ["Cancel", "Logout"], message: "Are you sure that you want to logout?", callbackHandler: [nil, {Void in
             self.performSegueWithIdentifier("logoutSegue", sender: self)
             UdaciousClient.sharedInstance().logoutOfSession({success, error in
-                if success {
-                    
-                    if FBSDKAccessToken.currentAccessToken() != nil {
-                        let facebookLogin = FBSDKLoginManager()
-                        facebookLogin.logOut()
-                        
-                    }
-                    
-                } else {
-                    
+                if error != nil {
+
                     dispatch_async(GlobalMainQueue, {
                         
                         self.alertController(withTitles: ["OK", "Try Again"], message: GlobalErrors.LogOut.localizedDescription, callbackHandler: [nil, {Void in
