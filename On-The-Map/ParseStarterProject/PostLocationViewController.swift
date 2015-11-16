@@ -167,6 +167,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
         
         let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
         hud.labelText = "Posting..."
+        self.view.alpha = 0.4
         
         /* Show progress while submitting data */
         dispatch_async(GlobalUserInitiatedQueue, {
@@ -186,7 +187,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
                 dispatch_async(GlobalUserInteractiveQueue, {
                     
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
-                    
+                    self.view.alpha = 1.0
                     ParseClient.sharedInstance().studentData  = nil
                     
                     self.dismissViewControllerAnimated(true, completion: nil)
@@ -200,7 +201,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
                 dispatch_async(GlobalUserInteractiveQueue, {
                     
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
-                    
+                    self.view.alpha = 1.0
                     self.alertController(withTitles: ["Cancel", "Try Again"], message: (error?.localizedDescription)!, callbackHandler: [{Void in
                         
                         self.dismissViewControllerAnimated(true, completion: nil)

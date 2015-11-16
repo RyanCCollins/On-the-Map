@@ -21,7 +21,6 @@ class ParseClient: NSObject {
         if parameters != nil {
             let IDKey = UdaciousClient.sharedInstance().IDKey as String!
             urlString += "?where=%7B%22uniqueKey%22%3A%22\(IDKey)%22%7D"
-            print("method: \(urlString)")
         }
         
         
@@ -210,7 +209,7 @@ class ParseClient: NSObject {
             /* Escape the parameters and then append it to the urlVarArray object */
             let escapedValue = stringValue.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
             
-            urlVarArray += [key + "=" + "\(escapedValue!)"]
+            urlVarArray += [key + ":" + "\(escapedValue!)"]
             print(urlVarArray.joinWithSeparator("&"))
         }
         

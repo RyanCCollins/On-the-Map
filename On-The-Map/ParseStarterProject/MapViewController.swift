@@ -70,6 +70,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 } else if (error != nil) {
                     
                     dispatch_async(GlobalMainQueue, {
+                        
                         MBProgressHUD.hideHUDForView(self.view, animated: true)
                         self.view.alpha = 1.0
                         self.alertController(withTitles: ["Ok, Retry"], message: (error?.localizedDescription)!, callbackHandler: [nil, {Void in
@@ -143,6 +144,7 @@ extension MapViewController {
                 if let url = NSURL(string: urlString) {
                     
                     appDelegate.openURL(url)
+                    print(url)
                     
                 /* If unable to load url, try adding http to it */
                 } else if let url = NSURL(string: "http://\(urlString)") {

@@ -4,15 +4,16 @@
 This application was created as the third project in the Udacity iOS Nanodegree.  It is called On the Map and showcases my ability to create a production ready iOS Application that utilizes networking to get and post data. 
 
 Technologies used
-´Parse´ ´Networking´ ´MapKit´ ´Onepassword´ ´TouchID´ ´OAuth´ ´CoreLocation´ ´RESTful API´ ´Facebook SDK´ 
+´Parse´ ´Networking´ ´MapKit´ ´Onepassword´ ´TouchID´ ´OAuth´ ´CoreLocation´ ´RESTful API´ ´Facebook SDK´ ´Push Notifications´ ´Cocoa Pods´ ´Grand Central Dispatch´ ´Multithreading´ ´Model View Controller (MVC)´ ´Asynchronous & Concurrent Multithreading´ ´1Password´ ´Chameleon´ ´Objective C´
 ##__Features__
 
 -  Login using Udacity's authenication API
 -  POST GET and DELETE Data from Udacity and Parse
 -  View pins in a map showing where students are studying
--  Post 
--  Rate movies and view top rated movies from TMDB
--  Authorize your account on TMDB using `Auth Flow`
+-  View locations where students have studied in a table view
+-  Post a geocoded location with a link to share with other students
+-  Authorize your account through Facebook.
+-  
 
 ##__Technologies and Best Practices__
 During the development of 
@@ -21,41 +22,37 @@ During the development of
 
 ##__Running the App__
 ---
-To run this app, please download the [project file]({{page.downloads.zip}}), open the tmdb-movie-manager.xcodeproj project file, select a device to run it on and press the run button.  You will need to authorize the application using a TMDB account.  Please get in touch with me if you have any issues.
+To run this app, please download the [project file]({{page.downloads.zip}}), open the OnTheMap.xcodeproj project file, select a device to run it on and press the run button.  You will need to authorize the application using a Udacity account and you can login with Facebook if your Udacity account is tied into your Facebook account.  Please get in touch with me if you have any issues.  Make sure to play around with all of the functionality and see all of the great features I added.
+
+Here is the flow of the applications
+1.  Log in to the application through Udacity or Facebook.  You can use the 1Password extension if it is available on your device.
+2.  View pins on the map and click them to see students locations and submitted URLs
+3.  Post a location and URL by pressing the Pin button in the right hand side of the navigation bar.
+4.  Press the Udacity button to zoom into the Udacity headquarters on the map.
+5.  Press refresh to fetch new submissions.
+6.  Look at the submissions in the table view by selecting the table view button.
+7.  Refresh by pulling down on the table.
+8.  When you post a location, a Push Notification is sent showing that it was successful.
 
 ##__Description & Specifications__
 ---
-This app is a proof of concept showing my ability to create an app that utilizes networking in Swift, parses JSON data returned from a RESTful API into native `Foundation` objects, utilizes HTTP GET and POST requests, Auth flow for user authentication and more.
+This app shows my ability to build software that incorporates networking and many modern Cocoa technologies.  I build a custom API client that connects to the Udacity API and also the Parse API.  It connects to the APIs and makes POST, GET, PUT, DELETE and Query requests.  It does this while utilizing MVC to the full extent in the sense that all API calls are done in the background while the view remains responsive.
 
-In creating this app, we were given a starter project that was not completely implemented.  Following along with the course, I abstracted the repetitive code and removed redundancy for all of the different GET and POST requests from the TMDB my favorite movies app.  I utilized completion handlers for callback methods to make the user interface responsive.  I utilized error catching and proper guard statements to prevent the app from crashing if the network requests failed.  I abstracted away a lot of the view controller code into the data model to make my view controllers much more manageable and easy to read.
+I abstracted away a lot of the functionality into the Model classes to keep my View Controller lightweight.  All of the API functionality happens in the API Model classes and the data gets returned via callback handlers to the client. 
 
-I also added more functionality to the app, which I will go into below.
+To keep the UI responsive, I used Grand Central Dispatch to run UI Events on the one of three of the Global Queues.  Some of the network API calls also happen in a Utility GCD Queue.
 
-###__Movie Rating Custom Control__
-One feature that I wanted to add was the ability to rate movies and view top rated movies.  To do this, I had to think outside the box and create a control that could be used to rate movies.  I created a control that is a subclass of `UIView` in order to create a custom star rating control.  
+I certainly went above and beyond in the creation of this application, which I will go into below.
 
-I implemented a system of 5 star icons that, when tapped, triggers a POST request with the `TMDBClient` to set the rating of the movie.  I altered the TMDBMovie object to store a rating so that ratings could be pulled using a `GET request` from the TMDB server and the ratings for movies would be stored.  
+###__User Interface__
+I used some great features when building the UI of this application.  I utilized several Cocoa Pods while creating this application, including Chameleon, Swift Spinner, MDProgressHUD and more.  I used these Pods, along with my own code, to make a very interesting and fun user interface.  You will notice that the control that comes up when logging in is a very nice looking spinning interface with a message.  Also, when making any network requests, an HUD progress indicator is shown and the alpha of the view is dimmed.
 
-The control that I made used 5 star icons placed within `UIImageViews`, which would show empty or full depending on the rating.  Tapping one of the stars would fill the star and update the rating.  Ultimately, I decided to implement a control for collecting and showing ratings from [Cocoa Controls](https://www.cocoacontrols.com/controls/hcsstarratingview).  Although the control was written in Objective C, I was able to implement it in my Swift project by using an `Objective-C Bridging File`.
+I used custom map annotations in the ´MapViewController´ which really makes the user interface look nice.  The standard map pin annotations are replaced by little pins with the Udacity logo on them.  I set a global color theme that really looks nice and changes the color of the navigation bars to a nice flat blue color.  I used color appropriately to highlight different areas.  I also integrated nice animations into the user interface for text fields on the login screen and the ´PostLocationView´
 
-Also, I added a new `UITableViewController` subclass called `RatingViewController` and a `UITableViewCell` subclass called `RatingViewCell` in order to load a list of top rated movies in a `UITableView`.  Each cell displays a 1-10 rating in the custom star rating control.  Tapping the star rating control sends a POST request to rate the movie.
+###__Error Checking__
+This application uses error checking extensively to ensure a great experience for the user.  In the ´OnTheMapConstants´ file, I defined an ´ErrorType´ data model, which helps to create errors with messages that can be passed on to the user.  If authentication or any other network request fails, the user is alerted with a nice message.
 
-##__Using the TMDBClient Engine in Your Project__
----
-Using the coding practices implemented in this project, I was able to create reusable code for connecting to a variety of networked APIs.  
-
-You can use this code in your application.  The first thing you should do is go to [the TMDB website](http://themoviedb.org) and sign up for an API Key.  __Make sure__ to put your API key into the `TMDBConstants.swift` file under the struct labeled Constant, like so:
-{% highlight raw %}
-    // MARK: Constants
-    struct Constants {
-        
-        // MARK: API Key
-        static let ApiKey : String = "YOUR_API_KEY_HERE!"
-{% endhighlight %}
-
-To use the built in functionality, implement the `TMDBClient` class and use the `TMDBConvenience` methods.  To add new methods, go to [themoviedb.org's API reference page](http://docs.themoviedb.apiary.io/#reference) and make sure to sign up for an account.  Within any view controllers, you can use GET and POST requests for any of the methods listed in the `TMDBConstants` extension.  To add more, you could subclass the `TMDBClient` class and add more methods and constants.
-
-Make sure to utilize the `TMDBClient.sharedSession NSURLSession` in any class that will be accessing the data.  
+Also, the API Clients extensively use Guard statements to safeguard against any bad network requests.  This application is extremely solid and should not produce any fatal errors.  The user interface remains responsive and when the network gets hung up, it will show progress indicators and error messages to the user.  I tested this extensively using Apple's Network Conditioner.
 
 ###GET Requests
 For any GET requests, use the `taskForGETMethod:`, passing in the method call, parameters (excluding the api_key), and a completion handler for the callback method. The method returns an `NSURLSessionTask` object.
@@ -69,6 +66,18 @@ For POST requests, use the `taskForPOSTMethod`, passing in the method, parameter
 {% highlight raw %}
 func taskForPOSTMethod(method: String, parameters: [String : AnyObject], jsonBody: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
 {% endhighlight %}
+
+###__PUT Requests__
+To update data, you can run it through a query, using the taskForGetMethod.  If a result is returned, you can replace it by using the taskForPutMethod.
+
+###__Query Requests__
+You can easily query the Parse data store by passing parameters in the taskForGETMethod.  Simply create a dictionary containing a key value pair and pass them into the taskForGETMethod like so:
+{% highlight raw %}
+let parameters = [String : AnyObject]
+taskForGETMethod(parameters)
+{% endhighlight %}
+
+NOTE: This is currently only available using the "where" method for the StudentLocations when searching for an Object ID.  More functionality will be added at a later time.
 
 ###__More Features__
 ---

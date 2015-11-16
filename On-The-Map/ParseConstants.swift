@@ -18,7 +18,7 @@ extension ParseClient {
     
     struct Methods {
         static let StudentLocations = "StudentLocation"
-        static let Where = "?where"
+        static let Where = "where"
     }
     
     struct ParameterKeys {

@@ -609,7 +609,7 @@
                         <rightBarButtonItems>
                             <barButtonItem image="arrow-cloud" id="CXR-JY-ZHq">
                                 <connections>
-                                    <action selector="didTapRefresh:" destination="np9-Px-QYp" id="aAl-sm-5VB"/>
+                                    <action selector="refreshDataFromParse:" destination="np9-Px-QYp" id="A5r-YJ-REZ"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="add-pin-to-map" id="5oq-xf-dQ4">
@@ -664,7 +664,7 @@
         <image name="udacityWhite" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AdG-OA-Axq"/>
-        <segue reference="wxY-Om-6gC"/>
+        <segue reference="cjt-74-M8U"/>
+        <segue reference="b6d-hR-amo"/>
     </inferredMetricsTieBreakers>
 </document>

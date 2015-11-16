@@ -16,12 +16,12 @@ class ListTableViewController: UITableViewController {
     let session = NSURLSession.sharedSession()
     var locations = [StudentInformation]()
 
-
+    /* MARK : Lifecycle */
     override func viewDidLoad() {
         super.viewDidLoad()
         
         /* Add refresh control, which is activated when pulling down on the tableview */
-        self.refreshControl?.addTarget(self, action: "didTapRefresh:", forControlEvents: .ValueChanged)
+        self.refreshControl?.addTarget(self, action: "refreshDataFromParse:", forControlEvents: .ValueChanged)
         
         if let locations = ParseClient.sharedInstance().studentData {
             self.locations = locations
@@ -37,52 +37,47 @@ class ListTableViewController: UITableViewController {
             
         } else {
             
-            didTapRefresh(self)
+            refreshDataFromParse(self)
             
         }
     }
     
-    @IBAction func didTapRefresh(sender: AnyObject) {
+    /* Reload table view data from Parse with callback */
+    @IBAction func refreshDataFromParse(sender: AnyObject) {
         
         /* Show progress while submitting data */
         ParseClient.sharedInstance().studentData = nil
         
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        hud.labelText = "Reloading..."
+        hud.labelText = "Loading Data..."
         view.alpha = 0.4
-        
-        refreshDataFromParse({
-            MBProgressHUD.hideHUDForView(self.view, animated: true)
-            self.view.alpha = 1.0
-            self.refreshControl?.endRefreshing()
-        })
-        
-    }
-    
-    /* Reload table view data from Parse with callback */
-    func refreshDataFromParse(completionCallback: (()-> Void)?) {
         
         ParseClient.sharedInstance().getDataFromParse({ success, results, error in
             
             if success {
-                /* Assign local locations to be up-to-date */
-                if let locations = ParseClient.sharedInstance().studentData {
-                    self.locations = locations
-                }
+                /* Callback to caller saying that it was successful and we should hide the HUD */
                 
                 dispatch_async(GlobalMainQueue, {
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    self.view.alpha = 1.0
                     self.tableView.reloadData()
+                    self.refreshControl?.endRefreshing()
+                    
+                    /* Assign local locations to be up-to-date */
+                    if let locations = ParseClient.sharedInstance().studentData {
+                        self.locations = locations
+                    }
                 })
-                
             } else {
+                /* Callback to caller saying that it was successful and we should hide the HUD */
                 
                 dispatch_async(GlobalMainQueue, {
-                    
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    self.view.alpha = 1.0
+                    self.tableView.reloadData()
+                    self.refreshControl?.endRefreshing()
                     self.alertController(withTitles: ["OK", "Retry"], message: (error?.localizedDescription)!, callbackHandler: [nil, {Void in
-                        self.refreshDataFromParse({
-                            MBProgressHUD.hideHUDForView(self.view, animated: true)
-                            self.refreshControl?.endRefreshing()
-                        })
+                        self.refreshDataFromParse(self)
                     }])
                     
                 })
@@ -90,8 +85,6 @@ class ListTableViewController: UITableViewController {
             }
             
         })
-        
-        completionCallback!()
         
     }
     

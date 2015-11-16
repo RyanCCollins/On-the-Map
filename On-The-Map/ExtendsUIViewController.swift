@@ -20,7 +20,7 @@ extension UIViewController {
         ParseClient.sharedInstance().studentData = nil
     }
     
-    /* Create an alert controller with an array of callback handlers   */
+    /* Helper - Create an alert controller with an array of callback handlers   */
     func alertController(withTitles titles: [String], message: String, callbackHandler: [((UIAlertAction)->Void)?]) {
         
         let alertController = UIAlertController(title: "Alert", message: message, preferredStyle: .ActionSheet)
@@ -49,12 +49,12 @@ extension UIViewController {
         
     }
     
-    /* Helper function: construct an NSLocalizedError from an error string */
-    func errorFromString(string: String) -> NSError? {
-        
-        return NSError(domain: "ParseClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(string)"])
-        
-    }
+//    /* Helper function: construct an NSLocalizedError from an error string */
+//    func errorFromString(string: String) -> NSError? {
+//        
+//        return NSError(domain: "ParseClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(string)"])
+//        
+//    }
     
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
         return true

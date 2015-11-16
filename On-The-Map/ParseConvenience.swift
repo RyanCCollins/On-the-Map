@@ -11,7 +11,7 @@ import Parse
 
 extension ParseClient {
     
-    
+    /* Get data for the students from parse */
     func getDataFromParse(completionHandler: (success: Bool, data: [StudentInformation]?, error: NSError?)->Void) {
         
         taskForGETMethod(Methods.StudentLocations, parameters: nil){ JSONResult, error in
@@ -83,7 +83,7 @@ extension ParseClient {
         
         /* get data from Parse */
         
-        taskForGETMethod(ParseClient.Methods.StudentLocations, parameters: [ParseClient.JSONResponseKeys.UniqueKey: UdaciousClient.sharedInstance().IDKey!], completionHandler: {results, error in
+        taskForGETMethod(ParseClient.Methods.StudentLocations, parameters: [ParseClient.Methods.Where : [ParseClient.JSONResponseKeys.UniqueKey : UdaciousClient.sharedInstance().IDKey!]], completionHandler: {results, error in
 
             /* If there was an error parsing, return an error */
             if error != nil {

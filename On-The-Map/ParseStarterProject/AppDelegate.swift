@@ -32,9 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //--------------------------------------
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        /* set Parse IDs */
-//        Parse.setApplicationId(ParseClient.Constants.api_key, clientKey: ParseClient.Constants.app_id)
-//        Parse.setApplicationId("YtYNWpjjNi24CxucN1EOocGIGdn1rVtRX8B9m5Hs", clientKey: "g61S9JHsFfXrSNyvXozmllmFEzK0L2dIki91HnAi")
+
         
         /* Configure color */
         let color = UIColor.flatNavyBlueColorDark()
@@ -72,24 +70,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
-        
-                if #available(iOS 8.0, *) {
-                    let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
-                    let settings = UIUserNotificationSettings(forTypes: types, categories: nil)
-                    application.registerUserNotificationSettings(settings)
-                    application.registerForRemoteNotifications()
-                } else {
-                    let types: UIRemoteNotificationType = [.Alert, .Badge, .Sound]
-                    application.registerForRemoteNotificationTypes(types)
-                }
+        /* Add notification types for ios 8+, keeping older options in case released for an earlier os */
+            if #available(iOS 8.0, *) {
+                let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
+                let settings = UIUserNotificationSettings(forTypes: types, categories: nil)
+                application.registerUserNotificationSettings(settings)
+                application.registerForRemoteNotifications()
+            } else {
+                let types: UIRemoteNotificationType = [.Alert, .Badge, .Sound]
+                application.registerForRemoteNotificationTypes(types)
+            }
 
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
 
-    //--------------------------------------
-    // MARK: Push Notifications
-    //--------------------------------------
 
+    /* MARK: Push Notifications */
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         let installation = PFInstallation.currentInstallation()
         installation.setDeviceTokenFromData(deviceToken)
@@ -119,9 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    ///////////////////////////////////////////////////////////
-    // Uncomment this method if you want to use Push Notifications with Background App Refresh
-    ///////////////////////////////////////////////////////////
+    /* Handle background push notifications */
      func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         
         PFPush.handlePush(userInfo)
@@ -131,16 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          }
      }
 
-    //--------------------------------------
-    // MARK: Facebook SDK Integration
-    //--------------------------------------
-
-    ///////////////////////////////////////////////////////////
-    // Uncomment this method if you are using Facebook
-    ///////////////////////////////////////////////////////////
-//     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
-//         return FBAppCall.handleOpenURL(url, sourceApplication:sourceApplication, session:PFFacebookUtils.session())
-//     }
+    /* FBSDK Open URL method */
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
