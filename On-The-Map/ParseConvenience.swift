@@ -89,7 +89,7 @@ extension ParseClient {
                     
                 } else {
                     
-                    completionHandler(success: false, error: ParseClient.errorFromString("Could not post data in postDataToParse"))
+                    completionHandler(success: false, error: Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Parse))
                     
                 }
                 
@@ -122,7 +122,7 @@ extension ParseClient {
                     
                 } else {
                     
-                    completionHandler(success: false, results: nil, error: ParseErrors.Parse)
+                    completionHandler(success: false, results: nil, error: Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Parse))
                     
                 }
             }

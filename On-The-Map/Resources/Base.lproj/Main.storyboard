@@ -72,7 +72,7 @@
                                             <constraint firstAttribute="height" constant="50" id="cXT-8X-Qh1"/>
                                         </constraints>
                                         <color key="textColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
@@ -139,7 +139,7 @@
                                     <constraint firstAttribute="height" constant="50" id="uGA-8J-xuf"/>
                                 </constraints>
                                 <color key="textColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
@@ -191,7 +191,6 @@
                         <color key="backgroundColor" red="0.18198148906230927" green="0.69426733255386353" blue="0.53024792671203613" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="aQM-Cz-Z9Q" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1nG-9a-fp3"/>
-                            <constraint firstItem="uld-8z-8od" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="2dC-Zh-tQo"/>
                             <constraint firstItem="uld-8z-8od" firstAttribute="top" secondItem="aQM-Cz-Z9Q" secondAttribute="bottom" constant="17" id="2t2-v3-TCu"/>
                             <constraint firstAttribute="trailingMargin" secondItem="X6u-3L-6m1" secondAttribute="trailing" constant="-20" id="35h-fn-gpz"/>
                             <constraint firstItem="X6u-3L-6m1" firstAttribute="top" secondItem="fmi-xP-rRU" secondAttribute="top" constant="-60" id="4lL-2y-aah"/>
@@ -348,7 +347,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="studentLocationMapView" destination="eIh-eh-KMn" id="6ro-Ac-amO"/>
-                        <segue destination="CC6-Zg-xRg" kind="presentation" identifier="logoutSegue" modalTransitionStyle="flipHorizontal" id="e8L-wW-aqo"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="logoutSegue" modalTransitionStyle="flipHorizontal" id="AdG-OA-Axq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zMS-dc-JL2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -626,7 +625,7 @@
                         <animations/>
                     </refreshControl>
                     <connections>
-                        <segue destination="CC6-Zg-xRg" kind="presentation" identifier="logoutSegue" modalTransitionStyle="flipHorizontal" id="UCJ-eb-cye"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="logoutSegue" modalTransitionStyle="flipHorizontal" id="b6d-hR-amo"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cQa-qi-9Fm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -665,7 +664,7 @@
         <image name="udacityWhite" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UCJ-eb-cye"/>
         <segue reference="cjt-74-M8U"/>
+        <segue reference="b6d-hR-amo"/>
     </inferredMetricsTieBreakers>
 </document>

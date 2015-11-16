@@ -57,7 +57,6 @@ extension UdaciousClient {
                     }
                 }
             }
-//            completionHandler(success: false, sessionID: nil, userKey: nil, error: UdaciousErrors.Parse)
         }
         
     }
@@ -102,7 +101,6 @@ extension UdaciousClient {
                 }
                 
             }
-//            completionHandler(success: false, error: UdaciousErrors.Parse)
             
         }
     }

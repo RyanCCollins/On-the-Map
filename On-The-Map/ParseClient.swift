@@ -37,7 +37,7 @@ class ParseClient: NSObject {
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil {
                 
-              completionHandler(result: nil, error: ParseErrors.Status.Network)
+              completionHandler(result: nil, error: Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Status.Network))
                 
             } else {
                 
@@ -46,13 +46,11 @@ class ParseClient: NSObject {
                     var statusError: NSError?
                     
                     if let response = response as? NSHTTPURLResponse {
-                        if response.statusCode == 401 {
-                            statusError = ParseErrors.Status.Auth401
-                        } else {
-                            statusError = ParseErrors.Status.InvalidResponse
+                        if response.statusCode >= 400 && response.statusCode <= 599 {
+                            statusError = Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Status.Auth)
                         }
                     } else {
-                        statusError = ParseErrors.Status.Network
+                        statusError = Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Status.InvalidResponse)
                     }
                     completionHandler(result: nil, error: statusError)
                     return
@@ -86,7 +84,7 @@ class ParseClient: NSObject {
         } catch {
             
             request.HTTPBody = nil
-            completionHandler(result: nil, error: ParseErrors.JSONSerialization)
+            completionHandler(result: nil, error: Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.JSONSerialization))
             
         }
         
@@ -97,7 +95,7 @@ class ParseClient: NSObject {
             
             if error != nil {
                 
-                completionHandler(result: nil, error: ParseErrors.Status.Network)
+                completionHandler(result: nil, error: Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Status.Network))
                 
             } else {
                 
@@ -106,13 +104,11 @@ class ParseClient: NSObject {
                     var statusError: NSError?
                     
                     if let response = response as? NSHTTPURLResponse {
-                        if response.statusCode == 401 {
-                            statusError = ParseErrors.Status.Auth401
-                        } else {
-                            statusError = ParseErrors.Status.InvalidResponse
+                        if response.statusCode >= 400 && response.statusCode <= 599 {
+                            statusError = Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Status.Auth)
                         }
                     } else {
-                        statusError = ParseErrors.Status.Network
+                        statusError = Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Status.InvalidResponse)
                     }
                     completionHandler(result: nil, error: statusError)
                     return
@@ -148,7 +144,7 @@ class ParseClient: NSObject {
             
         } catch {
             request.HTTPBody = nil
-            completionHandler(result: nil, error: ParseErrors.JSONSerialization)
+            completionHandler(result: nil, error: Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.JSONSerialization))
             
         }
         
@@ -159,7 +155,7 @@ class ParseClient: NSObject {
             
             if error != nil {
                 
-                completionHandler(result: nil, error: ParseErrors.Status.Network)
+                completionHandler(result: nil, error: Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Status.Network))
                 
             } else {
                 
@@ -168,13 +164,11 @@ class ParseClient: NSObject {
                     var statusError: NSError?
                     
                     if let response = response as? NSHTTPURLResponse {
-                        if response.statusCode == 401 {
-                            statusError = ParseErrors.Status.Auth401
-                        } else {
-                            statusError = ParseErrors.Status.InvalidResponse
+                        if response.statusCode >= 400 && response.statusCode <= 599 {
+                            statusError = Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Status.Auth)
                         }
                     } else {
-                        statusError = ParseErrors.Status.Network
+                        statusError = Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Status.InvalidResponse)
                     }
                     completionHandler(result: nil, error: statusError)
                     return
@@ -190,14 +184,6 @@ class ParseClient: NSObject {
 
     }
     
-    /* Helper function: construct an NSLocalizedError from an error string */
-    class func errorFromString(string: String) -> NSError? {
-        
-        return NSError(domain: "ParseClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(string)"])
-        
-    }
-    
-    
     /* Helper Function: Convert JSON to a Foundation object */
     class func parseJSONDataWithCompletionHandler(data: NSData, completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
         
@@ -205,7 +191,7 @@ class ParseClient: NSObject {
         do {
             parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
         } catch {
-            completionHandler(result: nil, error: ParseErrors.Parse)
+            completionHandler(result: nil, error: Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Parse))
         }
         
         completionHandler(result: parsedResult, error: nil)
