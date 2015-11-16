@@ -61,17 +61,18 @@ class UdaciousClient: NSObject {
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
                 var statusError: NSError?
                 
-//                if let response = response as? NSHTTPURLResponse {
-//                    if response.statusCode == 401 {
-//                        statusError = ParseErrors.Status.Auth401
-//                    } else {
-//                        statusError = ParseErrors.Status.InvalidResponse
-//                    }
-//                } else {
-//                    statusError = ParseErrors.Status.Network
-//                    print(response)
-//                }
-//                completionHandler(result: nil, error: statusError)
+                if let response = response as? NSHTTPURLResponse {
+                    if response.statusCode == 401 {
+                        statusError = ParseErrors.Status.Auth401
+                    } else {
+                        statusError = ParseErrors.Status.InvalidResponse
+                        print(response)
+                    }
+                } else {
+                    statusError = ParseErrors.Status.Network
+                    print(response)
+                }
+                completionHandler(result: nil, error: statusError)
                 return
             }
             
@@ -129,6 +130,7 @@ class UdaciousClient: NSObject {
                         statusError = ParseErrors.Status.Auth401
                     } else {
                         statusError = ParseErrors.Status.InvalidResponse
+                        print(response)
                     }
                 } else {
                     statusError = ParseErrors.Status.Network

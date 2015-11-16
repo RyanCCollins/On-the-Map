@@ -13,9 +13,5 @@ class LocationTableViewCell: UITableViewCell {
     @IBOutlet weak var mainTextLabel: UILabel!
     @IBOutlet weak var urlTextLabel: UILabel!
     @IBOutlet weak var geoTextLabel: UILabel!
-//    @IBOutlet weak var detailDisclosureButton: UIButton!
-    
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-    
 
 }

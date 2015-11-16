@@ -25,7 +25,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var onePasswordContainer: UIView!
     @IBOutlet weak var signUpButton: UIButton!
-    @IBOutlet weak var faceBookLoginView: UIView!
+
     @IBOutlet weak var onepasswordButton: UIButton!
     @IBOutlet weak var oneTimePasswordTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
@@ -41,11 +41,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
         
         /* Hide 1Password Button if not installed */
 //        self.onepasswordButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())   
-        /* Add facebook button */
-        faceBookLoginButton.center = view.center
-        
-        faceBookLoginView.addSubview(faceBookLoginButton)
-        
+
         
         /* Configure log in buttons */
         
@@ -55,7 +51,17 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
         self.setStatusBarStyle(UIStatusBarStyleContrast)
         
         setUpColorScheme()
+        let loginButton = FBSDKLoginButton()
+        loginButton.delegate = self
+        loginButton.readPermissions = ["email", "public_profile"]
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(loginButton)
         
+        /* Add facebook button */
+        loginButton.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor, constant: 16).active = true
+        loginButton.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -16).active = true
+        loginButton.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor, constant: -16).active = true
+        loginButton.heightAnchor.constraintEqualToConstant(45).active = true
         
     }
     
@@ -84,19 +90,24 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
                 return
             }
         
+        let parameters = [UdaciousClient.ParameterKeys.Udacity :
+            [UdaciousClient.ParameterKeys.Username : self.usernameTextField.text!,
+                UdaciousClient.ParameterKeys.Password : self.passwordTextField.text!
+            ]]
+        authenticateUdacitySession(parameters)
+        
         /* show log in message */
         dispatch_async(GlobalMainQueue, {
             SwiftSpinner.show("Logging in")
             SwiftSpinner.showWithDelay(12.0, title: "Taking longer than expected.  Just a moment.")
         })
         
+    }
+    
+    func authenticateUdacitySession(parameters : [String : AnyObject]) {
+        
         /* aunthenticate then get user information  in didLoginSuccessfully */
         dispatch_async(GlobalUtilityQueue, {
-            
-            let parameters = [UdaciousClient.ParameterKeys.Udacity :
-                [UdaciousClient.ParameterKeys.Username : self.usernameTextField.text!,
-                    UdaciousClient.ParameterKeys.Password : self.passwordTextField.text!
-                ]]
             
             UdaciousClient.sharedInstance().authenticateWithViewController(parameters) { success, error in
                 if success {
@@ -106,14 +117,14 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
                         SwiftSpinner.show("Authenticated")
                         self.didLoginSuccessfully()
                     })
-
+                    
                 } else {
                     
                     dispatch_async(GlobalMainQueue, {
                         SwiftSpinner.hide({
                             self.alertController(withTitles: ["Ok", "Retry"], message: (error?.localizedDescription)!, callbackHandler: [nil, { Void in
                                 self.didTapLoginTouchUpInside(self)
-                            }])
+                                }])
                             
                         })
                         
@@ -122,6 +133,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
                 }
             }
         })
+        
     }
     
     /* If logged in successfully, get the user's data */
@@ -139,7 +151,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
                         
                         /* Hide activity Indicator*/
                         SwiftSpinner.hide()
-                        print("Got data")
                     })
                     
                 })
@@ -172,6 +183,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
         return false
     }
     
+    
     /* Facebook login delegate methods */
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         if error == nil {
@@ -183,23 +195,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
                 
                 let parameters = [UdaciousClient.ParameterKeys.Facebook : [UdaciousClient.ParameterKeys.AccessToken : token]]
                 
-                UdaciousClient.sharedInstance().authenticateWithViewController(parameters) { success, error in
-                    /* if successful, complete login, otherwise update debug message */
-                    if success {
-                        
-                        SwiftSpinner.hide()
-                        
-                        self.didLoginSuccessfully()
-                    
-                    } else {
-                        
-                        SwiftSpinner.hide({
-                            self.alertController(withTitles: ["Ok"], message: (error?.localizedDescription)!, callbackHandler: [nil])
-                        
-                        })
-                        
-                    }
-                }
+                authenticateUdacitySession(parameters)
             }
         }
     }

@@ -132,10 +132,10 @@ class ListTableViewController: UITableViewController {
 
         cell.mainImageView.image = UIImage(named: "map")
         
-        
-        cell.accessoryView = UIImageView(image: UIImage(named: "safari-icon"))
-        let tapRecognizer = UIGestureRecognizer(target: cell.accessoryView, action: "tableView(tableView, accessoryButtonTappedForRowWithIndexPath: indexPath)")
-        cell.accessoryView?.addGestureRecognizer(tapRecognizer)
+//        let accessoryButton = cell.detailDisclosureButton
+//        cell.accessoryView = accessoryButton
+//        let tapRecognizer = UIGestureRecognizer(target: cell.accessoryView, action: "tableView:accessoryButtonTappedForRowWithIndexPath:")
+//        cell.accessoryView?.addGestureRecognizer(tapRecognizer)
         
 //        /* If button selected to open URL, open it */
 //        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "openURLForRow")
