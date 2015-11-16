@@ -3,3 +3,4 @@
 //
 
 #import "OnePasswordExtension.h"
+#import "Chameleon.h"

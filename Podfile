@@ -4,7 +4,6 @@ pod 'FBSDKCoreKit', :inhibit_warnings => true
 pod 'FBSDKLoginKit', :inhibit_warnings => true
 pod 'FBSDKShareKit', :inhibit_warnings => true
 pod 'ChameleonFramework/Swift', :inhibit_warnings => true
-pod 'PKRevealController', :inhibit_warnings => true
 pod 'TextFieldEffects', :inhibit_warnings => true
 pod 'SwiftSpinner', :inhibit_warnings => true
 pod 'MBProgressHUD', :inhibit_warnings => true

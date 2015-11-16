@@ -13,7 +13,6 @@ import FBSDKLoginKit
 import FBSDKShareKit
 import ChameleonFramework
 import SwiftSpinner
-import FlatUIKit
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFieldDelegate {
     @IBOutlet weak var usernameTextField: KaedeTextField!

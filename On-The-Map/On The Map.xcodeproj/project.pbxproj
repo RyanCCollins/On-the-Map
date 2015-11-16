@@ -91,6 +91,34 @@
 		1F346D311BFA739800063D48 /* MBProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MBProgressHUD.framework; path = "/Users/myMac/Developer/Udacity Nanodegree/on-the-map/Pods/../build/Debug-iphoneos/MBProgressHUD.framework"; sourceTree = "<absolute>"; };
 		1F346D331BFA73A200063D48 /* TextFieldEffects.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TextFieldEffects.framework; path = "/Users/myMac/Developer/Udacity Nanodegree/on-the-map/Pods/../build/Debug-iphoneos/TextFieldEffects.framework"; sourceTree = "<absolute>"; };
 		1F346D351BFA73A800063D48 /* SwiftSpinner.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSpinner.framework; path = "/Users/myMac/Developer/Udacity Nanodegree/on-the-map/Pods/../build/Debug-iphoneos/SwiftSpinner.framework"; sourceTree = "<absolute>"; };
+		1F346D381BFA79B500063D48 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		1F346D3C1BFA79B500063D48 /* Chameleon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Chameleon.h; sourceTree = "<group>"; };
+		1F346D3D1BFA79B500063D48 /* Chameleon_.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Chameleon_.h; sourceTree = "<group>"; };
+		1F346D3E1BFA79B500063D48 /* Chameleon_.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Chameleon_.m; sourceTree = "<group>"; };
+		1F346D3F1BFA79B500063D48 /* ChameleonConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChameleonConstants.h; sourceTree = "<group>"; };
+		1F346D401BFA79B500063D48 /* ChameleonConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChameleonConstants.m; sourceTree = "<group>"; };
+		1F346D411BFA79B500063D48 /* ChameleonEnums.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChameleonEnums.h; sourceTree = "<group>"; };
+		1F346D421BFA79B500063D48 /* ChameleonMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChameleonMacros.h; sourceTree = "<group>"; };
+		1F346D431BFA79B500063D48 /* NSArray+Chameleon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+Chameleon.h"; sourceTree = "<group>"; };
+		1F346D441BFA79B500063D48 /* NSArray+Chameleon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Chameleon.m"; sourceTree = "<group>"; };
+		1F346D451BFA79B500063D48 /* UIButton+Chameleon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+Chameleon.h"; sourceTree = "<group>"; };
+		1F346D461BFA79B500063D48 /* UIButton+Chameleon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Chameleon.m"; sourceTree = "<group>"; };
+		1F346D471BFA79B500063D48 /* UIColor+Chameleon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+Chameleon.h"; sourceTree = "<group>"; };
+		1F346D481BFA79B500063D48 /* UIColor+Chameleon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Chameleon.m"; sourceTree = "<group>"; };
+		1F346D491BFA79B500063D48 /* UIColor+ChameleonPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+ChameleonPrivate.h"; sourceTree = "<group>"; };
+		1F346D4A1BFA79B500063D48 /* UIColor+ChameleonPrivate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ChameleonPrivate.m"; sourceTree = "<group>"; };
+		1F346D4B1BFA79B500063D48 /* UIImage+ChameleonPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+ChameleonPrivate.h"; sourceTree = "<group>"; };
+		1F346D4C1BFA79B500063D48 /* UIImage+ChameleonPrivate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ChameleonPrivate.m"; sourceTree = "<group>"; };
+		1F346D4D1BFA79B500063D48 /* UILabel+Chameleon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+Chameleon.h"; sourceTree = "<group>"; };
+		1F346D4E1BFA79B500063D48 /* UILabel+Chameleon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Chameleon.m"; sourceTree = "<group>"; };
+		1F346D4F1BFA79B500063D48 /* UINavigationController+Chameleon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Chameleon.h"; sourceTree = "<group>"; };
+		1F346D501BFA79B500063D48 /* UINavigationController+Chameleon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Chameleon.m"; sourceTree = "<group>"; };
+		1F346D511BFA79B500063D48 /* UIView+ChameleonPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+ChameleonPrivate.h"; sourceTree = "<group>"; };
+		1F346D521BFA79B500063D48 /* UIView+ChameleonPrivate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+ChameleonPrivate.m"; sourceTree = "<group>"; };
+		1F346D531BFA79B500063D48 /* UIViewController+Chameleon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Chameleon.h"; sourceTree = "<group>"; };
+		1F346D541BFA79B500063D48 /* UIViewController+Chameleon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Chameleon.m"; sourceTree = "<group>"; };
+		1F346D561BFA79B500063D48 /* ChameleonShorthand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChameleonShorthand.swift; sourceTree = "<group>"; };
+		1F346D571BFA79B500063D48 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		1F787CF61BEF8E1E00BC80F6 /* On-The-Map-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "On-The-Map-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F787CF91BEF969900BC80F6 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		1F787CFA1BEF969900BC80F6 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
@@ -183,6 +211,74 @@
 				1F24A6EF1BF2593B00BC2796 /* YoshikoTextField.swift */,
 			);
 			path = TextFieldEffects;
+			sourceTree = "<group>";
+		};
+		1F346D371BFA79B500063D48 /* ChameleonFramework */ = {
+			isa = PBXGroup;
+			children = (
+				1F346D381BFA79B500063D48 /* LICENSE.md */,
+				1F346D391BFA79B500063D48 /* Pod */,
+				1F346D571BFA79B500063D48 /* README.md */,
+			);
+			name = ChameleonFramework;
+			path = ../Pods/ChameleonFramework;
+			sourceTree = "<group>";
+		};
+		1F346D391BFA79B500063D48 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				1F346D3A1BFA79B500063D48 /* Classes */,
+			);
+			path = Pod;
+			sourceTree = "<group>";
+		};
+		1F346D3A1BFA79B500063D48 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1F346D3B1BFA79B500063D48 /* Objective-C */,
+				1F346D551BFA79B500063D48 /* Swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		1F346D3B1BFA79B500063D48 /* Objective-C */ = {
+			isa = PBXGroup;
+			children = (
+				1F346D3C1BFA79B500063D48 /* Chameleon.h */,
+				1F346D3D1BFA79B500063D48 /* Chameleon_.h */,
+				1F346D3E1BFA79B500063D48 /* Chameleon_.m */,
+				1F346D3F1BFA79B500063D48 /* ChameleonConstants.h */,
+				1F346D401BFA79B500063D48 /* ChameleonConstants.m */,
+				1F346D411BFA79B500063D48 /* ChameleonEnums.h */,
+				1F346D421BFA79B500063D48 /* ChameleonMacros.h */,
+				1F346D431BFA79B500063D48 /* NSArray+Chameleon.h */,
+				1F346D441BFA79B500063D48 /* NSArray+Chameleon.m */,
+				1F346D451BFA79B500063D48 /* UIButton+Chameleon.h */,
+				1F346D461BFA79B500063D48 /* UIButton+Chameleon.m */,
+				1F346D471BFA79B500063D48 /* UIColor+Chameleon.h */,
+				1F346D481BFA79B500063D48 /* UIColor+Chameleon.m */,
+				1F346D491BFA79B500063D48 /* UIColor+ChameleonPrivate.h */,
+				1F346D4A1BFA79B500063D48 /* UIColor+ChameleonPrivate.m */,
+				1F346D4B1BFA79B500063D48 /* UIImage+ChameleonPrivate.h */,
+				1F346D4C1BFA79B500063D48 /* UIImage+ChameleonPrivate.m */,
+				1F346D4D1BFA79B500063D48 /* UILabel+Chameleon.h */,
+				1F346D4E1BFA79B500063D48 /* UILabel+Chameleon.m */,
+				1F346D4F1BFA79B500063D48 /* UINavigationController+Chameleon.h */,
+				1F346D501BFA79B500063D48 /* UINavigationController+Chameleon.m */,
+				1F346D511BFA79B500063D48 /* UIView+ChameleonPrivate.h */,
+				1F346D521BFA79B500063D48 /* UIView+ChameleonPrivate.m */,
+				1F346D531BFA79B500063D48 /* UIViewController+Chameleon.h */,
+				1F346D541BFA79B500063D48 /* UIViewController+Chameleon.m */,
+			);
+			path = "Objective-C";
+			sourceTree = "<group>";
+		};
+		1F346D551BFA79B500063D48 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				1F346D561BFA79B500063D48 /* ChameleonShorthand.swift */,
+			);
+			path = Swift;
 			sourceTree = "<group>";
 		};
 		1F787CFF1BEF96A200BC80F6 /* Fonts */ = {
@@ -314,6 +410,7 @@
 		81BA816A1A49DB5600E65899 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F346D371BFA79B500063D48 /* ChameleonFramework */,
 				1F346D351BFA73A800063D48 /* SwiftSpinner.framework */,
 				1F346D331BFA73A200063D48 /* TextFieldEffects.framework */,
 				1F346D311BFA739800063D48 /* MBProgressHUD.framework */,
@@ -562,6 +659,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -606,6 +704,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -634,6 +733,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/ParseStarterProject",
+					"${TARGET_BUILD_DIR}/**",
 				);
 				INFOPLIST_FILE = Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -660,6 +760,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/ParseStarterProject",
+					"${TARGET_BUILD_DIR}/**",
 				);
 				INFOPLIST_FILE = Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
