@@ -132,15 +132,6 @@ class ListTableViewController: UITableViewController {
 
         cell.mainImageView.image = UIImage(named: "map")
         
-//        let accessoryButton = cell.detailDisclosureButton
-//        cell.accessoryView = accessoryButton
-//        let tapRecognizer = UIGestureRecognizer(target: cell.accessoryView, action: "tableView:accessoryButtonTappedForRowWithIndexPath:")
-//        cell.accessoryView?.addGestureRecognizer(tapRecognizer)
-        
-//        /* If button selected to open URL, open it */
-//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "openURLForRow")
-//        tapRecognizer.numberOfTouches() = 1
-//        cell.detailDisclosureButton.addGestureRecognizer(tapRecognizer)
         
         return cell
     }

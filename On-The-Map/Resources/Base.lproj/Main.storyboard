@@ -203,9 +203,11 @@
                             <constraint firstItem="fmi-xP-rRU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="BI4-Ls-aLC"/>
                             <constraint firstItem="i3F-Rz-XKj" firstAttribute="top" secondItem="Bqm-75-0Gx" secondAttribute="bottom" constant="20" id="E7R-aV-rmJ"/>
                             <constraint firstItem="i3F-Rz-XKj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EaV-l5-Szv"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="eGs-tV-i8c" secondAttribute="bottom" constant="20" id="EbE-PL-Hfd"/>
                             <constraint firstItem="Bqm-75-0Gx" firstAttribute="top" secondItem="uld-8z-8od" secondAttribute="bottom" constant="8" id="KFc-Q4-DvC"/>
                             <constraint firstItem="eGs-tV-i8c" firstAttribute="width" secondItem="Nhj-sJ-kBt" secondAttribute="width" id="O13-qZ-rCT"/>
                             <constraint firstItem="aQM-Cz-Z9Q" firstAttribute="leading" secondItem="uld-8z-8od" secondAttribute="leading" id="Pas-h5-Jr2"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="X6u-3L-6m1" secondAttribute="bottom" id="QjA-jM-tFW"/>
                             <constraint firstItem="Bqm-75-0Gx" firstAttribute="height" secondItem="uld-8z-8od" secondAttribute="height" id="SAv-ks-34q"/>
                             <constraint firstItem="fmi-xP-rRU" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Tw9-PM-IJp"/>
                             <constraint firstItem="eGs-tV-i8c" firstAttribute="top" secondItem="Nhj-sJ-kBt" secondAttribute="bottom" constant="36" id="alp-s9-AYZ"/>
@@ -216,13 +218,11 @@
                             <constraint firstItem="fmi-xP-rRU" firstAttribute="centerX" secondItem="X6u-3L-6m1" secondAttribute="centerX" id="lda-Oh-DFT"/>
                             <constraint firstItem="X6u-3L-6m1" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="nfu-Q8-pyG"/>
                             <constraint firstItem="fmi-xP-rRU" firstAttribute="leading" secondItem="X6u-3L-6m1" secondAttribute="trailing" constant="-503" id="qRs-uB-9vt"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="eGs-tV-i8c" secondAttribute="bottom" constant="20" id="rbb-UR-ylO"/>
                             <constraint firstItem="UKS-pC-Sfg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="t4o-NO-h4Q"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="X6u-3L-6m1" secondAttribute="bottom" id="v6J-Rf-5QF"/>
                             <constraint firstItem="X6u-3L-6m1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="w1S-QI-rNE"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="X6u-3L-6m1" secondAttribute="bottom" id="wG0-lR-bLH"/>
                             <constraint firstItem="aQM-Cz-Z9Q" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fmi-xP-rRU" secondAttribute="bottom" constant="55" id="wV5-cN-eQt"/>
                             <constraint firstItem="eGs-tV-i8c" firstAttribute="centerX" secondItem="X6u-3L-6m1" secondAttribute="centerX" id="yNB-Ny-Bt9"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="X6u-3L-6m1" secondAttribute="bottom" id="zHL-Qd-TgC"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -325,7 +325,6 @@
                             <barButtonItem image="door13" id="0MN-kn-4A6">
                                 <connections>
                                     <action selector="didTapLogoutUpInside:" destination="oCb-Zs-Dq7" id="nL7-e3-PQy"/>
-                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="logoutSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="xMe-Ld-Mcw"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="udacityWhite" id="RQc-Yf-hLC">
@@ -349,6 +348,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="studentLocationMapView" destination="eIh-eh-KMn" id="6ro-Ac-amO"/>
+                        <segue destination="CC6-Zg-xRg" kind="presentation" identifier="logoutSegue" modalTransitionStyle="flipHorizontal" id="e8L-wW-aqo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zMS-dc-JL2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -395,7 +395,7 @@
                                     <constraint firstItem="fQZ-bf-Yba" firstAttribute="top" secondItem="iuD-fm-Agz" secondAttribute="topMargin" id="pAx-ks-fUW"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Enter your location and press submit to find on the map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2HU-En-Fmf">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your location and press submit to find on the map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2HU-En-Fmf">
                                 <rect key="frame" x="135" y="405" width="330" height="45"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="13"/>
@@ -546,25 +546,25 @@
                                                 <constraint firstAttribute="width" secondItem="FCL-Kf-W9v" secondAttribute="height" multiplier="1:1" id="TJg-EM-FXU"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSe-6k-qKb">
-                                            <rect key="frame" x="93" y="36" width="452" height="14"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSe-6k-qKb">
+                                            <rect key="frame" x="93" y="36" width="432" height="14"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="14"/>
-                                            <color key="textColor" red="0.12637259066104889" green="0.12639245390892029" blue="0.12636536359786987" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.19376453757286072" green="0.50850099325180054" blue="0.85232251882553101" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBu-sj-TIe">
-                                            <rect key="frame" x="93" y="56" width="452" height="29"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBu-sj-TIe">
+                                            <rect key="frame" x="93" y="56" width="432" height="29"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="14"/>
-                                            <color key="textColor" red="0.12637259066104889" green="0.12639245390892029" blue="0.12636536359786987" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.19376453760000001" green="0.50850099329999998" blue="0.85232251879999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4iI-dL-SAa">
-                                            <rect key="frame" x="93" y="8" width="452" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4iI-dL-SAa">
+                                            <rect key="frame" x="93" y="8" width="432" height="20"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="20"/>
-                                            <color key="textColor" red="0.12637259070000001" green="0.12639245390000001" blue="0.1263653636" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.19376453757286072" green="0.50850099325180054" blue="0.85232251882553101" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -577,6 +577,9 @@
                                         <constraint firstItem="bBu-sj-TIe" firstAttribute="leading" secondItem="FCL-Kf-W9v" secondAttribute="trailing" constant="8" id="H41-DQ-1xk"/>
                                         <constraint firstItem="FCL-Kf-W9v" firstAttribute="top" secondItem="XxN-FZ-cxV" secondAttribute="topMargin" id="Lur-rK-CjS"/>
                                         <constraint firstItem="4iI-dL-SAa" firstAttribute="leading" secondItem="FCL-Kf-W9v" secondAttribute="trailing" constant="8" id="OO0-XY-KDH"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="4iI-dL-SAa" secondAttribute="trailing" id="PPV-8G-MDj"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="bBu-sj-TIe" secondAttribute="trailing" id="QpP-wT-EpK"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="QSe-6k-qKb" secondAttribute="trailing" id="Y75-Gg-eto"/>
                                         <constraint firstAttribute="topMargin" secondItem="4iI-dL-SAa" secondAttribute="top" id="muE-3j-DUt"/>
                                         <constraint firstItem="bBu-sj-TIe" firstAttribute="top" secondItem="QSe-6k-qKb" secondAttribute="bottom" constant="6" id="rMb-nk-wQp"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="bBu-sj-TIe" secondAttribute="bottom" id="ulu-n4-Ik3"/>
@@ -602,7 +605,6 @@
                         <barButtonItem key="leftBarButtonItem" image="door13" id="AWu-AN-37R">
                             <connections>
                                 <action selector="didTapLogoutUpInside:" destination="np9-Px-QYp" id="2xO-Oj-5z7"/>
-                                <segue destination="BYZ-38-t0r" kind="presentation" identifier="logoutSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="SpU-Ig-eG9"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
@@ -623,6 +625,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </refreshControl>
+                    <connections>
+                        <segue destination="CC6-Zg-xRg" kind="presentation" identifier="logoutSegue" modalTransitionStyle="flipHorizontal" id="UCJ-eb-cye"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cQa-qi-9Fm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -660,7 +665,7 @@
         <image name="udacityWhite" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="UCJ-eb-cye"/>
         <segue reference="cjt-74-M8U"/>
-        <segue reference="SpU-Ig-eG9"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -58,8 +58,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
         view.addSubview(loginButton)
         
         /* Add facebook button */
-        loginButton.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor, constant: 16).active = true
-        loginButton.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -16).active = true
+        loginButton.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor, constant: 40).active = true
+        loginButton.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -40).active = true
         loginButton.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor, constant: -16).active = true
         loginButton.heightAnchor.constraintEqualToConstant(45).active = true
         

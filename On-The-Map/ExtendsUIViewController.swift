@@ -105,36 +105,32 @@ extension UIViewController {
 
     
     @IBAction func didTapLogoutUpInside(sender: AnyObject) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
-        UdaciousClient.sharedInstance().logoutOfSession({success, error in
-            if success {
-                
-                if FBSDKAccessToken.currentAccessToken() != nil {
-                    let facebookLogin = FBSDKLoginManager()
-                    facebookLogin.logOut()
+            
+        self.alertController(withTitles: ["Cancel", "Logout"], message: "Are you sure that you want to logout?", callbackHandler: [nil, {Void in
+            UdaciousClient.sharedInstance().logoutOfSession({success, error in
+                if success {
                     
-                }
-                
-                dispatch_async(GlobalMainQueue, {
+                    if FBSDKAccessToken.currentAccessToken() != nil {
+                        let facebookLogin = FBSDKLoginManager()
+                        facebookLogin.logOut()
+                        self.performSegueWithIdentifier("logoutSegue", sender: self)
+                    }
                     
-                    self.alertController(withTitles: ["Cancel", "Logout"], message: "Are you sure that you want to logout?", callbackHandler: [nil, {Void in
-                            appDelegate.userAuthenticated = false
-                            self.performSegueWithIdentifier("logoutSegue", sender: self)
-                    }])
+                } else {
                     
-                })
-                
-            } else {
-                
-                dispatch_async(GlobalMainQueue, {
-                    
-                    self.alertController(withTitles: ["OK", "Try Again"], message: GlobalErrors.LogOut.localizedDescription, callbackHandler: [nil, {Void in
+                    dispatch_async(GlobalMainQueue, {
+                        
+                        self.alertController(withTitles: ["OK", "Try Again"], message: GlobalErrors.LogOut.localizedDescription, callbackHandler: [nil, {Void in
                             self.didTapLogoutUpInside(self)
-                    }])
-                    
-                })
-            }
-        })
+                        }])
+                        
+                    })
+                }
+            })
+
+        }])
+
+        
     }
 }

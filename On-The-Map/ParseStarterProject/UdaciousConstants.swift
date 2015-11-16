@@ -15,7 +15,7 @@ extension UdaciousClient {
     struct Constants {
         static let FacebookAppID = "365362206864879"
         
-        static let BaseURLSecure = "https://www.udacity.com/api/"
+        static let BaseURLSecure = "http://www.udacity.com/api/"
     }
     
     

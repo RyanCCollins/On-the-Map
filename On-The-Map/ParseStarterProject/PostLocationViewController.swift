@@ -62,7 +62,6 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
         })
         
 
-            
         ParseClient.sharedInstance().queryParseDataForObjectId({success, results, error in
             
             if success {
@@ -74,7 +73,8 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
                     self.locationString = results!.GEODescriptor
                     self.mediaURL = results!.MediaUrl
                     self.ObjectId = results!.ObjectID
-                    
+                    self.linkTextField.text = self.mediaURL
+                    self.locationTextField.text = self.locationString
                     hud.hide(true)
                 })
                 
