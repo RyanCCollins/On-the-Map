@@ -29,6 +29,10 @@
 		1F24A7261BF2AEFE00BC2796 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A7251BF2AEFE00BC2796 /* LocationTableViewCell.swift */; };
 		1F346D2A1BF82ECC00063D48 /* OnTheMapConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F346D291BF82ECC00063D48 /* OnTheMapConstants.swift */; };
 		1F346D2E1BF9584000063D48 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F346D2D1BF9584000063D48 /* Launch Screen.storyboard */; };
+		1F346D301BFA738E00063D48 /* ChameleonFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F346D2F1BFA738E00063D48 /* ChameleonFramework.framework */; };
+		1F346D321BFA739800063D48 /* MBProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F346D311BFA739800063D48 /* MBProgressHUD.framework */; };
+		1F346D341BFA73A200063D48 /* TextFieldEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F346D331BFA73A200063D48 /* TextFieldEffects.framework */; };
+		1F346D361BFA73A800063D48 /* SwiftSpinner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F346D351BFA73A800063D48 /* SwiftSpinner.framework */; };
 		1F787CFC1BEF969900BC80F6 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CF91BEF969900BC80F6 /* Roboto-Medium.ttf */; };
 		1F787CFD1BEF969900BC80F6 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CFA1BEF969900BC80F6 /* Roboto-Regular.ttf */; };
 		1F787CFE1BEF969900BC80F6 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F787CFB1BEF969900BC80F6 /* Roboto-Thin.ttf */; };
@@ -83,6 +87,10 @@
 		1F24A7251BF2AEFE00BC2796 /* LocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationTableViewCell.swift; path = ParseStarterProject/LocationTableViewCell.swift; sourceTree = "<group>"; };
 		1F346D291BF82ECC00063D48 /* OnTheMapConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnTheMapConstants.swift; sourceTree = "<group>"; };
 		1F346D2D1BF9584000063D48 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		1F346D2F1BFA738E00063D48 /* ChameleonFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ChameleonFramework.framework; path = "/Users/myMac/Developer/Udacity Nanodegree/on-the-map/Pods/../build/Debug-iphoneos/ChameleonFramework.framework"; sourceTree = "<absolute>"; };
+		1F346D311BFA739800063D48 /* MBProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MBProgressHUD.framework; path = "/Users/myMac/Developer/Udacity Nanodegree/on-the-map/Pods/../build/Debug-iphoneos/MBProgressHUD.framework"; sourceTree = "<absolute>"; };
+		1F346D331BFA73A200063D48 /* TextFieldEffects.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TextFieldEffects.framework; path = "/Users/myMac/Developer/Udacity Nanodegree/on-the-map/Pods/../build/Debug-iphoneos/TextFieldEffects.framework"; sourceTree = "<absolute>"; };
+		1F346D351BFA73A800063D48 /* SwiftSpinner.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSpinner.framework; path = "/Users/myMac/Developer/Udacity Nanodegree/on-the-map/Pods/../build/Debug-iphoneos/SwiftSpinner.framework"; sourceTree = "<absolute>"; };
 		1F787CF61BEF8E1E00BC80F6 /* On-The-Map-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "On-The-Map-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F787CF91BEF969900BC80F6 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		1F787CFA1BEF969900BC80F6 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
@@ -129,6 +137,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F346D361BFA73A800063D48 /* SwiftSpinner.framework in Frameworks */,
+				1F346D341BFA73A200063D48 /* TextFieldEffects.framework in Frameworks */,
+				1F346D321BFA739800063D48 /* MBProgressHUD.framework in Frameworks */,
+				1F346D301BFA738E00063D48 /* ChameleonFramework.framework in Frameworks */,
 				1F787D6A1BF1299500BC80F6 /* MapKit.framework in Frameworks */,
 				81BA817F1A49E0F000E65899 /* libstdc++.6.dylib in Frameworks */,
 				81BA817B1A49E0E500E65899 /* SystemConfiguration.framework in Frameworks */,
@@ -302,6 +314,10 @@
 		81BA816A1A49DB5600E65899 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F346D351BFA73A800063D48 /* SwiftSpinner.framework */,
+				1F346D331BFA73A200063D48 /* TextFieldEffects.framework */,
+				1F346D311BFA739800063D48 /* MBProgressHUD.framework */,
+				1F346D2F1BFA738E00063D48 /* ChameleonFramework.framework */,
 				1F787D691BF1299500BC80F6 /* MapKit.framework */,
 				1F787D111BEFF68900BC80F6 /* FBSDKCoreKit.framework */,
 				1F787D121BEFF68900BC80F6 /* FBSDKLoginKit.framework */,
