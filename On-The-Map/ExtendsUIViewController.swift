@@ -49,13 +49,6 @@ extension UIViewController {
         
     }
     
-//    /* Helper function: construct an NSLocalizedError from an error string */
-//    func errorFromString(string: String) -> NSError? {
-//        
-//        return NSError(domain: "ParseClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(string)"])
-//        
-//    }
-    
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
         return true
     }
