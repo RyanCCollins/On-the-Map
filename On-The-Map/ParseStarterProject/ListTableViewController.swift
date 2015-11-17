@@ -93,24 +93,31 @@ class ListTableViewController: UITableViewController {
 /* Extends list table view controller with appropriate delegate methods for tableView */
 extension ListTableViewController {
     
-    /* Open media url when detail indicator selected only if valid URL */
-    override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+    
+    /* Open link if it is valid, or else notify user */
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let sharedApplication = UIApplication.sharedApplication()
-
-        if let URL = NSURL(string: locations[indexPath.row].MediaUrl) {
+        
+        if let urlString = locations[indexPath.row].MediaUrl {
             
-            sharedApplication.openURL(URL)
-
-        } else {
-
-            dispatch_async(GlobalMainQueue, {
-                self.alertController(withTitles: ["Ok"], message: GlobalErrors.InvalidURL.localizedDescription, callbackHandler: [nil])
-            })
+            if urlString.containsString("http://") || urlString.containsString("https://") {
+                if let URL = NSURL(string: locations[indexPath.row].MediaUrl) {
+                    
+                    sharedApplication.openURL(URL)
+                    
+                }
+            } else {
+                dispatch_async(GlobalMainQueue, {
+                    self.alertController(withTitles: ["Ok"], message: GlobalErrors.InvalidURL.localizedDescription, callbackHandler: [nil])
+                })
+                
+            }
             
         }
-
+        
     }
     
+    /* Create and return the tableview cell */
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath) as! LocationTableViewCell
 

@@ -140,15 +140,13 @@ extension MapViewController {
             let appDelegate = UIApplication.sharedApplication()
             
             if let urlString = view.annotation?.subtitle! {
-                
+                if urlString.containsString("http://") || urlString.containsString("https://") {
                 if let url = NSURL(string: urlString) {
                     
                     appDelegate.openURL(url)
                     print(url)
                     
-                /* If unable to load url, try adding http to it */
-                } else if let url = NSURL(string: "http://\(urlString)") {
-                    appDelegate.openURL(url)
+                    }
                 
                 } else {
                     
