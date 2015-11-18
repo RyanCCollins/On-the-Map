@@ -14,7 +14,7 @@ class ListTableViewController: UITableViewController {
 
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let session = NSURLSession.sharedSession()
-    var locations = [StudentInformation]()
+
 
     /* MARK : Lifecycle */
     override func viewDidLoad() {
@@ -23,9 +23,6 @@ class ListTableViewController: UITableViewController {
         /* Add refresh control, which is activated when pulling down on the tableview */
         self.refreshControl?.addTarget(self, action: "refreshDataFromParse:", forControlEvents: .ValueChanged)
         
-        if let locations = ParseClient.sharedInstance().studentData {
-            self.locations = locations
-        }
         
     }
 
@@ -62,11 +59,6 @@ class ListTableViewController: UITableViewController {
                     self.view.alpha = 1.0
                     self.tableView.reloadData()
                     self.refreshControl?.endRefreshing()
-                    
-                    /* Assign local locations to be up-to-date */
-                    if let locations = ParseClient.sharedInstance().studentData {
-                        self.locations = locations
-                    }
                 })
             } else {
                 /* Callback to caller saying that it was successful and we should hide the HUD */
@@ -98,38 +90,43 @@ extension ListTableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let sharedApplication = UIApplication.sharedApplication()
         
-        if let urlString = locations[indexPath.row].MediaUrl {
-            
-            if urlString.containsString("http://") || urlString.containsString("https://") {
-                if let URL = NSURL(string: locations[indexPath.row].MediaUrl) {
+        if ParseClient.sharedInstance().studentData != nil {
+        
+            if let urlString = ParseClient.sharedInstance().studentData![indexPath.row].MediaUrl {
+                
+                if urlString.containsString("http://") || urlString.containsString("https://") {
                     
-                    sharedApplication.openURL(URL)
+                    if let URL = NSURL(string: ParseClient.sharedInstance().studentData![indexPath.row].MediaUrl) {
+                        
+                        sharedApplication.openURL(URL)
+                        
+                    }
+                } else {
+                    dispatch_async(GlobalMainQueue, {
+                        self.alertController(withTitles: ["Ok"], message: GlobalErrors.InvalidURL.localizedDescription, callbackHandler: [nil])
+                    })
                     
                 }
-            } else {
-                dispatch_async(GlobalMainQueue, {
-                    self.alertController(withTitles: ["Ok"], message: GlobalErrors.InvalidURL.localizedDescription, callbackHandler: [nil])
-                })
                 
             }
             
         }
-        
     }
     
     /* Create and return the tableview cell */
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath) as! LocationTableViewCell
+        
+        if ParseClient.sharedInstance().studentData != nil {
+            let data = ParseClient.sharedInstance().studentData![indexPath.row]
+        
+            cell.mainTextLabel.text = "\(data.First) \(data.Last)"
+            cell.urlTextLabel.text = "\(data.MediaUrl)"
+            cell.geoTextLabel.text = "From: \(data.GEODescriptor) at: \(data.UpdateTime)"
+        
 
-         let data = locations[indexPath.row]
-        
-        cell.mainTextLabel.text = "\(data.First) \(data.Last)"
-        cell.urlTextLabel.text = "\(data.MediaUrl)"
-        cell.geoTextLabel.text = "From: \(data.GEODescriptor) at: \(data.UpdateTime)"
-        
-
-        cell.mainImageView.image = UIImage(named: "map")
-        
+            cell.mainImageView.image = UIImage(named: "map")
+        }
         
         return cell
     }
@@ -140,6 +137,10 @@ extension ListTableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return locations.count
+        if ParseClient.sharedInstance().studentData != nil {
+            return ParseClient.sharedInstance().studentData!.count
+        } else {
+            return 0
+        }
     }
 }

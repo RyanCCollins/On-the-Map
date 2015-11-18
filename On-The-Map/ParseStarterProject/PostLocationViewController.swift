@@ -64,7 +64,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
 
         })
 
-        /* query parse for a match of most recent submission */
+        /* Query parse for a match of most recent submission */
         ParseClient.sharedInstance().queryParseDataForObjectId({success, results, error in
             
             if success {
@@ -184,7 +184,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
             if success {
                 
                 /* If successful, hide progress and dismiss view */
-                dispatch_async(GlobalUserInteractiveQueue, {
+                dispatch_async(GlobalMainQueue, {
                     
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
                     self.view.alpha = 1.0
@@ -198,7 +198,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
             } else {
                 
                 /* Hide the activity indicator and show alert */
-                dispatch_async(GlobalUserInteractiveQueue, {
+                dispatch_async(GlobalMainQueue, {
                     
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
                     self.view.alpha = 1.0

@@ -18,14 +18,13 @@ extension ParseClient {
     
     struct Methods {
         static let StudentLocations = "StudentLocation"
-        static let Where = "where"
     }
     
     struct ParameterKeys {
         static let limit = "limit"
-        static let Skip = "skip" /* Number to paginate through results */
-        static let Order = "order" /* Comma delimeted list of key names that specify default sort order of results */
-        
+        static let Skip = "skip"
+        static let Order = "order"
+        static let Where = "where"
     }
     
     struct JSONResponseKeys {

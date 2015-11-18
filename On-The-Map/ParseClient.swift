@@ -17,10 +17,11 @@ class ParseClient: NSObject {
         
         var urlString = Constants.baseURLSecure + method
         
+        
         /* If our request includes parameters, such is the case in a query, add those parameters to our URL */
         if parameters != nil {
-            let IDKey = UdaciousClient.sharedInstance().IDKey as String!
-            urlString += "?where=%7B%22uniqueKey%22%3A%22\(IDKey)%22%7D"
+            urlString += ParseClient.stringByEscapingParameters(parameters!)
+            print(urlString)
         }
         
         
@@ -197,7 +198,7 @@ class ParseClient: NSObject {
     }
     
     /* Helper Function: Given a dictionary of parameters, convert to a string for a url */
-    class func stringByEscapingParameters(method: String, parameters: [String : AnyObject]) -> String {
+    class func stringByEscapingParameters(parameters: [String : AnyObject]) -> String {
         print(parameters)
         var urlVarArray = [String]()
         
