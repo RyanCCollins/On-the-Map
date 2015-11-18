@@ -49,7 +49,7 @@ class ListTableViewController: UITableViewController {
         hud.labelText = "Loading Data..."
         view.alpha = 0.4
         
-        ParseClient.sharedInstance().getDataFromParse({ success, results, error in
+        ParseClient.sharedInstance().getMostRecentDataFromParse({ success, results, error in
             
             if success {
                 /* Callback to caller saying that it was successful and we should hide the HUD */

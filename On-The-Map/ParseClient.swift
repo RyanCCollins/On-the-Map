@@ -11,16 +11,16 @@ import UIKit
 class ParseClient: NSObject {
     var session: NSURLSession?
     var studentData: [StudentInformation]?
+    var lastPostObjectId: String?
     
-    /* Task returned for GETting data from the Parse server */
-    func taskForGETMethod (method: String, parameters: [String : AnyObject]?, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    /* Task returned for GETting data from the Parse server, takes a method to call, an optional dictionary of paramaters that are automatically escpaed and an optional query argument, which will be prepended to the URL request. */
+    func taskForGETMethod (method: String, parameters: [String : AnyObject]?, queryArgument: String?, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         var urlString = Constants.baseURLSecure + method
         
-        
-        /* If our request includes parameters, such is the case in a query, add those parameters to our URL */
+        /* If our request includes parameters, add those parameters to our URL */
         if parameters != nil {
-            urlString += ParseClient.stringByEscapingParameters(parameters!)
+            urlString += ParseClient.stringByEscapingParameters(parameters!, queryArgument: queryArgument)
             print(urlString)
         }
         
@@ -198,7 +198,7 @@ class ParseClient: NSObject {
     }
     
     /* Helper Function: Given a dictionary of parameters, convert to a string for a url */
-    class func stringByEscapingParameters(parameters: [String : AnyObject]) -> String {
+    class func stringByEscapingParameters(parameters: [String : AnyObject], queryArgument: String?) -> String {
         print(parameters)
         var urlVarArray = [String]()
         
@@ -211,11 +211,24 @@ class ParseClient: NSObject {
             let escapedValue = stringValue.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
             
             urlVarArray += [key + ":" + "\(escapedValue!)"]
-            print(urlVarArray.joinWithSeparator("&"))
         }
         
-        /* As long as the array is not empty, construct a string to return */
-        return (!urlVarArray.isEmpty ? "?" : "") + urlVarArray.joinWithSeparator("&")
+        /* As long as the array is not empty, construct a string to return.  If a query argument is defined, prepend it to our string and continue building the url */
+        return (queryArgument == nil ? "?" : "?\(queryArgument!)=") + urlVarArray.joinWithSeparator("&")
+    }
+    
+    /* Helper function, creates JSON Body for POSTing to Parse, keeping data encapsulated within each client */
+    func makeDictionaryForPostLocation(mediaURL: String, mapString: String) -> [String : AnyObject]{
+        let dictionary: [String : AnyObject] = [
+            ParseClient.JSONResponseKeys.UniqueKey : UdaciousClient.sharedInstance().IDKey!,
+            ParseClient.JSONResponseKeys.FirstName : UdaciousClient.sharedInstance().firstName!,
+            ParseClient.JSONResponseKeys.LastName : UdaciousClient.sharedInstance().lastName!,
+            ParseClient.JSONResponseKeys.Latitude : UdaciousClient.sharedInstance().latitude!,
+            ParseClient.JSONResponseKeys.Longitude : UdaciousClient.sharedInstance().longitude!,
+            ParseClient.JSONResponseKeys.GEODescriptor : mapString,
+            ParseClient.JSONResponseKeys.MediaURL : mediaURL
+        ]
+        return dictionary
     }
     
     /* Singleton shared instance of ParseClient */

@@ -12,11 +12,11 @@ import Parse
 extension ParseClient {
     
     /* Get the most recent 100 results from Parse, Parse it and return in completion handler to be used. */
-    func getDataFromParse(completionHandler: (success: Bool, data: [StudentInformation]?, error: NSError?)->Void) {
+    func getMostRecentDataFromParse(completionHandler: (success: Bool, data: [StudentInformation]?, error: NSError?)->Void) {
         
-        let parameters: [String :AnyObject] = [ParseClient.ParameterKeys.limit : 100, ParseClient.ParameterKeys.Order : ParseClient.JSONResponseKeys.UpdateTime]
+        let parameters: [String :AnyObject] = [ParseClient.ParameterKeys.limit : 100, ParseClient.ParameterKeys.Order : "-\(ParseClient.JSONResponseKeys.UpdateTime)"]
         
-        taskForGETMethod(Methods.StudentLocations,  parameters: parameters){ JSONResult, error in
+        taskForGETMethod(Methods.StudentLocations, parameters: parameters, queryArgument: nil){ JSONResult, error in
             if let error = error {
                 
                 completionHandler(success: false, data: nil, error: error)
@@ -38,11 +38,11 @@ extension ParseClient {
     }
     
     /* Either update object of post new if no objectId returned when querying */
-    func postDataToParse(JSONBody: [String : AnyObject], objectId: String?, completionHandler: (success: Bool, error: NSError?) -> Void) {
+    func postDataToParse(JSONBody: [String : AnyObject], completionHandler: (success: Bool, error: NSError?) -> Void) {
         
-            if objectId != nil {
+            if lastPostObjectId != nil {
                 
-                taskForPUTMethod(ParseClient.Methods.StudentLocations, objectId: objectId!, JSONBody: JSONBody, completionHandler: {success, error in
+                taskForPUTMethod(ParseClient.Methods.StudentLocations, objectId: lastPostObjectId!, JSONBody: JSONBody, completionHandler: {success, error in
                     
                     if error != nil {
                         
@@ -80,16 +80,15 @@ extension ParseClient {
     
     }
     
-    func queryParseDataForObjectId(completionHandler: (success: Bool, results: StudentInformation?, error: NSError?) -> Void) {
+    /* Get data from Parse based on a query, limiting to the most recent post by you. */
+    func queryParseDataForLastSubmission(completionHandler: (success: Bool, results: StudentInformation?, error: NSError?) -> Void) {
         
-        /* Get data from Parse based on a query, limiting to the most recent post by you. */
-        
+       /* Limit to only the most recent submission, orderered by update time. */
         let parameters: [String : AnyObject] = [ ParseClient.JSONResponseKeys.UniqueKey : UdaciousClient.sharedInstance().IDKey!,
-            ParseClient.ParameterKeys.limit : 1,
-            ParseClient.ParameterKeys.Order : ParseClient.JSONResponseKeys.UpdateTime
+            ParseClient.ParameterKeys.Order : "-\(ParseClient.JSONResponseKeys.UpdateTime)"
         ]
-    
-        taskForGETMethod(ParseClient.Methods.StudentLocations, parameters: parameters, completionHandler: {results, error in
+        
+        taskForGETMethod(ParseClient.Methods.StudentLocations, parameters: parameters, queryArgument: ParseClient.QueryArguments.Where, completionHandler: {results, error in
 
             /* If there was an error parsing, return an error */
             if error != nil {
@@ -103,9 +102,12 @@ extension ParseClient {
 
                     let studentDataArray = StudentInformation.generateLocationDataFromResults(results)
                     
-                    let results = studentDataArray[0]
-
-                        completionHandler(success: true, results: results, error: nil)
+                    /* Ensure we have exactly on set of results and that it's the most recent */
+                    let result = studentDataArray[0]
+                        print(result)
+                        /* Set shared instance's lastPostObjectId to update location */
+                        self.lastPostObjectId = result.ObjectID
+                        completionHandler(success: true, results: result, error: nil)
                     
                 } else {
                     
@@ -133,20 +135,6 @@ extension ParseClient {
             
         }
 
-    }
-    
-    /* Helper function, creates JSON Body for POSTing to Parse */
-    func makeDictionaryForPostLocation(mediaURL: String, mapString: String) -> [String : AnyObject]{
-        let dictionary: [String : AnyObject] = [
-            ParseClient.JSONResponseKeys.UniqueKey : UdaciousClient.sharedInstance().IDKey!,
-            ParseClient.JSONResponseKeys.FirstName : UdaciousClient.sharedInstance().firstName!,
-            ParseClient.JSONResponseKeys.LastName : UdaciousClient.sharedInstance().lastName!,
-            ParseClient.JSONResponseKeys.Latitude : UdaciousClient.sharedInstance().latitude!,
-            ParseClient.JSONResponseKeys.Longitude : UdaciousClient.sharedInstance().longitude!,
-            ParseClient.JSONResponseKeys.GEODescriptor : mapString,
-            ParseClient.JSONResponseKeys.MediaURL : mediaURL
-        ]
-        return dictionary
     }
     
 }

@@ -25,9 +25,8 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
     let regionRadius: CLLocationDistance = 1000
     
     var isSubmittingURL = false
-    var locationString: String? = nil
-    var mediaURL: String? = nil
-    var ObjectId: String? = nil
+    var locationStringToPost: String? = nil
+    var mediaURLToPost: String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +64,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
         })
 
         /* Query parse for a match of most recent submission */
-        ParseClient.sharedInstance().queryParseDataForObjectId({success, results, error in
+        ParseClient.sharedInstance().queryParseDataForLastSubmission({success, results, error in
             
             if success {
                 
@@ -77,11 +76,10 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
                         }])
                     
                     /* Update UI to show last submitted location */
-                    self.locationString = results!.GEODescriptor
-                    self.mediaURL = results!.MediaUrl
-                    self.ObjectId = results!.ObjectID
-                    self.linkTextField.text = self.mediaURL
-                    self.locationTextField.text = self.locationString
+                    self.locationStringToPost = results!.GEODescriptor
+                    self.mediaURLToPost = results!.MediaUrl
+                    self.linkTextField.text = self.mediaURLToPost
+                    self.locationTextField.text = self.locationStringToPost
                     
                 })
                 
@@ -145,11 +143,11 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
                 alertController(withTitles: ["OK"], message: GlobalErrors.MissingData.localizedDescription, callbackHandler: [nil])
                 return
             }
-            mediaURL = linkTextField.text
+            mediaURLToPost = linkTextField.text
             
-            guard let _ = NSURL(string: mediaURL!) else {
+            guard let _ = NSURL(string: mediaURLToPost!) else {
                 alertController(withTitles: ["Try Again"], message: GlobalErrors.InvalidURL.localizedDescription, callbackHandler: [{Void in
-                    self.mediaURL = nil
+                    self.mediaURLToPost = nil
                     self.isSubmittingURL = true
                     }])
                 return
@@ -176,9 +174,9 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
         
         /* Add or update data to parse in background while hud is shown in user initiated queue */
         
-        let JSONBody = ParseClient.sharedInstance().makeDictionaryForPostLocation(mediaURL!, mapString: self.locationString!)
+        let JSONBody = ParseClient.sharedInstance().makeDictionaryForPostLocation(mediaURLToPost!, mapString: locationStringToPost!)
         
-        ParseClient.sharedInstance().postDataToParse(JSONBody, objectId: ObjectId, completionHandler: {success, error in
+        ParseClient.sharedInstance().postDataToParse(JSONBody, completionHandler: {success, error in
             
             if success {
                 
@@ -225,7 +223,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
                 
                 if placemarks != nil {
                     
-                    self.locationString = locationString
+                    self.locationStringToPost = locationString
                     
 
                     let selectedPlacemark = placemarks![0]

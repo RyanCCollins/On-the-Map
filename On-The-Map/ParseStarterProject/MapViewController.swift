@@ -54,7 +54,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         dispatch_async(GlobalUtilityQueue, {
             
-            ParseClient.sharedInstance().getDataFromParse({success, results, error in
+            ParseClient.sharedInstance().getMostRecentDataFromParse({success, results, error in
 
                 if success {
                     

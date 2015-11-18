@@ -24,6 +24,9 @@ extension ParseClient {
         static let limit = "limit"
         static let Skip = "skip"
         static let Order = "order"
+    }
+    
+    struct QueryArguments {
         static let Where = "where"
     }
     
