@@ -11,7 +11,7 @@ import Parse
 
 extension ParseClient {
     
-    /* Get data for the students from parse */
+    /* Get the most recent 100 results from Parse, Parse it and return in completion handler to be used. */
     func getDataFromParse(completionHandler: (success: Bool, data: [StudentInformation]?, error: NSError?)->Void) {
         
         let parameters: [String :AnyObject] = [ParseClient.ParameterKeys.limit : 100, ParseClient.ParameterKeys.Order : ParseClient.JSONResponseKeys.UpdateTime]
@@ -39,7 +39,6 @@ extension ParseClient {
     
     /* Either update object of post new if no objectId returned when querying */
     func postDataToParse(JSONBody: [String : AnyObject], objectId: String?, completionHandler: (success: Bool, error: NSError?) -> Void) {
-        
         
             if objectId != nil {
                 
@@ -83,9 +82,14 @@ extension ParseClient {
     
     func queryParseDataForObjectId(completionHandler: (success: Bool, results: StudentInformation?, error: NSError?) -> Void) {
         
-        /* get data from Parse */
+        /* Get data from Parse based on a query, limiting to the most recent post by you. */
         
-        taskForGETMethod(ParseClient.Methods.StudentLocations, parameters: [ParseClient.JSONResponseKeys.UniqueKey : UdaciousClient.sharedInstance().IDKey!], completionHandler: {results, error in
+        let parameters: [String : AnyObject] = [ ParseClient.JSONResponseKeys.UniqueKey : UdaciousClient.sharedInstance().IDKey!,
+            ParseClient.ParameterKeys.limit : 1,
+            ParseClient.ParameterKeys.Order : ParseClient.JSONResponseKeys.UpdateTime
+        ]
+    
+        taskForGETMethod(ParseClient.Methods.StudentLocations, parameters: parameters, completionHandler: {results, error in
 
             /* If there was an error parsing, return an error */
             if error != nil {
@@ -94,7 +98,7 @@ extension ParseClient {
                 
             } else {
                 
-                /* if results were returned, drill into the most recent objectId and return it */
+                /* If results were returned, drill into the most recent objectId and return it */
                 if let results = results[ParseClient.JSONResponseKeys.Results] as? [[String : AnyObject]] {
 
                     let studentDataArray = StudentInformation.generateLocationDataFromResults(results)

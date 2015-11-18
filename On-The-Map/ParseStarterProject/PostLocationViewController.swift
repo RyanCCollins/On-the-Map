@@ -178,7 +178,6 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
         
         let JSONBody = ParseClient.sharedInstance().makeDictionaryForPostLocation(mediaURL!, mapString: self.locationString!)
         
-        
         ParseClient.sharedInstance().postDataToParse(JSONBody, objectId: ObjectId, completionHandler: {success, error in
             
             if success {
