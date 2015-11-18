@@ -16,7 +16,7 @@ extension ParseClient {
         
         let parameters: [String :AnyObject] = [ParseClient.ParameterKeys.limit : 100, ParseClient.ParameterKeys.Order : "-\(ParseClient.JSONResponseKeys.UpdateTime)"]
         
-        taskForGETMethod(Methods.StudentLocations, parameters: parameters, queryArgument: nil){ JSONResult, error in
+        taskForGETMethod(Methods.StudentLocations, parameters: parameters, queryParameters: nil){ JSONResult, error in
             if let error = error {
                 
                 completionHandler(success: false, data: nil, error: error)
@@ -84,11 +84,13 @@ extension ParseClient {
     func queryParseDataForLastSubmission(completionHandler: (success: Bool, results: StudentInformation?, error: NSError?) -> Void) {
         
        /* Limit to only the most recent submission, orderered by update time. */
-        let parameters: [String : AnyObject] = [ ParseClient.JSONResponseKeys.UniqueKey : UdaciousClient.sharedInstance().IDKey!,
+        let parameters: [String : AnyObject] = [
             ParseClient.ParameterKeys.Order : "-\(ParseClient.JSONResponseKeys.UpdateTime)"
         ]
         
-        taskForGETMethod(ParseClient.Methods.StudentLocations, parameters: parameters, queryArgument: ParseClient.QueryArguments.Where, completionHandler: {results, error in
+        let queryParameters: [String : AnyObject] = [ParseClient.QueryArguments.Where : [ParseClient.JSONResponseKeys.UniqueKey : UdaciousClient.sharedInstance().IDKey!]]
+        
+        taskForGETMethod(ParseClient.Methods.StudentLocations, parameters: parameters, queryParameters: queryParameters, completionHandler: {results, error in
 
             /* If there was an error parsing, return an error */
             if error != nil {

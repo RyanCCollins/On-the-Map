@@ -7,20 +7,21 @@
 //
 
 import UIKit
+import Foundation
 
 class ParseClient: NSObject {
     var session: NSURLSession?
     var studentData: [StudentInformation]?
     var lastPostObjectId: String?
     
-    /* Task returned for GETting data from the Parse server, takes a method to call, an optional dictionary of paramaters that are automatically escpaed and an optional query argument, which will be prepended to the URL request. */
-    func taskForGETMethod (method: String, parameters: [String : AnyObject]?, queryArgument: String?, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    /* Task returned for GETting data from the Parse server */
+    func taskForGETMethod (method: String, parameters: [String : AnyObject]?, queryParameters: [String : AnyObject]?, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         var urlString = Constants.baseURLSecure + method
         
         /* If our request includes parameters, add those parameters to our URL */
         if parameters != nil {
-            urlString += ParseClient.stringByEscapingParameters(parameters!, queryArgument: queryArgument)
+            urlString += ParseClient.stringByEscapingParameters(parameters!, queryParameters: queryParameters)
             print(urlString)
         }
         
@@ -197,24 +198,58 @@ class ParseClient: NSObject {
         completionHandler(result: parsedResult, error: nil)
     }
     
-    /* Helper Function: Given a dictionary of parameters, convert to a string for a url */
-    class func stringByEscapingParameters(parameters: [String : AnyObject], queryArgument: String?) -> String {
+    /* Helper Function: Given an optional dictionary of parameters and an optional dictionary of query parameters, convert to a URL encoded string */
+    class func stringByEscapingParameters(parameters: [String : AnyObject]?, queryParameters: [String : AnyObject]?) -> String {
         print(parameters)
-        var urlVarArray = [String]()
+        var returnString = ""
         
-        for (key, value) in parameters {
-            
-            /* Make sure that we have a string for safety */
-            let stringValue = "\(value)"
-
-            /* Escape the parameters and then append it to the urlVarArray object */
-            let escapedValue = stringValue.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-            
-            urlVarArray += [key + ":" + "\(escapedValue!)"]
+        
+        if parameters != nil {
+            returnString += URLString(fromParameters: parameters!, withSeperator: ":")
         }
         
-        /* As long as the array is not empty, construct a string to return.  If a query argument is defined, prepend it to our string and continue building the url */
-        return (queryArgument == nil ? "?" : "?\(queryArgument!)=") + urlVarArray.joinWithSeparator("&")
+        if queryParameters != nil {
+            returnString += URLString(fromParameters: queryParameters!, withSeperator: "=")
+        }
+        
+       return returnString
+        
+    }
+    
+    /* Helper function builds a parameter or query string based on a dictionary of parameters.  Takes a string as an argument called seperator, which is used as : for parameters and = for queries */
+    class func URLString(fromParameters parameters: [String : AnyObject], withSeperator seperator: String) -> String {
+        var queryComponents = [(String, String)]()
+        
+        for (key, value) in parameters {
+            queryComponents += queryParameters(key, value)
+        }
+        
+        return (queryComponents.map {"\($0)\(seperator)\($1)" } as [String]).joinWithSeparator("&")
+        
+    }
+    
+    /* Recursively construct a query string from parameters */
+    class func queryParameters(queryString : String, _ parameters: AnyObject) -> [(String, String)] {
+        var components: [(String, String)] = []
+        
+        if let parameterDict = parameters as? [String : AnyObject] {
+        for (key, value) in parameterDict {
+                components += queryParameters("\(queryString)[\(key)]", value)
+            }
+        } else if let parameterArray = parameters as? [AnyObject] {
+            for parameter in parameterArray {
+                components += queryParameters("\(queryString)[]", parameter)
+            }
+
+        } else {
+            components.append((escapedString(queryString), escapedString("\(parameters)")))
+        }
+        return components
+    }
+    
+    class func escapedString(string: String) -> String {
+        let escapedString = string.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        return escapedString!
     }
     
     /* Helper function, creates JSON Body for POSTing to Parse, keeping data encapsulated within each client */

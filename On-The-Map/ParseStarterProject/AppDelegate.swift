@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         colorScheme = NSArray(ofColorsWithColorScheme: .Analogous, usingColor: color, withFlatScheme: true)
         Chameleon.setGlobalThemeUsingPrimaryColor(secondary, withContentStyle: .Contrast)
         
-        /* Set app and client IDs for Parse Push notifications */
+        /* Set app and client IDs for Parse Push notifications. NOTE: Constant values are used for fetching and posting to Parse.  This is only used for PUSH notifications */
         Parse.setApplicationId("QsRf7t1UHL1PaFVPVk6lCV70dGao4Lqvre5zXKDL",
             clientKey: "o383Qm9g9ejRTSMjHcfiFhHdIVTmSC9rPkHnF9vf")
         
