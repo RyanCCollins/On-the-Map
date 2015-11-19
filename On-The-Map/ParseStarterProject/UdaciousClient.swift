@@ -36,7 +36,7 @@ class UdaciousClient: NSObject {
         
         if let parameters = parameters {
             
-            urlString += UdaciousClient.stringByEscapingParameters(parameters)
+            urlString += UdaciousClient.stringByEscapingParameters(parameters, queryParameters: nil)
             
         }
         
@@ -233,25 +233,64 @@ class UdaciousClient: NSObject {
         completionHandler(result: parsedResult, error: nil)
     }
     
-    /* Helper Function: Given a dictionary of parameters, convert to a string for a url */
-    class func stringByEscapingParameters(parameters: [String : AnyObject]) -> String {
+    /* Helper Function: Given an optional dictionary of parameters and an optional dictionary of query parameters, convert to a URL encoded string */
+    class func stringByEscapingParameters(parameters: [String : AnyObject]?, queryParameters: [String : AnyObject]?) -> String {
+        print(parameters)
+        var components = [String]()
         
-        var urlVarArray = [String]()
         
-        for (key, value) in parameters {
-            
-            /* Make sure that we have a string for safety */
-            let stringValue = "\(value)"
-            
-            /* Escape the parameters and then append it to the urlVarArray object */
-            let escapedValue = stringValue.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-            
-            urlVarArray += [key + "=" + "\(escapedValue!)"]
-            
+        if parameters != nil {
+            components.append(URLString(fromParameters: parameters!, withSeperator: ":"))
         }
         
-        /* As long as the array is not empty, construct a string to return */
-        return (!urlVarArray.isEmpty ? "?" : "") + urlVarArray.joinWithSeparator("&")
+        if queryParameters != nil {
+            components.append(URLString(fromParameters: queryParameters!, withSeperator: "="))
+        }
+        
+        return (!components.isEmpty ? "?" : "") + components.joinWithSeparator("&")
+        
+    }
+    
+    /* Helper function builds a parameter or query string based on a dictionary of parameters.  Takes a string as an argument called seperator, which is used as : for parameters and = for queries */
+    class func URLString(fromParameters parameters: [String : AnyObject], withSeperator seperator: String) -> String {
+        var queryComponents = [(String, String)]()
+        
+        for (key, value) in parameters {
+            queryComponents += recursiveURLComponents(key, value)
+        }
+        
+        return (queryComponents.map {"\($0)\(seperator)\($1)" } as [String]).joinWithSeparator("&")
+        
+    }
+    
+    /* Recursively construct a query string from parameters:
+    Takes a key from a dictionary as a String and its relate parameters of AnyObject and traverses through
+    the parameters, building an array of String tuples containing the key value pairs
+    This is used to construct components for complex queries and parameter calls that are more than just String : String.
+    The parameter object can be a dictionary, array or string.
+    */
+    class func recursiveURLComponents(keyString : String, _ parameters: AnyObject) -> [(String, String)] {
+        var components: [(String, String)] = []
+        
+        if let parameterDict = parameters as? [String : AnyObject] {
+            for (key, value) in parameterDict {
+                components += recursiveURLComponents("\(keyString)[\(key)]", value)
+            }
+        } else if let parameterArray = parameters as? [AnyObject] {
+            for parameter in parameterArray {
+                components += recursiveURLComponents("\(keyString)[]", parameter)
+            }
+            
+        } else {
+            components.append((escapedString(keyString), escapedString("\(parameters)")))
+        }
+        return components
+    }
+    
+    /* Helper function, takes a string as an argument and returns an escaped version of it to be sent in an HTTP Request */
+    class func escapedString(string: String) -> String {
+        let escapedString = string.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        return escapedString!
     }
     
     /* Singleton shared instance of UdaciousClient */

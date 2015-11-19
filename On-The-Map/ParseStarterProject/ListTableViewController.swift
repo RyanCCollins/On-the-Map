@@ -42,8 +42,8 @@ class ListTableViewController: UITableViewController {
     /* Reload table view data from Parse with callback */
     @IBAction func refreshDataFromParse(sender: AnyObject) {
         
-        /* Show progress while submitting data */
-        ParseClient.sharedInstance().studentData = nil
+//        /* Show progress while submitting data */
+//        ParseClient.sharedInstance().studentData = nil
         
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.labelText = "Loading Data..."
@@ -84,7 +84,6 @@ class ListTableViewController: UITableViewController {
 
 /* Extends list table view controller with appropriate delegate methods for tableView */
 extension ListTableViewController {
-    
     
     /* Open link if it is valid, or else notify user */
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

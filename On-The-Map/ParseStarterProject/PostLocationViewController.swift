@@ -203,7 +203,11 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
                         
                         self.dismissViewControllerAnimated(true, completion: nil)
                         
-                        }, nil])
+                        }, {Void in
+                            
+                            self.postLocationAndURLToParse()
+                    
+                    }])
                     
                 })
                 

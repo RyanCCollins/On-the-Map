@@ -49,9 +49,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         hud.labelText = "Loading Data..."
         view.alpha = 0.4
         
-        /* remove annotations and add new ones */
-        self.studentLocationMapView.removeAnnotations(self.studentLocationMapView.annotations)
-        
         dispatch_async(GlobalUtilityQueue, {
             
             ParseClient.sharedInstance().getMostRecentDataFromParse({success, results, error in
@@ -60,6 +57,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     
                     /* Add pins to map for students  */
                     dispatch_async(GlobalMainQueue, {
+                        /* remove annotations and add new ones */
+                        self.studentLocationMapView.removeAnnotations(self.studentLocationMapView.annotations)
                         MBProgressHUD.hideHUDForView(self.view, animated: true)
                         self.view.alpha = 1.0
                         self.addPinsToMapForStudents(ParseClient.sharedInstance().studentData)
@@ -73,7 +72,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                         
                         MBProgressHUD.hideHUDForView(self.view, animated: true)
                         self.view.alpha = 1.0
-                        self.alertController(withTitles: ["Ok, Retry"], message: (error?.localizedDescription)!, callbackHandler: [nil, {Void in
+                        self.alertController(withTitles: ["Ok", "Retry"], message: (error?.localizedDescription)!, callbackHandler: [nil, {Void in
                                 self.didTapRefresh(self)
                         }])
                         

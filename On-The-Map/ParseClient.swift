@@ -212,7 +212,7 @@ class ParseClient: NSObject {
             components.append(URLString(fromParameters: queryParameters!, withSeperator: "="))
         }
         
-        return (!components.isEmpty ? "?" : "" + components.joinWithSeparator("&"))
+        return (!components.isEmpty ? "?" : "") + components.joinWithSeparator("&")
         
     }
     
@@ -221,32 +221,38 @@ class ParseClient: NSObject {
         var queryComponents = [(String, String)]()
         
         for (key, value) in parameters {
-            queryComponents += queryParameters(key, value)
+            queryComponents += recursiveURLComponents(key, value)
         }
         
         return (queryComponents.map {"\($0)\(seperator)\($1)" } as [String]).joinWithSeparator("&")
         
     }
     
-    /* Recursively construct a query string from parameters */
-    class func queryParameters(queryString : String, _ parameters: AnyObject) -> [(String, String)] {
+    /* Recursively construct a query string from parameters:
+    Takes a key from a dictionary as a String and its relate parameters of AnyObject and traverses through
+    the parameters, building an array of String tuples containing the key value pairs 
+    This is used to construct components for complex queries and parameter calls that are more than just String : String.
+    The parameter object can be a dictionary, array or string.
+    */
+    class func recursiveURLComponents(keyString : String, _ parameters: AnyObject) -> [(String, String)] {
         var components: [(String, String)] = []
         
         if let parameterDict = parameters as? [String : AnyObject] {
         for (key, value) in parameterDict {
-                components += queryParameters("\(queryString)[\(key)]", value)
+                components += recursiveURLComponents("\(keyString)[\(key)]", value)
             }
         } else if let parameterArray = parameters as? [AnyObject] {
             for parameter in parameterArray {
-                components += queryParameters("\(queryString)[]", parameter)
+                components += recursiveURLComponents("\(keyString)[]", parameter)
             }
 
         } else {
-            components.append((escapedString(queryString), escapedString("\(parameters)")))
+            components.append((escapedString(keyString), escapedString("\(parameters)")))
         }
         return components
     }
     
+    /* Helper function, takes a string as an argument and returns an escaped version of it to be sent in an HTTP Request */
     class func escapedString(string: String) -> String {
         let escapedString = string.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
         return escapedString!
