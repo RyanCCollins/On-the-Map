@@ -22,6 +22,7 @@ struct StudentInformation {
     var ObjectID: String!
     var UniqueKey: String!
     var UpdateTime: String!
+    var UpdateDate: NSDate?
     
     init(studentLocationDictionary: [String : AnyObject]) {
         /* Initialize data from studentLocationDictionary */
@@ -35,6 +36,10 @@ struct StudentInformation {
         MediaUrl = studentLocationDictionary[ParseClient.JSONResponseKeys.MediaURL] as! String
 
         UpdateTime = studentLocationDictionary[ParseClient.JSONResponseKeys.UpdateTime] as! String
+        
+        if let UpdateDate = ParseClient.sharedDateFormatter.dateFromString(UpdateTime) {
+            self.UpdateDate = UpdateDate
+        }
     }
     
     /* Handle date/time formatting, when applicable */

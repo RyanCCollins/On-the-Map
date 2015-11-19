@@ -279,4 +279,19 @@ class ParseClient: NSObject {
         }
         return Singleton.sharedInstance
     }
+    
+    /* Shared date formatter for Parse Client dates returned */
+    class var sharedDateFormatter: NSDateFormatter {
+        struct Singleton {
+            static let dateFormatter = Singleton.generateDateFormatter()
+            
+            static func generateDateFormatter() -> NSDateFormatter {
+                let formatter = NSDateFormatter()
+                formatter.dateFormat = "yyyy-mm-dd"
+                
+                return formatter
+            }
+        }
+        return Singleton.dateFormatter
+    }
 }
