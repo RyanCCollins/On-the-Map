@@ -201,18 +201,18 @@ class ParseClient: NSObject {
     /* Helper Function: Given an optional dictionary of parameters and an optional dictionary of query parameters, convert to a URL encoded string */
     class func stringByEscapingParameters(parameters: [String : AnyObject]?, queryParameters: [String : AnyObject]?) -> String {
         print(parameters)
-        var returnString = ""
+        var components = [String]()
         
         
         if parameters != nil {
-            returnString += URLString(fromParameters: parameters!, withSeperator: ":")
+            components.append(URLString(fromParameters: parameters!, withSeperator: ":"))
         }
         
         if queryParameters != nil {
-            returnString += URLString(fromParameters: queryParameters!, withSeperator: "=")
+            components.append(URLString(fromParameters: queryParameters!, withSeperator: "="))
         }
         
-       return returnString
+        return (!components.isEmpty ? "?" : "" + components.joinWithSeparator("&"))
         
     }
     
