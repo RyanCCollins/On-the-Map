@@ -540,46 +540,44 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="93"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cardinal" translatesAutoresizingMaskIntoConstraints="NO" id="FCL-Kf-W9v">
-                                            <rect key="frame" x="8" y="8" width="77" height="77"/>
-                                            <animations/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="FCL-Kf-W9v" secondAttribute="height" multiplier="1:1" id="TJg-EM-FXU"/>
-                                            </constraints>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBu-sj-TIe">
-                                            <rect key="frame" x="93" y="65" width="499" height="20"/>
+                                            <rect key="frame" x="61" y="65" width="531" height="20"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="14"/>
                                             <color key="textColor" red="0.15410047769999999" green="0.41306763889999998" blue="0.69063264130000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4iI-dL-SAa">
-                                            <rect key="frame" x="93" y="8" width="499" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4iI-dL-SAa">
+                                            <rect key="frame" x="61" y="8" width="531" height="20"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="20"/>
                                             <color key="textColor" red="0.15410047769999999" green="0.41306763889999998" blue="0.69063264130000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSe-6k-qKb">
-                                            <rect key="frame" x="93" y="36" width="499" height="21"/>
+                                            <rect key="frame" x="61" y="36" width="531" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="14"/>
                                             <color key="textColor" red="0.15410047769999999" green="0.41306763889999998" blue="0.69063264130000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="cardinal" translatesAutoresizingMaskIntoConstraints="NO" id="FCL-Kf-W9v">
+                                            <rect key="frame" x="8" y="25" width="45" height="45"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="FCL-Kf-W9v" secondAttribute="height" multiplier="1:1" id="BOW-Pl-eNr"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <animations/>
                                     <constraints>
-                                        <constraint firstItem="QSe-6k-qKb" firstAttribute="leading" secondItem="FCL-Kf-W9v" secondAttribute="trailing" constant="8" id="2V8-eX-PKY"/>
-                                        <constraint firstItem="FCL-Kf-W9v" firstAttribute="bottom" secondItem="XxN-FZ-cxV" secondAttribute="bottomMargin" id="7b2-ps-Myn"/>
+                                        <constraint firstItem="bBu-sj-TIe" firstAttribute="leading" secondItem="FCL-Kf-W9v" secondAttribute="trailing" constant="8" id="7DE-YG-MzN"/>
                                         <constraint firstItem="bBu-sj-TIe" firstAttribute="top" secondItem="QSe-6k-qKb" secondAttribute="bottom" constant="8" id="A0v-oY-5F4"/>
                                         <constraint firstItem="FCL-Kf-W9v" firstAttribute="leading" secondItem="XxN-FZ-cxV" secondAttribute="leadingMargin" id="C8x-OC-HAU"/>
-                                        <constraint firstItem="bBu-sj-TIe" firstAttribute="leading" secondItem="FCL-Kf-W9v" secondAttribute="trailing" constant="8" id="H41-DQ-1xk"/>
-                                        <constraint firstItem="FCL-Kf-W9v" firstAttribute="top" secondItem="XxN-FZ-cxV" secondAttribute="topMargin" id="Lur-rK-CjS"/>
-                                        <constraint firstItem="4iI-dL-SAa" firstAttribute="leading" secondItem="FCL-Kf-W9v" secondAttribute="trailing" constant="8" id="OO0-XY-KDH"/>
+                                        <constraint firstItem="4iI-dL-SAa" firstAttribute="leading" secondItem="FCL-Kf-W9v" secondAttribute="trailing" constant="8" id="MnS-Ge-0Q5"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="4iI-dL-SAa" secondAttribute="trailing" id="PPV-8G-MDj"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="bBu-sj-TIe" secondAttribute="trailing" id="QpP-wT-EpK"/>
+                                        <constraint firstItem="QSe-6k-qKb" firstAttribute="leading" secondItem="FCL-Kf-W9v" secondAttribute="trailing" constant="8" id="Tlz-xc-xDo"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="QSe-6k-qKb" secondAttribute="trailing" id="Y75-Gg-eto"/>
                                         <constraint firstAttribute="topMargin" secondItem="4iI-dL-SAa" secondAttribute="top" id="muE-3j-DUt"/>
                                         <constraint firstItem="QSe-6k-qKb" firstAttribute="top" secondItem="4iI-dL-SAa" secondAttribute="bottom" constant="8" id="q0S-Mc-wPX"/>
