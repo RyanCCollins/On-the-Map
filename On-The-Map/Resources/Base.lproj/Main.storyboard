@@ -547,7 +547,7 @@
                                             <color key="textColor" red="0.15410047769999999" green="0.41306763889999998" blue="0.69063264130000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4iI-dL-SAa">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4iI-dL-SAa">
                                             <rect key="frame" x="61" y="8" width="531" height="20"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="Prime-Regular" family="Prime" pointSize="20"/>
@@ -561,7 +561,7 @@
                                             <color key="textColor" red="0.15410047769999999" green="0.41306763889999998" blue="0.69063264130000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="cardinal" translatesAutoresizingMaskIntoConstraints="NO" id="FCL-Kf-W9v">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cardinal" translatesAutoresizingMaskIntoConstraints="NO" id="FCL-Kf-W9v">
                                             <rect key="frame" x="8" y="25" width="45" height="45"/>
                                             <animations/>
                                             <constraints>
@@ -579,8 +579,10 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="bBu-sj-TIe" secondAttribute="trailing" id="QpP-wT-EpK"/>
                                         <constraint firstItem="QSe-6k-qKb" firstAttribute="leading" secondItem="FCL-Kf-W9v" secondAttribute="trailing" constant="8" id="Tlz-xc-xDo"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="QSe-6k-qKb" secondAttribute="trailing" id="Y75-Gg-eto"/>
+                                        <constraint firstItem="FCL-Kf-W9v" firstAttribute="top" secondItem="XxN-FZ-cxV" secondAttribute="topMargin" constant="17" id="ZmE-Q3-oyZ"/>
                                         <constraint firstAttribute="topMargin" secondItem="4iI-dL-SAa" secondAttribute="top" id="muE-3j-DUt"/>
                                         <constraint firstItem="QSe-6k-qKb" firstAttribute="top" secondItem="4iI-dL-SAa" secondAttribute="bottom" constant="8" id="q0S-Mc-wPX"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="FCL-Kf-W9v" secondAttribute="bottom" constant="15" id="rPT-1q-Vxx"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="bBu-sj-TIe" secondAttribute="bottom" id="ulu-n4-Ik3"/>
                                     </constraints>
                                 </tableViewCellContentView>
