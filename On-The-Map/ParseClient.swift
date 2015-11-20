@@ -46,18 +46,12 @@ class ParseClient: NSObject {
             } else {
                 
                 /* GUARD: Did we get a successful response code of 2XX? */
-                guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                    var statusError: NSError?
-                    
-                    if let response = response as? NSHTTPURLResponse {
-                        if response.statusCode >= 400 && response.statusCode <= 599 {
-                            statusError = Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Status.Auth)
-                        }
-                    } else {
-                        statusError = Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Status.InvalidResponse)
+                self.guardForHTTPResponses(response as? NSHTTPURLResponse) {proceed, error in
+                    if error != nil {
+                        
+                        completionHandler(result: nil, error: error)
+                        
                     }
-                    completionHandler(result: nil, error: statusError)
-                    return
                 }
                 
                 
@@ -104,19 +98,12 @@ class ParseClient: NSObject {
             } else {
                 
                 /* GUARD: Did we get a successful response code in the realm of 2XX? */
-                guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                    var statusError: NSError?
-                    
-                    if let response = response as? NSHTTPURLResponse {
-                        /* Was our status code related to a bad request?  If so, report Error */
-                        if response.statusCode >= 400 && response.statusCode <= 599 {
-                            statusError = Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Status.Auth)
-                        }
-                    } else {
-                        statusError = Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Status.InvalidResponse)
+                self.guardForHTTPResponses(response as? NSHTTPURLResponse) {proceed, error in
+                    if error != nil {
+                        
+                        completionHandler(result: nil, error: error)
+                        
                     }
-                    completionHandler(result: nil, error: statusError)
-                    return
                 }
                 
                 /* Parse the results and return in the completion handler with an error if there is one. */
@@ -165,18 +152,12 @@ class ParseClient: NSObject {
             } else {
                 
                 /* GUARD: Did we get a successful response code of 2XX? */
-                guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                    var statusError: NSError?
-                    
-                    if let response = response as? NSHTTPURLResponse {
-                        if response.statusCode >= 400 && response.statusCode <= 599 {
-                            statusError = Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Status.Auth)
-                        }
-                    } else {
-                        statusError = Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Status.InvalidResponse)
+                self.guardForHTTPResponses(response as? NSHTTPURLResponse) {proceed, error in
+                    if error != nil {
+                        
+                        completionHandler(result: nil, error: error)
+                        
                     }
-                    completionHandler(result: nil, error: statusError)
-                    return
                 }
                 
                 /* Parse the results and return in the completion handler with an error if there is one. */
@@ -284,6 +265,26 @@ class ParseClient: NSObject {
             static var sharedInstance = ParseClient()
         }
         return Singleton.sharedInstance
+    }
+    
+    /* Abstraction of repetive guard statements in each request function */
+    func guardForHTTPResponses(response: NSHTTPURLResponse?, completionHandler: (proceed: Bool, error: NSError?) -> Void) -> Void {
+        /* GUARD: Did we get a successful response code of 2XX? */
+        guard let statusCode = response?.statusCode where statusCode >= 200 && statusCode <= 299 else {
+            var statusError: NSError?
+            
+            /* IF not, what was our status code?  Provide appropriate error message and return */
+            if let response = response {
+                if response.statusCode >= 400 && response.statusCode <= 599 {
+                    statusError = Errors.constructError(domain: "UdaciousClient", userMessage: ErrorMessages.Status.Auth)
+                }
+            } else {
+                statusError = Errors.constructError(domain: "UdaciousClient", userMessage: ErrorMessages.Status.InvalidResponse)
+            }
+            completionHandler(proceed: false, error: statusError)
+            return
+        }
+        completionHandler(proceed: true, error: nil)
     }
     
     /* Shared date formatter for Parse Client dates returned */

@@ -114,18 +114,12 @@ class UdaciousClient: NSObject {
             
             
             /* GUARD: Did we get a successful response code of 2XX? */
-            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                var statusError: NSError?
-                
-                if let response = response as? NSHTTPURLResponse {
-                    if response.statusCode >= 400 && response.statusCode <= 599 {
-                        statusError = Errors.constructError(domain: "UdaciousClient", userMessage: ErrorMessages.Status.Auth)
-                    }
-                } else {
-                    statusError = Errors.constructError(domain: "UdaciousClient", userMessage: ErrorMessages.Status.InvalidResponse)
+            self.guardForHTTPResponses(response as? NSHTTPURLResponse) {proceed, error in
+                if error != nil {
+                    
+                    completionHandler(result: nil, error: error)
+                    
                 }
-                completionHandler(result: nil, error: statusError)
-                return
             }
 
 
@@ -181,18 +175,12 @@ class UdaciousClient: NSObject {
             
             
             /* GUARD: Did we get a successful response code of 2XX? */
-            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                var statusError: NSError?
-                
-                if let response = response as? NSHTTPURLResponse {
-                    if response.statusCode >= 400 && response.statusCode <= 599 {
-                        statusError = Errors.constructError(domain: "UdaciousClient", userMessage: ErrorMessages.Status.Auth)
-                    }
-                } else {
-                    statusError = Errors.constructError(domain: "UdaciousClient", userMessage: ErrorMessages.Status.InvalidResponse)
+            self.guardForHTTPResponses(response as? NSHTTPURLResponse) {proceed, error in
+                if error != nil {
+                    
+                    completionHandler(result: nil, error: error)
+                    
                 }
-                completionHandler(result: nil, error: statusError)
-                return
             }
             
             /* Parse JSON into a Foundation data object */

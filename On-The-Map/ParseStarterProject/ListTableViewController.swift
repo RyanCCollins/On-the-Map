@@ -42,9 +42,6 @@ class ListTableViewController: UITableViewController {
     /* Reload table view data from Parse with callback */
     @IBAction func refreshDataFromParse(sender: AnyObject) {
         
-//        /* Show progress while submitting data */
-//        ParseClient.sharedInstance().studentData = nil
-        
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.labelText = "Loading Data..."
         view.alpha = 0.4
@@ -121,7 +118,7 @@ extension ListTableViewController {
         
             cell.mainTextLabel.text = "\(data.First) \(data.Last)"
             cell.urlTextLabel.text = "\(data.MediaUrl)"
-            cell.geoTextLabel.text = "From: \(data.GEODescriptor) at: \(data.UpdateTime)"
+            cell.geoTextLabel.text = "From: \(data.GEODescriptor) on: \(data.UpdateTime)"
         
 
             cell.mainImageView.image = UIImage(named: "map")
