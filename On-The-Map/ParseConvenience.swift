@@ -139,4 +139,10 @@ extension ParseClient {
 
     }
     
+    func pushNotificationForStudentPosts() {
+        
+        Parse.Cloud
+        
+    }
+    
 }

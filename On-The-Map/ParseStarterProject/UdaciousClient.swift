@@ -5,6 +5,10 @@
 //  Created by Ryan Collins on 11/8/15.
 //  Copyright © 2015 Tech Rapport. All rights reserved.
 //
+/* NOTE: Research for this class was done prior to implementation.  This class was entirely written by me based on the research of several other Swift API Clients, including, but not limited to: Udacity's TMDBClient and the popular Swift Networking API named AlamoFire.  https://github.com/Alamofire/Alamofire
+
+*/
+
 
 import UIKit
 
@@ -56,20 +60,12 @@ class UdaciousClient: NSObject {
                 return
             }
             
-            
-            /* GUARD: Did we get a successful response code of 2XX? */
-            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                var statusError: NSError?
-                
-                if let response = response as? NSHTTPURLResponse {
-                    if response.statusCode >= 400 && response.statusCode <= 599 {
-                        statusError = Errors.constructError(domain: "UdaciousClient", userMessage: ErrorMessages.Status.Auth)
-                    }
-                } else {
-                    statusError = Errors.constructError(domain: "UdaciousClient", userMessage: ErrorMessages.Status.InvalidResponse)
-                }
-                completionHandler(result: nil, error: statusError)
-                return
+            self.guardForHTTPResponses(response as? NSHTTPURLResponse) {proceed, error in
+                if error != nil {
+                    
+                    completionHandler(result: nil, error: error)
+                    
+                } 
             }
             
             /* Make sure the data is parsed before returning it */
@@ -263,7 +259,9 @@ class UdaciousClient: NSObject {
         
     }
     
-    /* Recursively construct a query string from parameters:
+    /*
+    The following functions are a mashup of several ideas that I recreated in order to query REST APIs.
+    This function recursively construct a query string from parameters:
     Takes a key from a dictionary as a String and its relate parameters of AnyObject and traverses through
     the parameters, building an array of String tuples containing the key value pairs
     This is used to construct components for complex queries and parameter calls that are more than just String : String.
@@ -291,6 +289,26 @@ class UdaciousClient: NSObject {
     class func escapedString(string: String) -> String {
         let escapedString = string.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
         return escapedString!
+    }
+    
+    /* Abstraction of repetive guard statements in each request function */
+    func guardForHTTPResponses(response: NSHTTPURLResponse?, completionHandler: (proceed: Bool, error: NSError?) -> Void) -> Void {
+        /* GUARD: Did we get a successful response code of 2XX? */
+        guard let statusCode = response?.statusCode where statusCode >= 200 && statusCode <= 299 else {
+            var statusError: NSError?
+            
+            /* IF not, what was our status code?  Provide appropriate error message and return */
+            if let response = response {
+                if response.statusCode >= 400 && response.statusCode <= 599 {
+                    statusError = Errors.constructError(domain: "UdaciousClient", userMessage: ErrorMessages.Status.Auth)
+                }
+            } else {
+                statusError = Errors.constructError(domain: "UdaciousClient", userMessage: ErrorMessages.Status.InvalidResponse)
+            }
+            completionHandler(proceed: false, error: statusError)
+            return
+        }
+        completionHandler(proceed: true, error: nil)
     }
     
     /* Singleton shared instance of UdaciousClient */

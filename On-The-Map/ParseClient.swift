@@ -5,6 +5,9 @@
 //  Created by Ryan Collins on 11/8/15.
 //  Copyright © 2015 Tech Rapport. All rights reserved.
 //
+/* NOTE: Research for this class was done prior to implementation.  This class was entirely written by me based on the research of several other Swift API Clients, including, but not limited to: Udacity's TMDBClient and the popular Swift Networking API named AlamoFire.  https://github.com/Alamofire/Alamofire
+
+*/
 
 import UIKit
 import Foundation
@@ -89,7 +92,7 @@ class ParseClient: NSObject {
             
         }
         
-        /*Create a session and then a task.  Parse results if no error. */
+        /* Create a session and then a task.  Parse results if no error. */
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
@@ -100,11 +103,12 @@ class ParseClient: NSObject {
                 
             } else {
                 
-                /* GUARD: Did we get a successful response code of 2XX? */
+                /* GUARD: Did we get a successful response code in the realm of 2XX? */
                 guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
                     var statusError: NSError?
                     
                     if let response = response as? NSHTTPURLResponse {
+                        /* Was our status code related to a bad request?  If so, report Error */
                         if response.statusCode >= 400 && response.statusCode <= 599 {
                             statusError = Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Status.Auth)
                         }
@@ -228,9 +232,11 @@ class ParseClient: NSObject {
         
     }
     
-    /* Recursively construct a query string from parameters:
-    Takes a key from a dictionary as a String and its relate parameters of AnyObject and traverses through
-    the parameters, building an array of String tuples containing the key value pairs 
+    /*
+    The following three functions are a mashup of several ideas that I recreated in order to query REST APIs.
+    This function recursively constructs a query string from parameters:
+    Takes a key from a dictionary as a String and its related parameters of AnyObject and traverses through
+    the parameters, building an array of String tuples containing the key value pairs
     This is used to construct components for complex queries and parameter calls that are more than just String : String.
     The parameter object can be a dictionary, array or string.
     */
