@@ -120,8 +120,6 @@ extension ListTableViewController {
             cell.urlTextLabel.text = "\(data.MediaUrl)"
             cell.geoTextLabel.text = "From: \(data.GEODescriptor) on: \(data.UpdateTime)"
         
-
-            cell.mainImageView.image = UIImage(named: "map")
         }
         
         return cell

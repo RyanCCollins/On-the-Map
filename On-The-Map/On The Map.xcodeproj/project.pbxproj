@@ -27,6 +27,7 @@
 		1F24A7201BF28A9F00BC2796 /* Modeka.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F24A71F1BF28A9C00BC2796 /* Modeka.otf */; };
 		1F24A7221BF28BA800BC2796 /* BIG JOHN.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F24A7211BF28BA800BC2796 /* BIG JOHN.otf */; };
 		1F24A7261BF2AEFE00BC2796 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A7251BF2AEFE00BC2796 /* LocationTableViewCell.swift */; };
+		1F27F81C1BFFB03900839C10 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F27F81B1BFFB03900839C10 /* Images.xcassets */; };
 		1F346D2A1BF82ECC00063D48 /* OnTheMapConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F346D291BF82ECC00063D48 /* OnTheMapConstants.swift */; };
 		1F346D2E1BF9584000063D48 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F346D2D1BF9584000063D48 /* Launch Screen.storyboard */; };
 		1F346D301BFA738E00063D48 /* ChameleonFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F346D2F1BFA738E00063D48 /* ChameleonFramework.framework */; };
@@ -54,7 +55,6 @@
 		1F787D271BF0598800BC80F6 /* StudentLocationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F787D261BF0598800BC80F6 /* StudentLocationData.swift */; };
 		1F787D6A1BF1299500BC80F6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F787D691BF1299500BC80F6 /* MapKit.framework */; };
 		814C3ACA1B69877600E307BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 814C3AC61B69877600E307BB /* Main.storyboard */; };
-		814C3ACB1B69877600E307BB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 814C3AC81B69877600E307BB /* Images.xcassets */; };
 		81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BA814A1A49DA1800E65899 /* AppDelegate.swift */; };
 		81BA81701A49DB6800E65899 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA816B1A49DB6800E65899 /* Bolts.framework */; };
 		81BA81711A49DB6800E65899 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA816C1A49DB6800E65899 /* Parse.framework */; };
@@ -85,6 +85,7 @@
 		1F24A71F1BF28A9C00BC2796 /* Modeka.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Modeka.otf; sourceTree = "<group>"; };
 		1F24A7211BF28BA800BC2796 /* BIG JOHN.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BIG JOHN.otf"; sourceTree = "<group>"; };
 		1F24A7251BF2AEFE00BC2796 /* LocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationTableViewCell.swift; path = ParseStarterProject/LocationTableViewCell.swift; sourceTree = "<group>"; };
+		1F27F81B1BFFB03900839C10 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = TextFieldEffects/Images.xcassets; sourceTree = "<group>"; };
 		1F346D291BF82ECC00063D48 /* OnTheMapConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnTheMapConstants.swift; sourceTree = "<group>"; };
 		1F346D2D1BF9584000063D48 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		1F346D2F1BFA738E00063D48 /* ChameleonFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ChameleonFramework.framework; path = "/Users/myMac/Developer/Udacity Nanodegree/on-the-map/Pods/../build/Debug-iphoneos/ChameleonFramework.framework"; sourceTree = "<absolute>"; };
@@ -143,7 +144,6 @@
 		1F787D691BF1299500BC80F6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		495889A71B8DDB6C375A9A59 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		814C3AC71B69877600E307BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		814C3AC81B69877600E307BB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		814C3AC91B69877600E307BB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81BA81451A49DA1800E65899 /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81BA814A1A49DA1800E65899 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -361,8 +361,8 @@
 		814C3AC51B69877600E307BB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1F27F81B1BFFB03900839C10 /* Images.xcassets */,
 				1F24A6E21BF2593B00BC2796 /* TextFieldEffects */,
-				814C3AC81B69877600E307BB /* Images.xcassets */,
 				1F787D171BF0194E00BC80F6 /* OnePasswordExtension.h */,
 				1F787D181BF0194E00BC80F6 /* OnePasswordExtension.m */,
 				814C3AC91B69877600E307BB /* Info.plist */,
@@ -512,13 +512,13 @@
 				814C3ACA1B69877600E307BB /* Main.storyboard in Resources */,
 				1F24A71D1BF2893C00BC2796 /* Prime Light.otf in Resources */,
 				1F24A7221BF28BA800BC2796 /* BIG JOHN.otf in Resources */,
-				814C3ACB1B69877600E307BB /* Images.xcassets in Resources */,
 				1F787D1B1BF01A2400BC80F6 /* 1Password.xcassets in Resources */,
 				1F24A71E1BF2894200BC2796 /* Prime Regular.otf in Resources */,
 				1F346D2E1BF9584000063D48 /* Launch Screen.storyboard in Resources */,
 				1F787CFD1BEF969900BC80F6 /* Roboto-Regular.ttf in Resources */,
 				1F24A7201BF28A9F00BC2796 /* Modeka.otf in Resources */,
 				1F24A71C1BF2893600BC2796 /* Bakersfield Light.ttf in Resources */,
+				1F27F81C1BFFB03900839C10 /* Images.xcassets in Resources */,
 				1F787CFE1BEF969900BC80F6 /* Roboto-Thin.ttf in Resources */,
 				1F24A71B1BF2893300BC2796 /* Bakersfield Bold.ttf in Resources */,
 				1F787CFC1BEF969900BC80F6 /* Roboto-Medium.ttf in Resources */,
