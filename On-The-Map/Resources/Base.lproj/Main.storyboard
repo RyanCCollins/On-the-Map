@@ -38,7 +38,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nhj-sJ-kBt">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nhj-sJ-kBt">
                                 <rect key="frame" x="175" y="484" width="250" height="30"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -147,7 +147,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3F-Rz-XKj">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3F-Rz-XKj">
                                 <rect key="frame" x="175" y="426" width="250" height="50"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -210,10 +210,10 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="eGs-tV-i8c" secondAttribute="bottom" constant="20" id="Rlx-Qr-T9p"/>
                             <constraint firstItem="Bqm-75-0Gx" firstAttribute="height" secondItem="uld-8z-8od" secondAttribute="height" id="SAv-ks-34q"/>
                             <constraint firstItem="fmi-xP-rRU" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Tw9-PM-IJp"/>
-                            <constraint firstItem="eGs-tV-i8c" firstAttribute="top" secondItem="Nhj-sJ-kBt" secondAttribute="bottom" constant="36" id="alp-s9-AYZ"/>
                             <constraint firstItem="uld-8z-8od" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="baT-Ww-qDA"/>
                             <constraint firstItem="Nhj-sJ-kBt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cje-KU-VCo"/>
                             <constraint firstAttribute="trailingMargin" secondItem="X6u-3L-6m1" secondAttribute="trailing" constant="-20" id="erV-Gj-qV9"/>
+                            <constraint firstItem="eGs-tV-i8c" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Nhj-sJ-kBt" secondAttribute="bottom" constant="20" id="hJO-b8-zCW"/>
                             <constraint firstItem="X6u-3L-6m1" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="lFk-rz-2ZP"/>
                             <constraint firstItem="fmi-xP-rRU" firstAttribute="centerX" secondItem="X6u-3L-6m1" secondAttribute="centerX" id="lda-Oh-DFT"/>
                             <constraint firstItem="X6u-3L-6m1" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="nfu-Q8-pyG"/>

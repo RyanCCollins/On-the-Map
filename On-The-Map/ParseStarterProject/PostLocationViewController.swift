@@ -299,7 +299,11 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
         var pinAnnotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(pin) as? MKPinAnnotationView
         if pinAnnotationView  == nil {
             pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: pin)
-            pinAnnotationView?.pinTintColor = UIColor.flatMintColor()
+            if #available(iOS 9.0, *) {
+                pinAnnotationView?.pinTintColor = UIColor.flatMintColor()
+            } else {
+                pinAnnotationView?.pinColor = .Green
+            }
             
         } else {
             pinAnnotationView?.annotation = annotation
