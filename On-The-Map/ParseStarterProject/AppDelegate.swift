@@ -12,6 +12,9 @@ import UIKit
 import Parse
 import FBSDKCoreKit
 import ChameleonFramework
+import Fabric
+import Crashlytics
+
 
 // If you want to use any of the UI components, uncomment this line
 // import ParseUI
@@ -69,7 +72,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
             }
         }
-
+        
+        /* Fabric crashlytics initialization */
+        Fabric.with([Crashlytics.self])
+        
+        
         /* Add notification types for ios 8+, keeping older options in case released for an earlier os */
             if #available(iOS 8.0, *) {
                 let types: UIUserNotificationType = [.Alert, .Badge, .Sound]

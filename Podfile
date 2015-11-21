@@ -7,6 +7,8 @@ pod 'ChameleonFramework/Swift', :inhibit_warnings => true
 pod 'TextFieldEffects', :inhibit_warnings => true
 pod 'SwiftSpinner', :inhibit_warnings => true
 pod 'MBProgressHUD', :inhibit_warnings => true
+pod 'Fabric'
+pod 'Crashlytics'
 
 platform :ios, '9.0'
 

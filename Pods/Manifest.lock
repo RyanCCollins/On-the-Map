@@ -8,6 +8,9 @@ PODS:
   - ChameleonFramework/Default (2.0.4)
   - ChameleonFramework/Swift (2.0.4):
     - ChameleonFramework/Default
+  - Crashlytics (3.4.1):
+    - Fabric (~> 1.6.0)
+  - Fabric (1.6.1)
   - FBSDKCoreKit (4.7.1):
     - Bolts (~> 1.1)
     - FBSDKCoreKit/arc (= 4.7.1)
@@ -27,6 +30,8 @@ PODS:
 
 DEPENDENCIES:
   - ChameleonFramework/Swift
+  - Crashlytics
+  - Fabric
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
@@ -37,6 +42,8 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Bolts: 0e9bce58b9b9f5e8a7a4d47b16d2fabec289072b
   ChameleonFramework: 5abe69b1f2a6cc79c3c435fcd9d3d855748225ee
+  Crashlytics: 41574a245bc6ae10c55d57f385ebd2004e5bee05
+  Fabric: bf0ceb04e7c924090efc5f8c55e4fbcca189e0a0
   FBSDKCoreKit: 9141b70960a37930850370495fe565f4a27ac141
   FBSDKLoginKit: c11ed3c2833472db3bb4a4aecf27af4a6f69b173
   FBSDKShareKit: 213adf63e073f41a346b0e7a689805880dc5150e
