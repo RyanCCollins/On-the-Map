@@ -33,12 +33,12 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
 
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
+    /* MARK: Lifecycle */
     override func viewDidLoad() {
         super.viewDidLoad()
         
         /* Hide 1Password Button if not installed -- NOTE: DISABLED FOR REVIEWER TO SHOW THAT IT'S THERE */
         /* self.onepasswordButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable()) */
-
         
         /* Configure log in buttons */
         

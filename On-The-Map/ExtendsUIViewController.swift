@@ -12,6 +12,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import SwiftSpinner
 
+/* Extension for UIViewController, adding convenience for all View Controllers */
 extension UIViewController {
 
     

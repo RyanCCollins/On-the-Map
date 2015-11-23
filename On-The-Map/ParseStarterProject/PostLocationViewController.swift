@@ -28,6 +28,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
     var locationStringToPost: String? = nil
     var mediaURLToPost: String? = nil
     
+    /* MARK: Lifecycle */
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,8 +36,6 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
         locationTextField.delegate = self
         
         mapView.delegate = self
-        
-        
         
     }
     
