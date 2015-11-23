@@ -328,7 +328,7 @@
                             </barButtonItem>
                             <barButtonItem image="udacityWhite" id="RQc-Yf-hLC">
                                 <connections>
-                                    <action selector="didTapUdacityTouchUpInsided:" destination="oCb-Zs-Dq7" id="WTm-xa-hLB"/>
+                                    <action selector="didTapUdacityTouchUpInside:" destination="oCb-Zs-Dq7" id="uZL-nO-l49"/>
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
@@ -666,7 +666,7 @@
         <image name="udacityWhite" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cjt-74-M8U"/>
-        <segue reference="b6d-hR-amo"/>
+        <segue reference="AdG-OA-Axq"/>
+        <segue reference="wxY-Om-6gC"/>
     </inferredMetricsTieBreakers>
 </document>

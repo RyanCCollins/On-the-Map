@@ -95,6 +95,26 @@ extension UIViewController {
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
         return keyboardSize.CGRectValue().height
     }
+    
+    /* Verify that we are using a secure url, and if not, construct one */
+    func secureURL(fromString string: String) -> NSURL? {
+        var newString = ""
+        if string.containsString("http://") || string.containsString("https://") {
+            if let url = NSURL(string: string) {
+                return url
+            }
+        } else if string.containsString("://"){
+            newString = "https://" + string.substringFromIndex((string.rangeOfString("://")?.last)!)
+            
+        } else {
+            newString = "https://" + string
+        }
+        if let url = NSURL(string: newString) {
+            return url
+        } else {
+            return nil
+        }
+    }
 
     /* Perform logout segue, logout of Udacity or Facebook */
     @IBAction func didTapLogoutUpInside(sender: AnyObject) {

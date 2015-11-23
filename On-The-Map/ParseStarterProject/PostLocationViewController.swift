@@ -145,6 +145,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
             }
             mediaURLToPost = linkTextField.text
             
+            /* GUARD : Do we have a valid URL? */
             guard let _ = NSURL(string: mediaURLToPost!) else {
                 alertController(withTitles: ["Try Again"], message: GlobalErrors.InvalidURL.localizedDescription, callbackHandler: [{Void in
                     self.mediaURLToPost = nil
@@ -168,7 +169,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
         self.view.alpha = 0.4
         
         /* Show progress while submitting data */
-        dispatch_async(GlobalUserInitiatedQueue, {
+        dispatch_async(GlobalMainQueue, {
             hud.show(true)
         })
         
@@ -176,42 +177,46 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
         
         let JSONBody = ParseClient.sharedInstance().makeDictionaryForPostLocation(mediaURLToPost!, mapString: locationStringToPost!)
         
-        ParseClient.sharedInstance().postDataToParse(JSONBody, completionHandler: {success, error in
-            
-            if success {
+        dispatch_async(GlobalUserInteractiveQueue, {
+            ParseClient.sharedInstance().postDataToParse(JSONBody, completionHandler: {success, error in
                 
-                /* If successful, hide progress and dismiss view */
-                dispatch_async(GlobalMainQueue, {
+                if success {
                     
-                    MBProgressHUD.hideHUDForView(self.view, animated: true)
-                    self.view.alpha = 1.0
-                    ParseClient.sharedInstance().studentData  = nil
-                    
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                    
-                })
-                
-                
-            } else {
-                
-                /* Hide the activity indicator and show alert */
-                dispatch_async(GlobalMainQueue, {
-                    
-                    MBProgressHUD.hideHUDForView(self.view, animated: true)
-                    self.view.alpha = 1.0
-                    self.alertController(withTitles: ["Cancel", "Try Again"], message: (error?.localizedDescription)!, callbackHandler: [{Void in
+                    /* If successful, hide progress and dismiss view */
+                    dispatch_async(GlobalMainQueue, {
+                        
+                        MBProgressHUD.hideHUDForView(self.view, animated: true)
+                        self.view.alpha = 1.0
+                        ParseClient.sharedInstance().studentData  = nil
                         
                         self.dismissViewControllerAnimated(true, completion: nil)
                         
-                        }, {Void in
+                    })
+                    
+                    
+                } else {
+                    
+                    /* Hide the activity indicator and show alert */
+                    dispatch_async(GlobalMainQueue, {
+                        
+                        MBProgressHUD.hideHUDForView(self.view, animated: true)
+                        self.view.alpha = 1.0
+                        self.alertController(withTitles: ["Cancel", "Try Again"], message: (error?.localizedDescription)!, callbackHandler: [{Void in
                             
-                            self.postLocationAndURLToParse()
+                            self.dismissViewControllerAnimated(true, completion: nil)
+                            
+                            }, {Void in
+                                
+                                self.postLocationAndURLToParse()
+                                
+                        }])
+                        
+                    })
                     
-                    }])
-                    
-                })
-                
-            }
+                }
+            
+            })
+
             
         })
         

@@ -58,7 +58,6 @@ extension UdaciousClient {
                 }
             }
         }
-        
     }
     
     /* Get the user's data */
@@ -77,14 +76,13 @@ extension UdaciousClient {
         taskForGETMethod(method!, parameters: [:]) {JSONResult, error in
             
             if error != nil {
-                print("taskForGetMethod: \(error)")
                 completionHandler(success: false, error: error)
                 
             } else {
                 
                 /* If user data found, parse the results */
                 if let result = JSONResult[UdaciousClient.JSONResponseKeys.User] {
-
+                    print(result)
                     if let firstName = result![UdaciousClient.JSONResponseKeys.FirstName] as? String {
                         self.firstName = firstName
                         

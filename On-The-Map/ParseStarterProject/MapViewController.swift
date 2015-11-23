@@ -119,7 +119,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     /* Zoom in on Udacity headquarters */
-    @IBAction func didTapUdacityTouchUpInsided(sender: AnyObject) {
+    @IBAction func didTapUdacityTouchUpInside(sender: AnyObject) {
         dispatch_async(dispatch_get_main_queue(), {
             
             self.centerMapOnLocation(self.initialLocation)
@@ -139,25 +139,21 @@ extension MapViewController {
             let appDelegate = UIApplication.sharedApplication()
             
             if let urlString = view.annotation?.subtitle! {
-                if urlString.containsString("http://") || urlString.containsString("https://") {
-                if let url = NSURL(string: urlString) {
+                
+                if let url = secureURL(fromString: urlString) {
                     
                     appDelegate.openURL(url)
-                    print(url)
                     
-                    }
-                
                 } else {
                     
-                    alertController(withTitles: ["Ok"], message: "Sorry, but the URL you selected is not valid.", callbackHandler: [nil])
+                    alertController(withTitles: ["Ok"], message: "Sorry, but Apple doesn't think the URL you selected is valid, so we can't open in.", callbackHandler: [nil])
                     
                 }
-                
+
             }
         }
     }
-    
-    
+
     
     /* create a mapView indicator */
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {

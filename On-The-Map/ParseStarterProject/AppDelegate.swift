@@ -100,9 +100,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         PFPush.subscribeToChannelInBackground("global") { (succeeded: Bool, error: NSError?) in
             if succeeded {
-                print("ParseStarterProject successfully subscribed to push notifications on the broadcast channel.\n");
+                print("On the map successfully subscribed to push notifications on the broadcast channel.\n");
             } else {
-                print("ParseStarterProject failed to subscribe to push notifications on the broadcast channel with error = %@.\n", error)
+                print("On the map failed to subscribe to push notifications on the broadcast channel with error = %@.\n", error)
             }
         }
     }

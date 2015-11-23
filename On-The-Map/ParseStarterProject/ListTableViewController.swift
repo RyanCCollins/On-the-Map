@@ -90,13 +90,10 @@ extension ListTableViewController {
         
             if let urlString = ParseClient.sharedInstance().studentData![indexPath.row].MediaUrl {
                 
-                if urlString.containsString("http://") || urlString.containsString("https://") {
-                    
-                    if let URL = NSURL(string: ParseClient.sharedInstance().studentData![indexPath.row].MediaUrl) {
+                if let URL = secureURL(fromString: urlString) {
                         
-                        sharedApplication.openURL(URL)
+                    sharedApplication.openURL(URL)
                         
-                    }
                 } else {
                     dispatch_async(GlobalMainQueue, {
                         self.alertController(withTitles: ["Ok"], message: GlobalErrors.InvalidURL.localizedDescription, callbackHandler: [nil])

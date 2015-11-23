@@ -13,6 +13,8 @@ import FBSDKLoginKit
 import FBSDKShareKit
 import ChameleonFramework
 import SwiftSpinner
+import Fabric
+import Crashlytics
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFieldDelegate {
     @IBOutlet weak var usernameTextField: KaedeTextField!
@@ -44,7 +46,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
         usernameTextField.delegate = self
         
         self.setStatusBarStyle(UIStatusBarStyleContrast)
-        
         setUpColorScheme()
         
         /* Add facebook button and configure */
@@ -150,6 +151,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
         
         UdaciousClient.sharedInstance().getUserData() {success, error in
             if success {
+                
+                /* Log user in crashlytics */
+                Crashlytics.sharedInstance().setUserEmail(self.usernameTextField!.text)
                 
                 /* Set user as authenticate */
                 self.appDelegate.userAuthenticated = true
@@ -269,6 +273,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
         headerLabel.textColor = colorScheme[2] as? UIColor
         onepasswordButton.backgroundColor = UIColor.clearColor()
     }
+
 
 }
 
