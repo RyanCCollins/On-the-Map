@@ -49,7 +49,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         hud.labelText = "Loading Data..."
         view.alpha = 0.4
         
-        dispatch_async(GlobalUtilityQueue, {
+        dispatch_async(GlobalUserInteractiveQueue, {
             
             ParseClient.sharedInstance().getMostRecentDataFromParse({success, results, error in
 
