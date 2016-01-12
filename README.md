@@ -5,8 +5,8 @@ This application was created as the third project in the Udacity iOS Nanodegree.
 
 Technologies used
 ´Parse´ ´Networking´ ´MapKit´ ´Onepassword´ ´TouchID´ ´OAuth´ ´CoreLocation´ ´RESTful API´ ´Facebook SDK´ ´Push Notifications´ ´Cocoa Pods´ ´Grand Central Dispatch´ ´Multithreading´ ´Model View Controller (MVC)´ ´Asynchronous & Concurrent Multithreading´ ´1Password´ ´Chameleon´ ´Objective C´
-##__Features__
 
+##__Features__
 -  Login using Udacity's authenication API
 -  POST GET and DELETE Data from Udacity and Parse
 -  View pins in a map showing where students are studying

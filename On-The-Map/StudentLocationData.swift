@@ -63,9 +63,9 @@ struct StudentInformation {
     
     }
         /* Will sort location data to be most recent first, just in case the results are returned out of order. */
-        locationDataArray.sortInPlace({
-            $0.UpdateTime > $1.UpdateTime
-        })
+//        locationDataArray.sortInPlace({
+//            $0.UpdateTime > $1.UpdateTime
+//        })
     return locationDataArray
     }
 

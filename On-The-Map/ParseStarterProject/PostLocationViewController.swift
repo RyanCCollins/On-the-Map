@@ -176,47 +176,44 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate, MKMapVi
         
         let JSONBody = ParseClient.sharedInstance().makeDictionaryForPostLocation(mediaURLToPost!, mapString: locationStringToPost!)
         
-        dispatch_async(GlobalUserInteractiveQueue, {
-            ParseClient.sharedInstance().postDataToParse(JSONBody, completionHandler: {success, error in
+
+        ParseClient.sharedInstance().postDataToParse(JSONBody, completionHandler: {success, error in
+            
+            if success {
                 
-                if success {
+                /* If successful, hide progress and dismiss view */
+                dispatch_async(GlobalMainQueue, {
                     
-                    /* If successful, hide progress and dismiss view */
-                    dispatch_async(GlobalMainQueue, {
-                        
-                        MBProgressHUD.hideHUDForView(self.view, animated: true)
-                        self.view.alpha = 1.0
-                        ParseClient.sharedInstance().studentData  = nil
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    self.view.alpha = 1.0
+                    ParseClient.sharedInstance().studentData  = nil
+                    
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                    
+                })
+                
+                
+            } else {
+                
+                /* Hide the activity indicator and show alert */
+                dispatch_async(GlobalMainQueue, {
+                    
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    self.view.alpha = 1.0
+                    self.alertController(withTitles: ["Cancel", "Try Again"], message: (error?.localizedDescription)!, callbackHandler: [{Void in
                         
                         self.dismissViewControllerAnimated(true, completion: nil)
                         
-                    })
-                    
-                    
-                } else {
-                    
-                    /* Hide the activity indicator and show alert */
-                    dispatch_async(GlobalMainQueue, {
-                        
-                        MBProgressHUD.hideHUDForView(self.view, animated: true)
-                        self.view.alpha = 1.0
-                        self.alertController(withTitles: ["Cancel", "Try Again"], message: (error?.localizedDescription)!, callbackHandler: [{Void in
+                        }, {Void in
                             
-                            self.dismissViewControllerAnimated(true, completion: nil)
+                            self.postLocationAndURLToParse()
                             
-                            }, {Void in
-                                
-                                self.postLocationAndURLToParse()
-                                
-                        }])
-                        
-                    })
+                    }])
                     
-                }
-            
-            })
-
-            
+                })
+                
+            }
+        
         })
         
     }

@@ -115,34 +115,32 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
     func authenticateUdacitySession(parameters : [String : AnyObject]) {
         
         /* Aunthenticate then get user information  in didLoginSuccessfully */
-        dispatch_async(GlobalUtilityQueue, {
             
-            UdaciousClient.sharedInstance().authenticateWithViewController(parameters) { success, error in
-                if success {
+        UdaciousClient.sharedInstance().authenticateWithViewController(parameters) { success, error in
+            if success {
+                
+                /* Show that you have authenticated and finish login */
+                dispatch_async(GlobalMainQueue, {
                     
-                    /* Show that you have authenticated and finish login */
-                    dispatch_async(GlobalMainQueue, {
-                        
-                        SwiftSpinner.show("Authenticated")
-                        self.didLoginSuccessfully()
-                    })
-                    
-                } else {
-                    
-                    /* Present an alert controller with an appropriate message */
-                    dispatch_async(GlobalMainQueue, {
-                        SwiftSpinner.hide({
-                            self.alertController(withTitles: ["Ok", "Retry"], message: (error?.localizedDescription)!, callbackHandler: [nil, { Void in
-                                self.didTapLoginTouchUpInside(self)
-                                }])
-                            
-                        })
+                    SwiftSpinner.show("Authenticated")
+                    self.didLoginSuccessfully()
+                })
+                
+            } else {
+                
+                /* Present an alert controller with an appropriate message */
+                dispatch_async(GlobalMainQueue, {
+                    SwiftSpinner.hide({
+                        self.alertController(withTitles: ["Ok", "Retry"], message: (error?.localizedDescription)!, callbackHandler: [nil, { Void in
+                            self.didTapLoginTouchUpInside(self)
+                            }])
                         
                     })
                     
-                }
+                })
+                
             }
-        })
+        }
         
     }
     

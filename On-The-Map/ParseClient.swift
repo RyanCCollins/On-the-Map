@@ -276,10 +276,10 @@ class ParseClient: NSObject {
             /* IF not, what was our status code?  Provide appropriate error message and return */
             if let response = response {
                 if response.statusCode >= 400 && response.statusCode <= 599 {
-                    statusError = Errors.constructError(domain: "UdaciousClient", userMessage: ErrorMessages.Status.Auth)
+                    statusError = Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Status.Auth)
                 }
             } else {
-                statusError = Errors.constructError(domain: "UdaciousClient", userMessage: ErrorMessages.Status.InvalidResponse)
+                statusError = Errors.constructError(domain: "ParseClient", userMessage: ErrorMessages.Status.InvalidResponse)
             }
             completionHandler(proceed: false, error: statusError)
             return
